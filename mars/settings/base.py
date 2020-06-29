@@ -79,8 +79,8 @@ DATABASES = {
         'NAME': 'mars',
         'USER': 'martian',
         'PASSWORD': 'thorgate',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'db',
+        'PORT': '5432',
         }
 }
 

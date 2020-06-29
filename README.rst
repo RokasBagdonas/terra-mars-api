@@ -4,9 +4,11 @@ terra-mars-api
 
 Web API for returning data about Terraforming Mars games
 
-To run (development)
+
+How to run using Docker
 ====================
+When in root project directory:
+.. code:: shell
+        docker-compose build && docker-compse up
 
-.. code:: python
-
-    python manage.py --settings=mars.settings.development
+Can be accessed via :code:`localhost:8000`
