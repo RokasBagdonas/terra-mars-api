@@ -1,15 +1,11 @@
-from django.db import models
 from enum import Enum
 
-class Player(models.Model):
-    name = models.charField(max_length = 30)
-
-class 
 
 class Map(Enum):
     DEFAULT = "Default"
     ELYSIUM = "Elysium"
     HELLAS = "Hellas"
+
 
 class Corporation(Enum):
     CREDICOR = "Credicor"
@@ -36,6 +32,3 @@ class Corporation(Enum):
     VITOR = "Vitor"
     ARIDOR = "Aridor"
     ARKLIGHT = "Arklight"
-
-
-
