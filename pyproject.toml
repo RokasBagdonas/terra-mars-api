@@ -2,7 +2,7 @@
 name = "terra-mars-api"
 version = "0.1.0"
 description = ""
-authors = ["Rokas Bagdonas"]
+authors = ["Rokas Bagdonas rokius.bagdonas@gmail.com"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
