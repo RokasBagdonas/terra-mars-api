@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "terra-mars-api"
 version = "0.1.0"
-description = ""
+description = "A Web API for retrieving players' data about their games."
+license = "MIT"
 authors = ["Rokas Bagdonas rokius.bagdonas@gmail.com"]
+repository = "git@github.com:RokasBagdonas/terra-mars-api.git"
+keywords = ["terraforming-mars", "api", "Django", "Python", "Web"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

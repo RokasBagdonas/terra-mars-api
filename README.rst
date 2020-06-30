@@ -10,6 +10,7 @@ When in root project directory:
 
 .. code:: bash         
 
-  docker-compose build && docker-compose up
+        make build && make up
+  
 
 Can be accessed via :code:`localhost:8000`
