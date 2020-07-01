@@ -10,7 +10,7 @@ When in root project directory:
 
 .. code:: bash         
 
-        make build && make up
+        make install && make up
   
 
 Can be accessed via :code:`localhost:8000`

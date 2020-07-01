@@ -1,4 +1,4 @@
-  version: '3'
+  version: '3.7'
     
   services:
     db:
@@ -10,6 +10,7 @@
     web:
       build: .
       command: daphne -b 0.0.0.0 -p 8000 mars.asgi:application
+      #command: bash ./wait-for-it.sh db:5432 -- daphne -b 0.0.0.0 -p 8000 mars.asgi:application
       volumes:
         - .:/app
       ports:
