@@ -17,4 +17,4 @@ down:
 
 #utility: removes all images and containers related to terra-mars
 clear:
-	docker rm terra-mars-api_db_1 -f && docker images -a | egrep "terra-mars-api*" | awk '{print $3}' | xargs docker rmi
+	 docker-compose down && docker images -a | egrep "<none>|terra-mars-api*" | awk '{print $3}' | xargs docker rmi
