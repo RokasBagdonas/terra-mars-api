@@ -11,4 +11,3 @@ COPY pyproject.toml poetry.lock /app/
 RUN poetry export --without-hashes -f requirements.txt  | pip install -r /dev/stdin
 
 COPY . /app
-ENTRYPOINT chmod u=xr ./wait-for-it.sh

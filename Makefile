@@ -7,7 +7,7 @@ up:
 	docker-compose up
 
 migrate:
-	docker-compose run --rm web bash ./wait-for-it.sh db:5432 -- python manage.py migrate
+	docker-compose run --rm web python manage.py migrate
 
 makemigrations:
 	docker-compose run --rm web python manage.py makemigrations
