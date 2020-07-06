@@ -24,8 +24,8 @@ def main():
 
 def connect_to_db():
     conn = connections["default"]
-    for t in range(0, 10, 2):
-        print("connecting to db 📶")
+    print("Connecting to db 📶")
+    for t in range(1, 10):
         try:
             conn.connect()
             if conn is not None:
@@ -34,7 +34,7 @@ def connect_to_db():
             else:
                 time.sleep(t)
         except OperationalError:
-            print("retrying..")
+            print(f"[{t}/10] 🔁")
         finally:
             time.sleep(t)
 
