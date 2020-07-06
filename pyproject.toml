@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "terra-mars-api"
+version = "0.1.0"
+description = "A Web API for retrieving players' data about their games."
+license = "MIT"
+authors = ["Rokas Bagdonas <rokius.bagdonas@gmail.com>"]
+repository = "https://github.com/RokasBagdonas/terra-mars-api"
+keywords = ["terraforming-mars", "api", "Django", "Python", "Web"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^3.0.7"
+psycopg2-binary = "^2.8"
+djangorestframework = "^3.11.0"
+daphne = "^2.5.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

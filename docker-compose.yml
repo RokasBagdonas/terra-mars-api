@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+    db:
+      image: postgres:12
+      environment:
+        - POSTGRES_DB=mars
+        - POSTGRES_USER=martian
+        - POSTGRES_PASSWORD=thorgate
+      volumes:
+        - db-data:/var/lib/postgresql/data
+    web:
+      build: .
+      command: daphne -b 0.0.0.0 -p 8000 mars.asgi:application
+      volumes:
+        - .:/app
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db
+
+volumes:
+  db-data:
