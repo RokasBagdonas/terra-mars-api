@@ -18,3 +18,7 @@ down:
 #utility: removes all images and containers related to terra-mars
 clear:
 	 docker-compose down && docker images -a | egrep "<none>|terra-mars-api*" | awk '{print $3}' | xargs docker rmi
+
+collectstatic:
+	docker-compose run web python manage.py collectstatic
+
