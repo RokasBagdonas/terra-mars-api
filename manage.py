@@ -10,7 +10,6 @@ from psycopg2 import OperationalError
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mars.settings.development")
-    connect_to_db()
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -19,10 +18,22 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    if needs_db_connection(sys.argv):
+        ensure_db_connection()
+
     execute_from_command_line(sys.argv)
 
 
-def connect_to_db():
+def needs_db_connection(arguments: list) -> bool:
+    commands = {"migrate": True, "makemigrations": True}
+    for arg in arguments:
+        if arg in commands:
+            return True
+    return False
+
+
+def ensure_db_connection():
     conn = connections["default"]
     print("Connecting to db 📶")
     for t in range(1, 10):
