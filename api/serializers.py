@@ -1,4 +1,4 @@
-from api.models import Game, PlayerGame, Player
+from api.models import Game, Player, PlayerScore
 from rest_framework import serializers
 
 
@@ -14,7 +14,7 @@ class GameSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PlayerGameSerializer(serializers.ModelSerializer):
+class PlayerScoreSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PlayerGame
+        model = PlayerScore
         fields = "__all__"

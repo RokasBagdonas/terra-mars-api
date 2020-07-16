@@ -27,7 +27,7 @@ CORPORATIONS = [
     ("UMN", "United Nations Mars Initiative"),
     ("VIR", "Viron"),
     ("VLT", "Valley Trust"),
-    ("VTR", "Vitor")
+    ("VTR", "Vitor"),
 ]
 
 MAPS = [("THR", "Tharsis"), ("ELS", "Elysium"), ("HEL", "Hellas")]
@@ -35,8 +35,6 @@ MAPS = [("THR", "Tharsis"), ("ELS", "Elysium"), ("HEL", "Hellas")]
 
 class Player(models.Model):
     nickname = models.CharField(primary_key=True, max_length=32)
-    # TODO: add profile_picture field
-    # email and password
 
 
 class Game(models.Model):
@@ -50,9 +48,9 @@ class Game(models.Model):
     colonies = models.BooleanField(default=False)
 
 
-class PlayerGame(models.Model):
-    player = models.ForeignKey(Player, models.SET_NULL, blank=True, null=True)
-    game = models.ForeignKey(Game, models.CASCADE)
+class PlayerScore(models.Model):
+    player_nickname = models.ForeignKey(Player, models.SET_NULL, blank=True, null=True)
+    game_id = models.ForeignKey(Game, models.CASCADE)
     corporation = models.CharField(choices=CORPORATIONS, max_length=40)
 
     terraform_rating = models.PositiveSmallIntegerField(default=20)
