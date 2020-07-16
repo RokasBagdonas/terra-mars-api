@@ -4,7 +4,7 @@
         "game_map": "THR",
         "number_of_players": 3
     },
-    "PlayerGames": [{
+    "PlayersScores": [{
         "player_nickname": "Rokas",
         "corporation": "THR",
         "terraform_rating": 18,

@@ -9,5 +9,4 @@ router.register(r"player_scores", views.PlayerScoreViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path(r"game_scores", views.GameScores.as_view()),
 ]
