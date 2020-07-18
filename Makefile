@@ -15,10 +15,15 @@ makemigrations:
 down:
 	docker-compose down
 
-#utility: removes all images and containers related to terra-mars
+#utility: removes all images and containers related to terra-mars-api and <none>
 clear:
 	 docker-compose down && docker images -a | egrep "<none>|terra-mars-api*" | awk '{print $3}' | xargs docker rmi
 
 collectstatic:
 	docker-compose run web python manage.py collectstatic
 
+#export COMPOSE_FILE=docker-compose.test.yml
+d-test = docker-compose -f docker-compose.test.yml 
+test:
+	$(d-test) build && \
+		$(d-test) run --rm web pytest
