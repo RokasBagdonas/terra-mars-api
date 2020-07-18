@@ -22,7 +22,6 @@ clear:
 collectstatic:
 	docker-compose run web python manage.py collectstatic
 
-#export COMPOSE_FILE=docker-compose.test.yml
 d-test = docker-compose -f docker-compose.test.yml 
 test:
 	$(d-test) build && \

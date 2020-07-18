@@ -50,12 +50,11 @@ class PlayerScoreViewSet(viewsets.ModelViewSet):
 
         # 1. save Game
         game_serializer = GameSerializer(data=request.data["Game"])
-
         if game_serializer.is_valid():
             try:
                 # save game here because game_id is required for adding player_scores
+                number_of_players = game_serializer.data['number_of_players']
                 game_id = game_serializer.save().id
-                number_of_players = game_serializer.number_of_players
                 # 2. validate and save each player score
                 players_scores_data = request.data["PlayersScores"]
 
