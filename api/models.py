@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 CORPORATIONS = [
@@ -34,23 +35,25 @@ MAPS = [("THR", "Tharsis"), ("ELS", "Elysium"), ("HEL", "Hellas")]
 
 
 class Player(models.Model):
-    nickname = models.CharField(primary_key=True, max_length=32)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=32, blank=True, null=True)
+    motto = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Game(models.Model):
+    players = models.ManyToManyField(Player, through="PlayerScore")
     date = models.DateTimeField()
     game_map = models.CharField(choices=MAPS, max_length=10)
-    number_of_players = models.PositiveSmallIntegerField(default=2)
-    draft_variant = models.BooleanField(default=True)
 
+    draft_variant = models.BooleanField(default=True)
     prelude = models.BooleanField(default=False)
     venus_next = models.BooleanField(default=False)
     colonies = models.BooleanField(default=False)
 
 
 class PlayerScore(models.Model):
-    player_nickname = models.ForeignKey(Player, models.SET_NULL, blank=True, null=True)
-    game_id = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.SET_NULL, related_name="username", null=True)
+    game = models.ForeignKey(Game, models.CASCADE)
     corporation = models.CharField(choices=CORPORATIONS, max_length=40)
 
     terraform_rating = models.PositiveSmallIntegerField(default=20)
