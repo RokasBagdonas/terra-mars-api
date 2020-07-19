@@ -8,9 +8,11 @@ up:
 
 migrate:
 	docker-compose run --rm web python manage.py migrate
+	docker-compose down
 
 makemigrations:
 	docker-compose run --rm web python manage.py makemigrations
+	docker-compose down
 
 down:
 	docker-compose down
@@ -21,8 +23,9 @@ clear:
 
 collectstatic:
 	docker-compose run web python manage.py collectstatic
+	docker-compose down
 
-d-test = docker-compose -f docker-compose.test.yml 
+dtest = docker-compose -f docker-compose.test.yml 
 test:
-	$(d-test) build && \
-		$(d-test) run --rm web pytest
+	$(dtest) build && \
+		$(dtest) run --rm web pytest
