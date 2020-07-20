@@ -41,16 +41,6 @@ class Player(models.Model):
     nickname = models.CharField(max_length=32, blank=True, null=True)
     motto = models.CharField(max_length=100, blank=True, null=True)
 
-    @receiver(post_save, sender=User)
-    def create_user_player(sender, instance, created, **kwargs):
-        if created:
-            Player.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_player(sender, instance, **kwargs):
-        instance.player.save()
-
-
 class Game(models.Model):
     players = models.ManyToManyField(Player, through="PlayerScore")
     date = models.DateTimeField()
