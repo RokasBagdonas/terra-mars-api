@@ -10,6 +10,10 @@ migrate:
 	docker-compose run --rm web python manage.py migrate
 	docker-compose down
 
+migzero:
+	docker-compose run --rm web python manage.py migrate api zero
+	docker-compose down
+
 makemigrations:
 	docker-compose run --rm web python manage.py makemigrations
 	docker-compose down
