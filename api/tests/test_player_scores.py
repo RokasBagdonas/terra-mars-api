@@ -5,3 +5,6 @@ from api.views import PlayerScoreViewSet
 from rest_framework import status
 
 pytestmark = pytest.mark.django_db
+
+def test_sample():
+    assert 0

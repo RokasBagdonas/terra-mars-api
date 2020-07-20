@@ -28,4 +28,7 @@ collectstatic:
 dtest = docker-compose -f docker-compose.test.yml 
 test:
 	$(dtest) build && \
-		$(dtest) run --rm web pytest
+		$(dtest) run --rm test-web pytest
+
+python-shell-t:
+	docker exec -it terra-mars-api_web_1 python manage.py shell_plus --ipython
