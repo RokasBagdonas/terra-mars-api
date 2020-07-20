@@ -1,5 +1,5 @@
 # custom
-/cov
+cov/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
