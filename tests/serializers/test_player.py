@@ -9,7 +9,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_player_serializer():
-    """Check if Json object including User produces two """
+    """Check if PlayerSerializer properly serializes the data identical to Player object."""
     player_data = {"nickname": "my_nickname", "motto": "a brief phrase"}
 
     player_object = Player(nickname=player_data["nickname"], motto=player_data["motto"])
