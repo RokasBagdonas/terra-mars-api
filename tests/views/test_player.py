@@ -1,9 +1,6 @@
 import pytest
-from django.contrib.auth.models import User
-from django.urls import reverse
 
 from api.models import Player
-from api.views import PlayerViewSet
 
 pytestmark = pytest.mark.django_db
 
@@ -58,3 +55,27 @@ def test_delete_player(api_client):
     assert response.status_code == 204
     with pytest.raises(Player.DoesNotExist):
         Player.objects.get(nickname=data["nickname"])
+
+
+def test_fail_change_to_duplicate_nickname(api_client):
+    """Tests if player nickname is not allowed to be changed to an already existing one."""
+    p1 = mock_player("nick1", "")
+    p2 = mock_player("nick2", "")
+    data = {"nickname": p1.nickname}
+
+    url = get_url_with_id(p2.id)
+    response = api_client.put(url, data)
+
+    assert response.status_code == 400
+    assert p2.nickname == Player.objects.get(nickname=p2.nickname).nickname
+
+
+def test_change_player_nickname(api_client):
+    """Test if it player nickname can be changed."""
+    p = mock_player("nick1")
+    data = {"nickname": "new nickname"}
+
+    url = get_url_with_id(p.id)
+    response = api_client.put(url, data)
+    assert response.status_code == 200
+    assert p.id == Player.objects.get(nickname=data["nickname"]).id
