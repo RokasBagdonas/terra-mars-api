@@ -1,3 +1,5 @@
+ddown = docker-compose down
+
 install: build migrate
 
 build:
@@ -6,33 +8,32 @@ build:
 up:
 	docker-compose up
 
+down:
+	$(ddown)
+
 migrate:
-	docker-compose run --rm web python manage.py migrate
-	docker-compose down
+	docker-compose run --rm web python manage.py migrate;
+	$(ddown)
 
 migzero:
-	docker-compose run --rm web python manage.py migrate api zero
-	docker-compose down
+	docker-compose run --rm web python manage.py migrate api zero;
+	$(ddown)
 
 makemigrations:
-	docker-compose run --rm web python manage.py makemigrations
-	docker-compose down
-
-down:
-	docker-compose down
+	docker-compose run --rm web python manage.py makemigrations;
+	$(ddown)
 
 #utility: removes all images and containers related to terra-mars-api and <none>
 clear:
-	 docker-compose down && docker images -a | egrep "<none>|terra-mars-api*" | awk '{print $3}' | xargs docker rmi
+	 $(ddown) && docker images -a | egrep "<none>|terra-mars-api*" | awk '{print $3}' | xargs docker rmi
 
 collectstatic:
-	docker-compose run web python manage.py collectstatic
-	docker-compose down
+	docker-compose run web python manage.py collectstatic;
+	$(ddown)
 
 dtest = docker-compose -f docker-compose.test.yml 
 test:
-	$(dtest) build && \
-		$(dtest) run --rm test-web pytest
-
+	$(dtest) build && $(dtest) run --rm test-web pytest
+		
 python-shell-t:
-	docker exec -it terra-mars-api_web_1 python manage.py shell_plus --ipython
+	docker-compose run web python manage.py shell_plus --ipython
