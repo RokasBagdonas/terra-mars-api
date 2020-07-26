@@ -1,10 +1,10 @@
 import pytest
 
-from api.models import Player
+from mars_api.models import Player
 
 pytestmark = pytest.mark.django_db
 
-BASE_PATH = "/api/players/"
+BASE_PATH = "/mars_api/players/"
 
 
 def mock_player(nickname, motto=""):

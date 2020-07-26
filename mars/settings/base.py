@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "api",
+    "mars_api",
     "rest_framework",
     "django_extensions",
     "django.contrib.admin",

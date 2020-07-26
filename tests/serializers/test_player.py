@@ -2,8 +2,8 @@
 import pytest
 from django.contrib.auth.models import User
 
-from api.models import Player
-from api.serializers import PlayerSerializer
+from mars_api.models import Player
+from mars_api.serializers import PlayerSerializer
 
 pytestmark = pytest.mark.django_db
 

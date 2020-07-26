@@ -2,7 +2,7 @@
 import pytest
 from django.contrib.auth.models import User
 
-from api.models import Player
+from mars_api.models import Player
 
 pytestmark = pytest.mark.django_db
 

@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from api import views
+from mars_api import views
 
 router = routers.DefaultRouter()
 router.register(r"players", views.PlayerViewSet)

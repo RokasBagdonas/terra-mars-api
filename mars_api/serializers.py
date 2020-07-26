@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import Player
+from mars_api.models import Player
 
 
 class PlayerSerializer(serializers.ModelSerializer):
