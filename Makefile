@@ -9,7 +9,7 @@ up:
 	docker-compose up
 
 down:
-	$(ddown)
+	$(ddown) --remove-orphans
 
 migrate:
 	docker-compose run --rm web python manage.py migrate;
@@ -33,7 +33,7 @@ collectstatic:
 
 dtest = docker-compose -f docker-compose.test.yml 
 test:
-	$(dtest) build && $(dtest) run --rm test-web pytest
+	$(dtest) build --build-arg INSTALL_DEV=--dev && $(dtest) run --rm test-web pytest
 		
 python-shell-t:
 	docker-compose run web python manage.py shell_plus --ipython
