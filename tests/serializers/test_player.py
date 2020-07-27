@@ -1,18 +1,16 @@
-"""A module for testing player serializer."""
+"""A module for testing the player serializer."""
 import pytest
 from django.contrib.auth.models import User
-
 from mars_api.models import Player
 from mars_api.serializers import PlayerSerializer
 
-pytestmark = pytest.mark.django_db
 
-
+@pytest.mark.django_db
 def test_player_serializer():
-    """Check if PlayerSerializer properly serializes the data identical to Player object."""
+    """Checks if it properly serializes the data identical to Player object."""
     player_data = {"nickname": "my_nickname", "motto": "a brief phrase"}
 
-    player_object = Player(nickname=player_data["nickname"], motto=player_data["motto"])
+    player_object = Player(**player_data)
     player_serializer = PlayerSerializer(data=player_data)
 
     assert player_serializer.is_valid()
