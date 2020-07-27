@@ -10,8 +10,6 @@ services:
     test-web:
       build:
           context: .
-          args:
-            - INSTALL_DEV=--dev
           dockerfile: Dockerfile
       volumes:
         - .:/app
