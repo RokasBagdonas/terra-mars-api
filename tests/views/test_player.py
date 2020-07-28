@@ -12,16 +12,16 @@ def get_url_with_id(id):
     return PLAYER_PATH + str(id) + "/"
 
 
-def test_can_get_player_data(api_client, player):
+def test_can_get_player_data(api_client, saved_player):
     """Tests if client can receive player JSON data."""
-    id = player.id
+    id = saved_player.id
 
     response = api_client.get(get_url_with_id(id))
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data
-    assert response.data["nickname"] == player.nickname
-    assert response.data["motto"] == player.motto
+    assert response.data["nickname"] == saved_player.nickname
+    assert response.data["motto"] == saved_player.motto
 
 
 def test_create_player_without_user(api_client):
@@ -37,19 +37,21 @@ def test_create_player_without_user(api_client):
     assert response_data["nickname"] == data["nickname"]
 
 
-def test_delete_player(api_client, player):
+def test_delete_player(api_client, saved_player):
     """Tests if a player can be deleted provided their nickname."""
-    response = api_client.delete(get_url_with_id(player.id))
+    response = api_client.delete(get_url_with_id(saved_player.id))
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
     with pytest.raises(Player.DoesNotExist):
-        Player.objects.get(nickname=player.nickname)
+        Player.objects.get(nickname=saved_player.nickname)
 
 
-def test_fail_change_to_duplicate_nickname(api_client, player):
+def test_fail_change_to_duplicate_nickname(api_client, unsaved_player):
     """Tests if only unique player nicknames are allowed."""
+    unsaved_player.nickname = "nickname1"
+    unsaved_player.save()
     player2 = Player.objects.create(nickname="nick2", motto="")
-    data = {"nickname": player.nickname}
+    data = {"nickname": unsaved_player.nickname}
 
     endpoint = get_url_with_id(player2.id)
     response = api_client.patch(endpoint, data)
@@ -58,15 +60,13 @@ def test_fail_change_to_duplicate_nickname(api_client, player):
     assert isinstance(Player.objects.get(nickname=player2.nickname), Player)
 
 
-def test_change_player_nickname(api_client, player):
+def test_change_player_nickname(api_client, saved_player):
     """Tests if player nickname can be changed."""
     data = {"nickname": "new nickname"}
 
-    endpoint = get_url_with_id(player.id)
+    endpoint = get_url_with_id(saved_player.id)
     response = api_client.patch(endpoint, data)
-    assert len(Player.objects.all()) == 1
-
-    db_player = Player.objects.first()
     assert response.status_code == status.HTTP_200_OK
-    assert player.id == db_player.id
-    assert player.motto == db_player.motto
+
+    db_player = Player.objects.get(nickname="new nickname")
+    assert saved_player.id == db_player.id
