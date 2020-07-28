@@ -11,6 +11,8 @@ services:
       build:
           context: .
           dockerfile: Dockerfile
+          args:
+            POETRY_EXPORT_FLAGS: --dev
       volumes:
         - .:/app
       depends_on:
