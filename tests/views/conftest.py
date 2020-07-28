@@ -1,4 +1,5 @@
 import pytest
+from mars_api.models import Player
 
 @pytest.fixture
 def api_client():
@@ -7,7 +8,5 @@ def api_client():
 
 @pytest.fixture
 def player():
-    from mars_api.models import Player
-    p = Player(nickname="my nickname", motto="a short phrase")
-    p.save()
-    return Player.objects.get(nickname=p.nickname)
+    p = Player.objects.create(nickname="my nickname", motto="a short phrase")
+    return p

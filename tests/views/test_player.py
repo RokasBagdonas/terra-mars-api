@@ -30,11 +30,11 @@ def test_create_player_without_user(api_client):
 
     response = api_client.post(PLAYER_PATH, data)
     assert response.status_code == status.HTTP_201_CREATED
-    assert len(Player.objects.all()) == 1
 
-    p = Player.objects.get(nickname=data["nickname"])
-    assert isinstance(p, Player)
-    assert p.nickname == data["nickname"]
+    response_data = response.data
+    # check if db actually generated an id.
+    assert isinstance(response_data["id"], int)
+    assert response_data["nickname"] == data["nickname"]
 
 
 def test_delete_player(api_client, player):
@@ -64,8 +64,9 @@ def test_change_player_nickname(api_client, player):
 
     endpoint = get_url_with_id(player.id)
     response = api_client.patch(endpoint, data)
-    db_player = Player.objects.get(nickname=data["nickname"])
+    assert len(Player.objects.all()) == 1
 
+    db_player = Player.objects.first()
     assert response.status_code == status.HTTP_200_OK
     assert player.id == db_player.id
     assert player.motto == db_player.motto

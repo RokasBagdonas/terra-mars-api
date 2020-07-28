@@ -1,6 +1,7 @@
 """A module for testing player model."""
 import pytest
 from django.contrib.auth.models import User
+
 from mars_api.models import Player
 
 
