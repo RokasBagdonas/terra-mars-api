@@ -8,6 +8,8 @@ RUN apt-get update && apt install -y --no-install-recommends build-essential
 RUN pip install poetry
 COPY pyproject.toml poetry.lock /app/
 
-RUN poetry export --without-hashes -f requirements.txt  | pip install -r /dev/stdin
+#primarily used for installing pytest
+ARG POETRY_EXPORT_FLAGS
+RUN poetry export ${POETRY_EXPORT_FLAGS} --without-hashes -f requirements.txt  | pip install -r /dev/stdin
 
 COPY . /app
