@@ -80,5 +80,5 @@ class PlayerScore(models.Model):
 
     def __str__(self):
         return f"""nickname: {self.player.nickname},
-        game date: {self.game.date},
-        corporation: {self.corporation} """
+        game_id: {self.game_id}, game date: {self.game.date},
+        corporation: {self.corporation}."""
