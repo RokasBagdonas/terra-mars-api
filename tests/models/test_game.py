@@ -1,13 +1,22 @@
 from datetime import datetime
 
 import pytest
-from mars_api.models import Game
+
+from mars_api.models import MAPS, Game
+
+pytestmark = pytest.mark.django_db
 
 
-@pytest.mark.django_db
-def test_game_is_created():
-    game = Game(date=datetime.today(), game_map="THR")
-    game.save()
-    db_game = Game.objects.first()
+def test_game_cannot_be_created_with_invalid_game_map():
+    pytest.fail("unimplemented")
 
-    assert isinstance(db_game, Game)
+
+def test_game_returns_players_nicknames():
+    """When PlayerScores exist, check that corresponding Player nicknames are returned."""
+
+    # 1. mock PlayerScores. Sidenote: PlayerScores should be allowed to be created without an existing Player.
+
+    # 2. GET a Game
+
+    # 3. assert if nicknames exist in game.players property.
+    pytest.fail("unimplemented")
