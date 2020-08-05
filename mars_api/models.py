@@ -1,37 +1,41 @@
 from django.contrib.auth.models import User
 from django.db import models
+from model_utils import Choices
 
-CORPORATIONS = [
-    ("APH", "Aphrodite"),
-    ("ARD", "Aridor"),
-    ("ARK", "Arklight"),
-    ("CLS", "Celestic"),
-    ("CRE", "Credicor"),
-    ("CSM", "Cheung Shing Mars"),
-    ("ECO", "Ecoline"),
-    ("HEL", "Helion"),
-    ("IPC", "Interplanetary Cinematics"),
-    ("IVN", "Inventrix"),
-    ("MNG", "Mining Guild"),
-    ("MNT", "Manutech"),
-    ("MSI", "Morning Star Inc."),
-    ("PBL", "Phobolog"),
-    ("PLP", "Polyphemos"),
-    ("PNL", "Point Luna"),
-    ("PSD", "Poseidon"),
-    ("RBI", "Robinson Industries"),
-    ("SCI", "Storm Craft Incorporated"),
-    ("STS", "Saturn Systems"),
-    ("TAR", "Tharsis Republic"),
-    ("TER", "Terractor"),
-    ("THR", "Thorgate"),
-    ("UMN", "United Nations Mars Initiative"),
-    ("VIR", "Viron"),
-    ("VLT", "Valley Trust"),
-    ("VTR", "Vitor"),
-]
+CORPORATIONS = Choices(
+        "Aphrodite",
+        "Aridor",
+        "Arklight",
+        "Celestic",
+        "Cheung Shing Mars",
+        "Credicor",
+        "Ecoline",
+        "Helion",
+        "Interplanetary Cinematics",
+        "Inventrix",
+        "Manutech",
+        "Mining Guild",
+        "Morning Star Inc.",
+        "Phobolog",
+        "Point Luna",
+        "Polyphemos",
+        "Poseidon",
+        "Robinson Industries",
+        "Saturn Systems",
+        "Storm Craft Incorporated",
+        "Terractor",
+        "Tharsis Republic",
+        "Thorgate",
+        "United Nations Mars Initiative",
+        "Valley Trust",
+        "Viron",
+        "Vitor"
+)
 
-MAPS = [("THR", "Tharsis"), ("ELS", "Elysium"), ("HEL", "Hellas")]
+
+MAPS = Choices(
+        "Tharsis", "Elysium", "Hellas"
+)
 
 
 class Player(models.Model):
@@ -39,20 +43,26 @@ class Player(models.Model):
     nickname = models.CharField(max_length=32, unique=True)
     motto = models.CharField(max_length=100, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.nickname}"
+
 class Game(models.Model):
     players = models.ManyToManyField(Player, through="PlayerScore")
     date = models.DateTimeField()
-    game_map = models.CharField(choices=MAPS, max_length=10)
+    game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=14)
 
     draft_variant = models.BooleanField(default=True)
     prelude = models.BooleanField(default=False)
     venus_next = models.BooleanField(default=False)
     colonies = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"id: {self.id}; date: {self.date}; game_map: {self.game_map}"
+
 
 class PlayerScore(models.Model):
     player = models.ForeignKey(
-        Player, models.SET_NULL, related_name="username", null=True
+        Player, models.SET_NULL, related_name="player", null=True
     )
     game = models.ForeignKey(Game, models.CASCADE)
     corporation = models.CharField(choices=CORPORATIONS, max_length=40)
@@ -67,3 +77,8 @@ class PlayerScore(models.Model):
     automated_cards = models.SmallIntegerField(default=0)
     active_cards = models.SmallIntegerField(default=0)
     resources = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return f"""nickname: {self.player.nickname},
+        game date: {self.game.date},
+        corporation: {self.corporation} """
