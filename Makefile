@@ -16,7 +16,7 @@ migrate:
 	$(ddown)
 
 migzero:
-	docker-compose run --rm web python manage.py migrate api zero;
+	docker-compose run --rm web python manage.py migrate mars_api zero;
 	$(ddown)
 
 makemigrations:
@@ -25,7 +25,7 @@ makemigrations:
 
 #utility: removes all images and containers related to terra-mars-api and <none>
 clear:
-	 $(ddown) && docker images -a | egrep "<none>|terra-mars-api*" | awk '{print $3}' | xargs docker rmi
+	 $(ddown) && docker images -a | egrep "<none>|terra-mars-mars-api*" | awk '{print $3}' | xargs docker rmi
 
 collectstatic:
 	docker-compose run web python manage.py collectstatic;
@@ -37,3 +37,6 @@ test:
 		
 python-shell-t:
 	docker-compose run web python manage.py shell_plus --ipython
+
+psql:
+	docker exec -it terra-mars-api_db_1 psql -h db mars martian
