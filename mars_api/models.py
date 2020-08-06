@@ -1,42 +1,40 @@
 from django.contrib.auth.models import User
 from django.db import models
-from model_utils import Choices
 from django.utils import timezone
+from model_utils import Choices
 
 CORPORATIONS = Choices(
-        "Aphrodite",
-        "Aridor",
-        "Arklight",
-        "Celestic",
-        "Cheung Shing Mars",
-        "Credicor",
-        "Ecoline",
-        "Helion",
-        "Interplanetary Cinematics",
-        "Inventrix",
-        "Manutech",
-        "Mining Guild",
-        "Morning Star Inc.",
-        "Phobolog",
-        "Point Luna",
-        "Polyphemos",
-        "Poseidon",
-        "Robinson Industries",
-        "Saturn Systems",
-        "Storm Craft Incorporated",
-        "Terractor",
-        "Tharsis Republic",
-        "Thorgate",
-        "United Nations Mars Initiative",
-        "Valley Trust",
-        "Viron",
-        "Vitor"
+    "Aphrodite",
+    "Aridor",
+    "Arklight",
+    "Celestic",
+    "Cheung Shing Mars",
+    "Credicor",
+    "Ecoline",
+    "Helion",
+    "Interplanetary Cinematics",
+    "Inventrix",
+    "Manutech",
+    "Mining Guild",
+    "Morning Star Inc.",
+    "Phobolog",
+    "Point Luna",
+    "Polyphemos",
+    "Poseidon",
+    "Robinson Industries",
+    "Saturn Systems",
+    "Storm Craft Incorporated",
+    "Terractor",
+    "Tharsis Republic",
+    "Thorgate",
+    "United Nations Mars Initiative",
+    "Valley Trust",
+    "Viron",
+    "Vitor",
 )
 
 
-MAPS = Choices(
-        "Tharsis", "Elysium", "Hellas"
-)
+MAPS = Choices("Tharsis", "Elysium", "Hellas")
 
 
 class Player(models.Model):
@@ -46,6 +44,7 @@ class Player(models.Model):
 
     def __str__(self):
         return f"{self.nickname}"
+
 
 class Game(models.Model):
     players = models.ManyToManyField(Player, through="PlayerScore")
@@ -62,9 +61,7 @@ class Game(models.Model):
 
 
 class PlayerScore(models.Model):
-    player = models.ForeignKey(
-        Player, models.SET_NULL, related_name="player", null=True
-    )
+    player = models.ForeignKey(Player, models.SET_NULL, related_name="player", null=True)
     game = models.ForeignKey(Game, models.CASCADE)
     corporation = models.CharField(choices=CORPORATIONS, max_length=40)
 
