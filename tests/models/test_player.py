@@ -19,7 +19,3 @@ def test_player_is_created():
     assert db_player.nickname == "my_nickname"
     assert db_player.motto == "short motto"
     assert db_player.user is not None
-
-
-def test_player_factory_works(player):
-    assert isinstance(player, Player)

@@ -1,14 +1,11 @@
 import factory
-# PR: what if I just use factory.Faker(provider_str) instead of importing this?
-# "how to Use [Faker] with Factory Boy": https://faker.readthedocs.io/en/latest/
-from faker import Factory as FakerFactory
 
-faker = FakerFactory.create()
+faker = factory.Faker
 
 
 class PlayerFactory(factory.django.DjangoModelFactory):
 
-    nickname = factory.Faker('name')
+    nickname = faker('name')
     motto = "mottos can be the same"
 
     class Meta:

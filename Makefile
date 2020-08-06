@@ -34,8 +34,8 @@ collectstatic:
 dtest = docker-compose -f docker-compose.test.yml 
 test:
 	$(dtest) build && $(dtest) run --rm test-web pytest
-		
-python-shell-t:
+
+python-shell:
 	docker-compose run web python manage.py shell_plus --ipython
 
 psql:
