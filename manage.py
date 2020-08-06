@@ -4,8 +4,9 @@ import os
 import sys
 import time
 
-from django.db import connections
 from psycopg2 import OperationalError
+
+from django.db import connections
 
 
 def main():

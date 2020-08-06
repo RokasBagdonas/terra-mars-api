@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from model_utils import Choices
+from django.utils import timezone
 
 CORPORATIONS = Choices(
         "Aphrodite",
@@ -48,7 +49,7 @@ class Player(models.Model):
 
 class Game(models.Model):
     players = models.ManyToManyField(Player, through="PlayerScore")
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=14)
 
     draft_variant = models.BooleanField(default=True)
