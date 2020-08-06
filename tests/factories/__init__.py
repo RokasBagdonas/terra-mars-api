@@ -16,3 +16,12 @@ class PlayerFactory(factory.django.DjangoModelFactory):
 class GameFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = "mars_api.Game"
+
+
+class PlayerScoreFactory(factory.django.DjangoModelFactory):
+
+    player = factory.SubFactory(PlayerFactory)
+    game = factory.SubFactory(GameFactory)
+
+    class Meta:
+        model = "mars_api.PlayerScore"
