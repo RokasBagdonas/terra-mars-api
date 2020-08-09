@@ -11,7 +11,7 @@ def test_unique_players_for_the_same_game():
     (So that there wouldn't be a player that has two scores for the same Game.)
     """
 
-    # 1. mock Game and Player
+    # 1. create Game and Player
 
     # 2. create two PlayerScore objects with same Game and Player.
 

@@ -12,7 +12,7 @@ def test_game_cannot_be_created_with_invalid_game_map():
 def test_game_returns_players_nicknames():
     """When PlayerScores exist, check that corresponding Player nicknames are returned."""
 
-    # 1. mock PlayerScores. Sidenote: PlayerScores should be allowed to be created without an existing Player.
+    # 1. Create PlayerScores. Sidenote: PlayerScores should be allowed to be created without an existing Player.
 
     # 2. GET a Game
 

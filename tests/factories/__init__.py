@@ -1,5 +1,4 @@
 import factory
-from django.utils import timezone
 
 faker = factory.Faker
 
