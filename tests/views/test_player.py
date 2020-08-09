@@ -1,7 +1,6 @@
 import pytest
 from rest_framework import status
 
-from ..factories import PlayerFactory
 from mars_api.models import Player
 
 pytestmark = pytest.mark.django_db
@@ -47,10 +46,10 @@ def test_delete_player(api_client, player):
         Player.objects.get(nickname=player.nickname)
 
 
-def test_fail_change_to_duplicate_nickname(api_client):
+def test_fail_change_to_duplicate_nickname(api_client, player_factory):
     """Tests if only unique player nicknames are allowed."""
-    p1 = PlayerFactory()
-    p2 = PlayerFactory()
+    p1 = player_factory()
+    p2 = player_factory()
     data = {"nickname": p1.nickname}
 
     endpoint = get_url_with_id(p2.id)
