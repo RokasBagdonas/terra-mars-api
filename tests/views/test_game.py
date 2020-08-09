@@ -8,7 +8,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_can_post_game_with_player_scores():
-    """Test if a game can be created alongside PlayerScores in one POST."""
+    """Test if PlayerScores can be created alongside Game in one POST."""
     # 1. Create a Game and PlayerScores
 
     # 2. POST it

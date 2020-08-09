@@ -76,7 +76,16 @@ class PlayerScore(models.Model):
     active_cards = models.SmallIntegerField(default=0)
     resources = models.SmallIntegerField(default=0)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["player", "game"], name="one_score_per_player_per_game"
+            )
+        ]
+
     def __str__(self):
-        return f"""nickname: {self.player.nickname},
-        game_id: {self.game_id}, game date: {self.game.date},
+        s = self.player.nickname + "," if self.player is not None else "<no player>"
+        return f"""player nickname: {s},
+        game_id: {self.game_id},
+        game date: {self.game.date},
         corporation: {self.corporation}."""
