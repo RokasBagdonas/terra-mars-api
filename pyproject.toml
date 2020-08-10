@@ -29,6 +29,10 @@ pylint = "^2.5.3"
 flake8-comprehensions = "^3.2.3"
 pytest-randomly = "^3.4.1"
 pytest-cov = "^2.10.0"
+pytest-factoryboy = "^2.0.3"
+
+[tool.black]
+line-length = 90
 
 [tool.coverage.run]
 branch = true

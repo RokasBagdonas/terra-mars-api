@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 
 from mars_api.models import Player
 
+pytestmark = pytest.mark.django_db
 
-@pytest.mark.django_db
+
 def test_player_is_created():
     """Tests if Player and User are created."""
     user = User.objects.create_user("my_username", "email@email.it", "password")

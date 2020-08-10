@@ -1,41 +1,40 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from model_utils import Choices
 
 CORPORATIONS = Choices(
-        "Aphrodite",
-        "Aridor",
-        "Arklight",
-        "Celestic",
-        "Cheung Shing Mars",
-        "Credicor",
-        "Ecoline",
-        "Helion",
-        "Interplanetary Cinematics",
-        "Inventrix",
-        "Manutech",
-        "Mining Guild",
-        "Morning Star Inc.",
-        "Phobolog",
-        "Point Luna",
-        "Polyphemos",
-        "Poseidon",
-        "Robinson Industries",
-        "Saturn Systems",
-        "Storm Craft Incorporated",
-        "Terractor",
-        "Tharsis Republic",
-        "Thorgate",
-        "United Nations Mars Initiative",
-        "Valley Trust",
-        "Viron",
-        "Vitor"
+    "Aphrodite",
+    "Aridor",
+    "Arklight",
+    "Celestic",
+    "Cheung Shing Mars",
+    "Credicor",
+    "Ecoline",
+    "Helion",
+    "Interplanetary Cinematics",
+    "Inventrix",
+    "Manutech",
+    "Mining Guild",
+    "Morning Star Inc.",
+    "Phobolog",
+    "Point Luna",
+    "Polyphemos",
+    "Poseidon",
+    "Robinson Industries",
+    "Saturn Systems",
+    "Storm Craft Incorporated",
+    "Terractor",
+    "Tharsis Republic",
+    "Thorgate",
+    "United Nations Mars Initiative",
+    "Valley Trust",
+    "Viron",
+    "Vitor",
 )
 
 
-MAPS = Choices(
-        "Tharsis", "Elysium", "Hellas"
-)
+MAPS = Choices("Tharsis", "Elysium", "Hellas")
 
 
 class Player(models.Model):
@@ -46,9 +45,10 @@ class Player(models.Model):
     def __str__(self):
         return f"{self.nickname}"
 
+
 class Game(models.Model):
     players = models.ManyToManyField(Player, through="PlayerScore")
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=14)
 
     draft_variant = models.BooleanField(default=True)
@@ -61,9 +61,7 @@ class Game(models.Model):
 
 
 class PlayerScore(models.Model):
-    player = models.ForeignKey(
-        Player, models.SET_NULL, related_name="player", null=True
-    )
+    player = models.ForeignKey(Player, models.SET_NULL, related_name="player", null=True)
     game = models.ForeignKey(Game, models.CASCADE)
     corporation = models.CharField(choices=CORPORATIONS, max_length=40)
 
@@ -78,7 +76,16 @@ class PlayerScore(models.Model):
     active_cards = models.SmallIntegerField(default=0)
     resources = models.SmallIntegerField(default=0)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["player", "game"], name="one_score_per_player_per_game"
+            )
+        ]
+
     def __str__(self):
-        return f"""nickname: {self.player.nickname},
+        s = self.player.nickname + "," if self.player else "<no player>"
+        return f"""player nickname: {s},
+        game_id: {self.game_id},
         game date: {self.game.date},
-        corporation: {self.corporation} """
+        corporation: {self.corporation}."""
