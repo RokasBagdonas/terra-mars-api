@@ -84,7 +84,7 @@ class PlayerScore(models.Model):
         ]
 
     def __str__(self):
-        s = self.player.nickname + "," if self.player is not None else "<no player>"
+        s = self.player.nickname + "," if self.player else "<no player>"
         return f"""player nickname: {s},
         game_id: {self.game_id},
         game date: {self.game.date},
