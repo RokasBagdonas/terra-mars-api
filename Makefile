@@ -11,6 +11,9 @@ up:
 down:
 	$(ddown) --remove-orphans
 
+manage:
+	docker-compose run --rm web python manage.py $(command)
+
 migrate:
 	docker-compose run --rm web python manage.py migrate;
 	$(ddown)

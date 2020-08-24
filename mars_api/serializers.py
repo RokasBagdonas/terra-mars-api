@@ -60,24 +60,19 @@ class PlayerScoreForGameSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class GameAndPlayerScoresSerializer(serializers.ModelSerializer):
+class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
     """
     Serializes a Game as well as PlayerScores.
     """
 
-    # TODO: validate the quantity: 0 < and <=5
-    player_scores = PlayerScoreForGameSerializer(many=True)
+    players_scores = PlayerScoreForGameSerializer(many=True)
 
     class Meta:
         model = Game
         fields = [
-            "date",
-            "game_map",
-            "draft_variant",
-            "prelude",
-            "venus_next",
-            "colonies",
-            "player_scores",
+            "date", "game_map", "draft_variant",
+            "prelude", "venus_next",
+            "colonies", "players_scores",
         ]
 
     def create(self, validated_data):
@@ -90,4 +85,16 @@ class GameAndPlayerScoresSerializer(serializers.ModelSerializer):
         that validation passes. Once validation passes, add the same game instance to each
         PlayerScore and then save it to db.
         """
-        pass
+        # 1. create a game
+        players_scores = validated_data.pop("players_scores")
+
+        game = Game.objects.create(**validated_data)
+
+        # 2. create player_scores
+        players_scores_instances = []
+        for ps in players_scores:
+            players_scores_instances.append(PlayerScore.objects.create(**ps))
+
+        # 3. return
+        result = {"game": game, "players_scores": players_scores_instances}
+        return result

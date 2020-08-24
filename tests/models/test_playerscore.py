@@ -38,6 +38,4 @@ def test_player_score_without_player(player_score):
         but with a provided Player nickname. """
 
     # 1. remove Player
-
     pytest.skip("unimplemented")
-
