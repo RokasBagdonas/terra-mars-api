@@ -47,7 +47,6 @@ class Player(models.Model):
 
 
 class Game(models.Model):
-    players = models.ManyToManyField(Player, through="PlayerScore")
     date = models.DateTimeField(default=timezone.now())
     game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=14)
 
@@ -62,7 +61,7 @@ class Game(models.Model):
 
 class PlayerScore(models.Model):
     player = models.ForeignKey(Player, models.SET_NULL, related_name="player_scores", null=True)
-    game = models.ForeignKey(Game, models.CASCADE)
+    game = models.ForeignKey(Game, models.CASCADE, related_name="player_scores")
     corporation = models.CharField(choices=CORPORATIONS, max_length=40, blank=False, null=False)
 
     terraform_rating = models.PositiveSmallIntegerField(default=20)

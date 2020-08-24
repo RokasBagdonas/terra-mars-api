@@ -31,10 +31,13 @@ collectstatic:
 	docker-compose run web python manage.py collectstatic;
 	$(ddown)
 
-dtest = docker-compose -f docker-compose.test.yml 
+dtest = docker-compose -f docker-compose.test.yml
 
 test:
-	$(dtest) build && $(dtest) run --rm test-web pytest $(test_path)
+	$(dtest) build && $(dtest) run --rm test-web pytest $(path)
+
+test-player:
+	$(dtest) build && $(dtest) run --rm test-web pytest tests/*/test_player.py
 
 python-shell:
 	docker-compose run web python manage.py shell_plus --ipython

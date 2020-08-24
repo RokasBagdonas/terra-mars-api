@@ -2,6 +2,7 @@ import pytest
 from rest_framework import status
 
 from mars_api.models import Player
+from ..factories import PlayerFactory
 
 pytestmark = pytest.mark.django_db
 

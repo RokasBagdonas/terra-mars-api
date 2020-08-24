@@ -6,7 +6,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_game_cannot_be_created_with_invalid_game_map():
-    pytest.fail("unimplemented")
+    pytest.skip("unimplemented")
 
 
 def test_game_returns_players_nicknames():
@@ -17,4 +17,4 @@ def test_game_returns_players_nicknames():
     # 2. GET a Game
 
     # 3. assert if nicknames exist in game.players property.
-    pytest.fail("unimplemented")
+    pytest.skip("unimplemented")

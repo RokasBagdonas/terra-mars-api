@@ -4,8 +4,6 @@ from mars_api.models import Game, Player, PlayerScore
 
 pytestmark = pytest.mark.django_db
 
-def test_create_new_player_if_non_existant():
-    """ Tests if a new player is provided """
 
 def test_unique_players_for_the_same_game():
     """
@@ -22,17 +20,17 @@ def test_unique_players_for_the_same_game():
     # 3. when saving a second one, an exception should be thrown.
     # example: "one player cannot have two scores in the same game."
 
-    pytest.fail("unimplemented")
+    pytest.skip("unimplemented")
 
 
 def test_cannot_create_player_score_with_invalid_corporation():
 
-    pytest.fail("unimplemented")
+    pytest.skip("unimplemented")
 
 
 def test_cannot_have_duplicate_corporations_same_game():
 
-    pytest.fail("unimplemented")
+    pytest.skip("unimplemented")
 
 
 def test_player_score_without_player(player_score):
@@ -40,5 +38,6 @@ def test_player_score_without_player(player_score):
         but with a provided Player nickname. """
 
     # 1. remove Player
-    ps = player_score.create()
+
+    pytest.skip("unimplemented")
 
