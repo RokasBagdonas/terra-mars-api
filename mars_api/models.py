@@ -47,7 +47,7 @@ class Player(models.Model):
 
 
 class Game(models.Model):
-    date = models.DateTimeField(default=timezone.now())
+    date = models.DateTimeField(default=timezone.now)
     game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=14)
 
     draft_variant = models.BooleanField(default=True)

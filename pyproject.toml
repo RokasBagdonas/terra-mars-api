@@ -34,7 +34,7 @@ rope = "^0.17.0"
 black = "^19.10b0"
 
 [tool.black]
-line-length = 90
+line-length=90
 
 [tool.coverage.run]
 branch = true

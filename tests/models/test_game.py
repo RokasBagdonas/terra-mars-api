@@ -6,6 +6,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_game_cannot_be_created_with_invalid_game_map():
+    # pytest.fail("unimplemented")
     pytest.skip("unimplemented")
 
 
