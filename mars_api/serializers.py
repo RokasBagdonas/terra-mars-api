@@ -46,7 +46,6 @@ class PlayerScoreSerializer(serializers.ModelSerializer):
 
 class PlayerScoreForGameSerializer(serializers.ModelSerializer):
     player = PlayerSerializerForScore()
-    game = serializers.PrimaryKeyRelatedField(queryset=Game.objects.all(), allow_null=True)
 
     def create(self, validated_data):
         player_data = validated_data.pop("player")
@@ -57,7 +56,7 @@ class PlayerScoreForGameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlayerScore
-        fields = "__all__"
+        exclude = ["game"]
 
 
 class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
