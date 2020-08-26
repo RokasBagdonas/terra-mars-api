@@ -24,4 +24,3 @@ Game Scores viewset that:
 1. Returns a game and corresponding PlayerScores.
 2. Posts a game with PlayerScores.
 """
-

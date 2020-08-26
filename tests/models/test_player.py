@@ -3,6 +3,7 @@ import pytest
 from django.contrib.auth.models import User
 
 from mars_api.models import Player
+from ..factories.dictionaries import PlayerScoreDictFactory
 
 pytestmark = pytest.mark.django_db
 
