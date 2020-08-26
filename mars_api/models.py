@@ -60,8 +60,8 @@ class Game(models.Model):
 
 
 class PlayerScore(models.Model):
-    player = models.ForeignKey(Player, models.SET_NULL, related_name="player_scores", null=True)
-    game = models.ForeignKey(Game, models.CASCADE, related_name="player_scores")
+    player = models.ForeignKey(Player, models.SET_NULL, related_name="player_score", null=True)
+    game = models.ForeignKey(Game, models.CASCADE, related_name="players_scores")
     corporation = models.CharField(choices=CORPORATIONS, max_length=40, blank=False, null=False)
 
     terraform_rating = models.PositiveSmallIntegerField(default=20)

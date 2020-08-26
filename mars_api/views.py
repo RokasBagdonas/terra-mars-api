@@ -1,7 +1,12 @@
 from rest_framework import viewsets
 
 from mars_api.models import Game, Player, PlayerScore
-from mars_api.serializers import GameSerializer, PlayerScoreSerializer, PlayerSerializer
+from mars_api.serializers import (
+    GameSerializer,
+    PlayerScoreSerializer,
+    PlayerSerializer,
+    GameAndPlayersScoresSerializer,
+)
 
 
 class PlayerViewSet(viewsets.ModelViewSet):
@@ -19,8 +24,8 @@ class PlayerScoreViewSet(viewsets.ModelViewSet):
     serializer_class = PlayerScoreSerializer
 
 
-"""
-Game Scores viewset that:
-1. Returns a game and corresponding PlayerScores.
-2. Posts a game with PlayerScores.
-"""
+class GameScoresViewSet(viewsets.ModelViewSet):
+    """A viewset for Game and related PlayerScores."""
+
+    queryset = Game.objects.all()
+    serializer_class = GameAndPlayersScoresSerializer

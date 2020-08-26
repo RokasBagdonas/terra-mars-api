@@ -68,32 +68,20 @@ class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Game
-        fields = [
-            "date", "game_map", "draft_variant",
-            "prelude", "venus_next",
-            "colonies", "players_scores",
-        ]
+        fields = "__all__"
 
     def create(self, validated_data):
-        """
-        Issue 1: game has to be created before validating player scores.
-        However, the `PlayerScoreSerializer` is using the default `PlayerScore` model that requires Game.
-
-        Solutions:
-        1. Alter/Create PlayerScoreSerializer that does not have not null FK constraint so
-        that validation passes. Once validation passes, add the same game instance to each
-        PlayerScore and then save it to db.
-        """
         # 1. create a game
         players_scores = validated_data.pop("players_scores")
-
         game = Game.objects.create(**validated_data)
 
         # 2. create player_scores
         players_scores_instances = []
         for ps in players_scores:
-            players_scores_instances.append(PlayerScore.objects.create(**ps))
+            p, _ = Player.objects.get_or_create(**ps.pop("player"))
+            players_scores_instances.append(
+                PlayerScore.objects.create(player=p, game=game, **ps)
+            )
 
-        # 3. return
         result = {"game": game, "players_scores": players_scores_instances}
         return result
