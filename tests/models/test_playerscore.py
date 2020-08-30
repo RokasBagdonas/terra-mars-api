@@ -1,32 +1,30 @@
 import pytest
+from django.db.utils import IntegrityError
 
 from mars_api.models import Game, Player, PlayerScore
+
+from ..factories import PlayerScoreFactory
 
 pytestmark = pytest.mark.django_db
 
 
-def test_unique_players_for_the_same_game():
+def test_unique_players_for_the_same_game(game):
     """
     Tests if only unique players can be added to the PlayerScore with same game_id.
     (So that there wouldn't be a player that has two scores for the same Game.)
     """
-
-    # 1. create Game and Player
-
-    # 2. create two PlayerScore objects with same Game and Player.
-
-    # ps2 =
-
-    # 3. when saving a second one, an exception should be thrown.
-    # example: "one player cannot have two scores in the same game."
-
-    pytest.skip("unimplemented")
+    ps1 = PlayerScoreFactory(game=game)
+    with pytest.raises(IntegrityError):
+        ps2 = PlayerScoreFactory(corporation="Terractor", player=ps1.player, game=game)
 
 
 def test_cannot_create_player_score_with_invalid_corporation():
+    with pytest.raises(IntegrityError):
+        PlayerScoreFactory(corporation="")
 
-    pytest.skip("unimplemented")
 
+def test_cannot_have_duplicate_corporations_same_game(game):
+    ps1 = PlayerScoreFactory(game=game)
 
 def test_cannot_have_duplicate_corporations_same_game():
 
