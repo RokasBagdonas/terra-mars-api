@@ -34,16 +34,3 @@ def test_can_post_game_with_player_scores(api_client):
     assert Game.objects.first() is not None
     assert PlayerScore.objects.count() == len(request["players_scores"])
     assert Player.objects.count() == len(request["players_scores"])
-
-
-def test_game_and_player_scores_create_success(api_client):
-    """Tests if a new Game and new PlayerScores can be created in one POST.
-       Also ensures that new Players can be created.
-    """
-    # 1. prep data
-
-    # 2. request
-
-    # 3. check response
-
-    # 4. check db

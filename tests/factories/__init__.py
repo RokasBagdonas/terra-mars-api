@@ -18,6 +18,7 @@ class PlayerScoreFactory(factory.django.DjangoModelFactory):
 
     player = factory.SubFactory(PlayerFactory)
     game = factory.SubFactory(GameFactory)
+    corporation = "Thorgate"
 
     class Meta:
         model = "mars_api.PlayerScore"
