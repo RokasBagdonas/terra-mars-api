@@ -10,6 +10,7 @@ class PlayerFactory(factory.django.DjangoModelFactory):
 
 
 class GameFactory(factory.django.DjangoModelFactory):
+    game_map = "Tharsis"
     class Meta:
         model = "mars_api.Game"
 

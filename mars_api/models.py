@@ -88,10 +88,15 @@ class PlayerScore(models.Model):
             models.UniqueConstraint(
                 fields=["player", "game"], name="one_score_per_player_per_game"
             ),
+            models.UniqueConstraint(
+                fields=["corporation", "game"], name="only_unique_corporations_per_game"
+            ),
             models.CheckConstraint(
-                check=models.Q(corporation__in=[corp[0] for corp in dict(CORPORATIONS).items()]),
-                name="Only defined corporations are allowed."
-                )
+                check=models.Q(
+                    corporation__in=[corp[0] for corp in dict(CORPORATIONS).items()]
+                ),
+                name="Only defined corporations are allowed.",
+            ),
         ]
 
     def __str__(self):
