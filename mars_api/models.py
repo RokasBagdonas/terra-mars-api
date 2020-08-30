@@ -58,6 +58,14 @@ class Game(models.Model):
     def __str__(self):
         return f"id: {self.id}; date: {self.date}; game_map: {self.game_map}"
 
+    class Meta:
+        constraints = [
+                models.CheckConstraint(
+                    check=models.Q(game_map__in=[map_[0] for map_ in dict(MAPS).items()]),
+                    name=f"Only {[map_[0] for map_ in dict(MAPS).items()]} maps are allowed."
+                    )
+                ]
+
 
 class PlayerScore(models.Model):
     player = models.ForeignKey(Player, models.SET_NULL, related_name="player_score", null=True)
