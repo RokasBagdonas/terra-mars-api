@@ -1,10 +1,7 @@
 import pytest
 
 from mars_api.models import PlayerScore
-from mars_api.serializers import (PlayerScoreForGameSerializer,
-                                  PlayerScoreSerializer)
-
-from ..factories import GameFactory
+from mars_api.serializers import PlayerScoreForGameSerializer, PlayerScoreSerializer
 
 pytestmark = pytest.mark.django_db
 
@@ -27,6 +24,7 @@ def test_playerscore_for_game():
 
 
 def test_same_player_multiple_scores(player, game_factory):
+    """Tests if `get_or_create` properly functions when calling PlayerScoreSerializer."""
     g = game_factory()
     data = {
         "corporation": "Thorgate",
@@ -43,5 +41,5 @@ def test_same_player_multiple_scores(player, game_factory):
 
     assert ps_serializer.is_valid()
     ps_serializer.save()
-    assert PlayerScore.objects.exists(game_id=g.id)
+    assert PlayerScore.objects.exists(game=g.id)
     assert PlayerScore.objects.filter(player=player).count() == 2

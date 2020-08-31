@@ -1,5 +1,6 @@
 import pytest
 from rest_framework import status
+
 from mars_api.models import Player
 
 pytestmark = pytest.mark.django_db
@@ -15,7 +16,6 @@ def test_playerscore_post_existing_player(game, player, api_client):
         "game": game.id,
     }
 
-    # 2. post
     response = api_client.post(PLAYERSCORE_PATH, ps, format="json")
     assert response.status_code == status.HTTP_201_CREATED
 
