@@ -16,8 +16,9 @@ class GameSerializer(serializers.ModelSerializer):
 
 
 class PlayerSerializerForScore(serializers.ModelSerializer):
-    """
-       The difference between the default `PlayerSerializer` is that this one negates the
+    """Serializes the Player without checking for the unique nickname constraint.
+
+        The difference between the default `PlayerSerializer` is that this one negates the
        `unique` constraint of the nickname. This is because when creating a PlayerScore,
         we want to have the option to create a Player if one doesn't exist or just get the
         existing one via `get_or_create`.
@@ -65,9 +66,7 @@ class PlayerScoreForGameSerializer(serializers.ModelSerializer):
 
 
 class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
-    """
-    Serializes a Game as well as PlayerScores.
-    """
+    """Serializes a Game as well as PlayerScores."""
 
     players_scores = PlayerScoreForGameSerializer(many=True)
 
