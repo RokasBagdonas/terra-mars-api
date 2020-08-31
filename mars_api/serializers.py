@@ -15,7 +15,7 @@ class GameSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PlayerSerializerForScore(PlayerSerializer):
+class PlayerSerializerForScore(serializers.ModelSerializer):
     """
        The difference between the default `PlayerSerializer` is that this one negates the
        `unique` constraint of the nickname. This is because when creating a PlayerScore,
@@ -26,8 +26,12 @@ class PlayerSerializerForScore(PlayerSerializer):
     nickname = serializers.CharField(max_length=32)
 
     def create(self, validated_data):
-        instance, _ = Player.objects.get_or_create(**validated_data)
+        instance, _ = Player.objects.get_or_create(nickname=validated_data["nickname"])
         return instance
+
+    class Meta:
+        model = Player
+        fields = ["nickname"]
 
 
 class PlayerScoreSerializer(serializers.ModelSerializer):
