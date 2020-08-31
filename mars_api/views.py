@@ -2,10 +2,10 @@ from rest_framework import viewsets
 
 from mars_api.models import Game, Player, PlayerScore
 from mars_api.serializers import (
+    GameAndPlayersScoresSerializer,
     GameSerializer,
     PlayerScoreSerializer,
     PlayerSerializer,
-    GameAndPlayersScoresSerializer,
 )
 
 
