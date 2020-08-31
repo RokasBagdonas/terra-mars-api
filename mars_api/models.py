@@ -60,17 +60,21 @@ class Game(models.Model):
 
     class Meta:
         constraints = [
-                models.CheckConstraint(
-                    check=models.Q(game_map__in=[map_[0] for map_ in dict(MAPS).items()]),
-                    name=f"Only {[map_[0] for map_ in dict(MAPS).items()]} maps are allowed."
-                    )
-                ]
+            models.CheckConstraint(
+                check=models.Q(game_map__in=[map_[0] for map_ in dict(MAPS).items()]),
+                name=f"Only {[map_[0] for map_ in dict(MAPS).items()]} maps are allowed.",
+            )
+        ]
 
 
 class PlayerScore(models.Model):
-    player = models.ForeignKey(Player, models.SET_NULL, related_name="player_score", null=True)
+    player = models.ForeignKey(
+        Player, models.SET_NULL, related_name="player_scores", null=True
+    )
     game = models.ForeignKey(Game, models.CASCADE, related_name="players_scores")
-    corporation = models.CharField(choices=CORPORATIONS, max_length=40, blank=False, null=False)
+    corporation = models.CharField(
+        choices=CORPORATIONS, max_length=40, blank=False, null=False
+    )
 
     terraform_rating = models.PositiveSmallIntegerField(default=20)
     milestones = models.PositiveSmallIntegerField(default=0)

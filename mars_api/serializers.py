@@ -19,7 +19,8 @@ class PlayerSerializerForScore(PlayerSerializer):
     """
        The difference between the default `PlayerSerializer` is that this one negates the
        `unique` constraint of the nickname. This is because when creating a PlayerScore,
-        we want to have the option to create a Player if one doesn't exist.
+        we want to have the option to create a Player if one doesn't exist or just get the
+        existing one via `get_or_create`.
     """
 
     nickname = serializers.CharField(max_length=32)
