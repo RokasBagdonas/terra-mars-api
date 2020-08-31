@@ -1,33 +1,47 @@
 import pytest
 
-from mars_api.serializers import PlayerScoreSerializer, PlayerScoreForGameSerializer
+from mars_api.models import PlayerScore
+from mars_api.serializers import (PlayerScoreForGameSerializer,
+                                  PlayerScoreSerializer)
+
+from ..factories import GameFactory
 
 pytestmark = pytest.mark.django_db
 
+
 def test_playerscore_serializes_player(game):
-    # 1. player and playerscore dict
+    ps = {"corporation": "Thorgate", "player": {"nickname": "Petras"}, "game": game.id}
 
-    ps = {
-        "corporation": "Thorgate",
-        "player": {"nickname": "Petras"},
-        "game": game.id
-    }
-
-    # 3. try serialize
     serializer = PlayerScoreSerializer(data=ps)
 
-    # 4. assert if it's Player and PlayerScore
     assert serializer.is_valid()
 
 
 def test_playerscore_for_game():
     """Tests if a player score can be created without a game when using PlayerScoreForGameSerializer"""
 
-    ps = {
-            "corporation": "Thorgate",
-            "player": {"nickname": "John"},
-            "game": ""
-    }
+    ps = {"corporation": "Thorgate", "player": {"nickname": "John"}}
 
     serializer = PlayerScoreForGameSerializer(data=ps)
     assert serializer.is_valid()
+
+
+def test_same_player_multiple_scores(player, game_factory):
+    g = game_factory()
+    data = {
+        "corporation": "Thorgate",
+        "player": {"nickname": player.nickname},
+        "game": g.id,
+    }
+    ps_serializer = PlayerScoreSerializer(data=data)
+    assert ps_serializer.is_valid()
+    ps_serializer.save()
+
+    g = game_factory()
+    data["game"] = g.id
+    ps_serializer = PlayerScoreSerializer(data=data)
+
+    assert ps_serializer.is_valid()
+    ps_serializer.save()
+    assert PlayerScore.objects.exists(game_id=g.id)
+    assert PlayerScore.objects.filter(player=player).count() == 2
