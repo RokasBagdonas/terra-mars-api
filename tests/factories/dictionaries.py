@@ -11,7 +11,7 @@ class PlayerDictFactory(factory.DictFactory):
 
 
 class PlayerScoreDictFactory(factory.DictFactory):
-    corporation = ""  # to be set
+    corporation = "Thorgate"
     player = factory.SubFactory(PlayerDictFactory)
     game = ""  # to be set
     terraform_rating = 0
@@ -31,4 +31,3 @@ class GameDictFactory(factory.DictFactory):
     draft_variant = False
     prelude = False
     venus_next = False
-

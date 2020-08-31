@@ -2,7 +2,6 @@ import pytest
 from rest_framework import status
 
 from mars_api.models import Player
-from ..factories import PlayerFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -25,9 +24,9 @@ def test_can_get_player_data(api_client, player):
     assert response.data["motto"] == player.motto
 
 
-def test_create_player_without_user(api_client):
+def test_create_player_without_user(api_client, player_dict_factory):
     """Tests if it's possible to create a player without user."""
-    data = {"nickname": "nicky nick"}
+    data = player_dict_factory()
 
     response = api_client.post(PLAYER_PATH, data)
     assert response.status_code == status.HTTP_201_CREATED
@@ -68,5 +67,5 @@ def test_change_player_nickname(api_client, player):
     response = api_client.patch(endpoint, data)
     assert response.status_code == status.HTTP_200_OK
 
-    db_player = Player.objects.get(nickname="new nickname")
+    db_player = Player.objects.get(nickname=data["nickname"])
     assert player.id == db_player.id

@@ -2,9 +2,6 @@ import pytest
 from rest_framework import status
 
 from mars_api.models import Game, Player, PlayerScore
-from mars_api.views import GameViewSet
-
-from ..factories import dictionaries as factory_dictionaries
 
 GAME_PATH = "/mars_api/games/"
 GAME_SCORES_PATH = "/mars_api/game_scores/"
@@ -12,25 +9,22 @@ GAME_SCORES_PATH = "/mars_api/game_scores/"
 pytestmark = pytest.mark.django_db
 
 
-def test_can_post_game_with_player_scores(api_client):
+def test_can_post_game_with_player_scores(
+    api_client, game_dict_factory, player_score_dict_factory
+):
     """Test if PlayerScores can be created alongside Game in one POST."""
-    # 1. Prep json data
-    game = factory_dictionaries.GameDictFactory()
-    ps1 = factory_dictionaries.PlayerScoreDictFactory(corporation="Thorgate")
-    ps2 = factory_dictionaries.PlayerScoreDictFactory(corporation="Tharsis Republic")
+    game = game_dict_factory()
+    ps1 = player_score_dict_factory()
+    ps2 = player_score_dict_factory(corporation="Tharsis Republic")
 
     request = {"players_scores": []}
     request["game"] = game
     request["players_scores"].extend([ps1, ps2])
 
-    # 2. POST it
-    print(request)
     response = api_client.post(GAME_SCORES_PATH, data=request, format="json")
 
-    # 3. check if successful
     assert response.status_code == status.HTTP_201_CREATED
 
-    # 4. check if exists in db
     assert Game.objects.first() is not None
     assert PlayerScore.objects.count() == len(request["players_scores"])
     assert Player.objects.count() == len(request["players_scores"])
