@@ -46,7 +46,7 @@ python-shell:
 	docker-compose run web python manage.py shell_plus --ipython
 
 shell-test:
-	$(dtest) run test-web python manage.py shell_plus --ipython
+	$(dtest) run web python manage.py shell_plus --ipython
 
 psql:
 	docker exec -it terra-mars-api_db_1 psql -h db mars martian
