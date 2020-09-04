@@ -3,9 +3,9 @@ from pytest_factoryboy import register
 
 from .factories import GameFactory, PlayerFactory, PlayerScoreFactory
 from .factories.dictionaries import (
+    GameDictFactory,
     PlayerDictFactory,
     PlayerScoreDictFactory,
-    GameDictFactory,
 )
 
 register(PlayerFactory)
@@ -17,7 +17,7 @@ register(GameDictFactory)
 register(PlayerScoreDictFactory)
 
 
-@pytest.fixture
+@pytest.fixture()
 def api_client():
     from rest_framework.test import APIClient
 
