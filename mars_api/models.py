@@ -14,6 +14,7 @@ CORPORATIONS = Choices(
     "Helion",
     "Interplanetary Cinematics",
     "Inventrix",
+    "N/A",
     "Manutech",
     "Mining Guild",
     "Morning Star Inc.",
@@ -49,6 +50,7 @@ class Player(models.Model):
 class Game(models.Model):
     date = models.DateTimeField(default=timezone.now)
     game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=16)
+    number_of_generations = models.PositiveSmallIntegerField(default=10)
 
     draft_variant = models.BooleanField(default=True)
     prelude = models.BooleanField(default=False)

@@ -25,6 +25,7 @@ class GameFactory(factory.django.DjangoModelFactory):
 
 class GameDictFactory(factory.DictFactory):
     player_scores = []  # to be added
+    number_of_generations = 10
     game_map = "Tharsis"
     draft_variant = False
     prelude = False
