@@ -48,7 +48,7 @@ class Player(models.Model):
 
 class Game(models.Model):
     date = models.DateTimeField(default=timezone.now)
-    game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=14)
+    game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=16)
 
     draft_variant = models.BooleanField(default=True)
     prelude = models.BooleanField(default=False)
@@ -61,7 +61,7 @@ class Game(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=models.Q(game_map__in=[map_[0] for map_ in dict(MAPS).items()]),
+                check=models.Q(game_map__in=set(dict(MAPS))),
                 name=f"Only {[map_[0] for map_ in dict(MAPS).items()]} maps are allowed.",
             )
         ]
@@ -71,7 +71,7 @@ class PlayerScore(models.Model):
     player = models.ForeignKey(Player, models.SET_NULL, related_name="scores", null=True)
     game = models.ForeignKey(Game, models.CASCADE, related_name="players_scores")
     corporation = models.CharField(
-        choices=CORPORATIONS, max_length=40, blank=False, null=False
+        choices=CORPORATIONS, max_length=64, blank=False, null=False
     )
 
     terraform_rating = models.PositiveSmallIntegerField(default=20)
@@ -95,7 +95,7 @@ class PlayerScore(models.Model):
             ),
             models.CheckConstraint(
                 check=models.Q(
-                    corporation__in=[corp[0] for corp in dict(CORPORATIONS).items()]
+                    corporation__in=set(dict(CORPORATIONS))
                 ),
                 name="Only defined corporations are allowed.",
             ),
@@ -103,7 +103,8 @@ class PlayerScore(models.Model):
 
     def __str__(self):
         s = self.player.nickname + "," if self.player else "<no player>"
+        g = self.game
         return f"""player nickname: {s},
-        game_id: {self.game_id},
-        game date: {self.game.date},
-        corporation: {self.corporation}."""
+        game_id: {g.game_id},
+        game date: {g.game.date},
+        corporation: {g.corporation}."""
