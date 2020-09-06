@@ -765,7 +765,7 @@ version = "3.4.1"
 pytest = "*"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Extensions to the standard Python datetime module"
 name = "python-dateutil"
 optional = false
@@ -973,7 +973,7 @@ test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
-content-hash = "5401cb217d5ad123a0bf700d03d3dd40d1cb19153d40d7ef9c5d517be021dfcd"
+content-hash = "02a6602de1a6458c07cd5a398938bbe82a91f6a56994cb6f11914ceed7e3adc4"
 python-versions = "^3.8"
 
 [metadata.files]
