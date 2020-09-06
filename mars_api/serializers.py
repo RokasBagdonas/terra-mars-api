@@ -42,8 +42,7 @@ class PlayerScoreSerializer(serializers.ModelSerializer):
         player_data = validated_data.pop("player")
         player, _ = Player.objects.get_or_create(**player_data)
 
-        player_score = PlayerScore.objects.create(player=player, **validated_data)
-        return player_score
+        return PlayerScore.objects.create(player=player, **validated_data)
 
     class Meta:
         model = PlayerScore
@@ -57,8 +56,7 @@ class PlayerScoreForGameSerializer(serializers.ModelSerializer):
         player_data = validated_data.pop("player")
         player, _ = Player.objects.get_or_create(**player_data)
 
-        player_score = PlayerScore.objects.create(player=player, **validated_data)
-        return player_score
+        return PlayerScore.objects.create(player=player, **validated_data)
 
     class Meta:
         model = PlayerScore
@@ -75,17 +73,14 @@ class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        # 1. create a game
         players_scores = validated_data.pop("players_scores")
         game = Game.objects.create(**validated_data)
 
-        # 2. create player_scores
         players_scores_instances = []
-        for ps in players_scores:
-            p, _ = Player.objects.get_or_create(**ps.pop("player"))
+        for player_score in players_scores:
+            player, _ = Player.objects.get_or_create(**player_score.pop("player"))
             players_scores_instances.append(
-                PlayerScore.objects.create(player=p, game=game, **ps)
+                PlayerScore.objects.create(player=player, game=game, **player_score)
             )
 
-        result = {"game": game, "players_scores": players_scores_instances}
-        return result
+        return {"game": game, "players_scores": players_scores_instances}
