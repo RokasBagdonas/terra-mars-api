@@ -62,7 +62,7 @@ class Game(models.Model):
         constraints = [
             models.CheckConstraint(
                 check=models.Q(game_map__in=set(dict(MAPS))),
-                name=f"Only {[map_[0] for map_ in dict(MAPS).items()]} maps are allowed.",
+                name=f"Only {set(dict(MAPS))} maps are allowed.",
             )
         ]
 
