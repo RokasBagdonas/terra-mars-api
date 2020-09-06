@@ -1,7 +1,5 @@
 import factory
 
-from mars_api.models import MAPS
-
 faker = factory.Faker
 
 

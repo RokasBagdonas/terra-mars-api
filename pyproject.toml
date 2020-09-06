@@ -30,7 +30,6 @@ flake8-comprehensions = "^3.2.3"
 pytest-randomly = "^3.4.1"
 pytest-cov = "^2.10.0"
 pytest-factoryboy = "^2.0.3"
-rope = "^0.17.0"
 black = "^19.10b0"
 
 [tool.black]
