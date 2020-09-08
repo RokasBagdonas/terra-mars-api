@@ -40,7 +40,7 @@ MAPS = Choices("Tharsis", "Elysium", "Hellas")
 class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     nickname = models.CharField(max_length=32, unique=True)
-    motto = models.CharField(max_length=100, blank=True, null=True)
+    motto = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
         return f"{self.nickname}"
@@ -68,8 +68,8 @@ class Game(models.Model):
 
 
 class PlayerScore(models.Model):
-    player = models.ForeignKey(Player, models.SET_NULL, related_name="scores", null=True)
-    game = models.ForeignKey(Game, models.CASCADE, related_name="players_scores")
+    player = models.ForeignKey(Player, models.SET_NULL, null=True)
+    game = models.ForeignKey(Game, models.CASCADE)
     corporation = models.CharField(
         choices=CORPORATIONS, max_length=64, blank=False, null=False
     )
@@ -86,6 +86,7 @@ class PlayerScore(models.Model):
     resources = models.SmallIntegerField(default=0)
 
     class Meta:
+        default_related_name = "scores"
         constraints = [
             models.UniqueConstraint(
                 fields=["player", "game"], name="one_score_per_player_per_game"

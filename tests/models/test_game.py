@@ -21,7 +21,7 @@ def test_game_returns_related_players_scores(game, player_score_factory):
     player_score_factory(game=game)
     player_score_factory(game=game, corporation="Terractor")
 
-    assert game.players_scores.count() == 2
+    assert game.scores.count() == 2
 
 
 def test_cannot_have_duplicate_corporations_same_game(game, player_score_factory):
