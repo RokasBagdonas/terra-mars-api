@@ -15,7 +15,7 @@ class GameSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PlayerSerializerForScore(serializers.ModelSerializer):
+class NotUniqConstraintPlayerSerializer(serializers.ModelSerializer):
     """Serializes the Player without checking for the unique nickname constraint.
 
         The difference between the default `PlayerSerializer` is that this one negates the
@@ -36,7 +36,7 @@ class PlayerSerializerForScore(serializers.ModelSerializer):
 
 
 class PlayerScoreSerializer(serializers.ModelSerializer):
-    player = PlayerSerializerForScore()
+    player = NotUniqConstraintPlayerSerializer()
 
     def create(self, validated_data):
         player_data = validated_data.pop("player")
@@ -50,7 +50,7 @@ class PlayerScoreSerializer(serializers.ModelSerializer):
 
 
 class PlayerScoreForGameSerializer(serializers.ModelSerializer):
-    player = PlayerSerializerForScore()
+    player = NotUniqConstraintPlayerSerializer()
 
     def create(self, validated_data):
         player_data = validated_data.pop("player")
