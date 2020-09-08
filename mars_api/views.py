@@ -20,12 +20,12 @@ class GameViewSet(viewsets.ModelViewSet):
 
 
 class PlayerScoreViewSet(viewsets.ModelViewSet):
-    queryset = PlayerScore.objects.all()
+    queryset = PlayerScore.objects.prefetch_related("player", "game")
     serializer_class = PlayerScoreSerializer
 
 
 class GameScoresViewSet(viewsets.ModelViewSet):
     """A viewset for Game and related PlayerScores."""
 
-    queryset = Game.objects.all()
+    queryset = Game.objects.prefetch_related("scores", "scores__player")
     serializer_class = GameAndPlayersScoresSerializer

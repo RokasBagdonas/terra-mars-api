@@ -42,8 +42,8 @@ test:
 test-player:
 	$(dtest) build && $(dtest) run --rm test-web pytest tests/*/test_player.py
 
-python-shell:
-	docker-compose run web python manage.py shell_plus --ipython
+shell:
+	docker-compose run web python manage.py shell_plus --ipython --print-sql
 
 shell-test:
 	$(dtest) run web python manage.py shell_plus --ipython
