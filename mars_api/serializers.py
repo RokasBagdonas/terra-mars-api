@@ -66,14 +66,14 @@ class PlayerScoreForGameSerializer(serializers.ModelSerializer):
 class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
     """Serializes a Game as well as PlayerScores."""
 
-    players_scores = PlayerScoreForGameSerializer(many=True)
+    scores = PlayerScoreForGameSerializer(many=True)
 
     class Meta:
         model = Game
         fields = "__all__"
 
     def create(self, validated_data):
-        players_scores = validated_data.pop("players_scores")
+        players_scores = validated_data.pop("scores")
         game = Game.objects.create(**validated_data)
 
         players_scores_instances = []
@@ -83,4 +83,4 @@ class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
                 PlayerScore.objects.create(player=player, game=game, **player_score)
             )
 
-        return {"game": game, "players_scores": players_scores_instances}
+        return {"game": game, "scores": players_scores_instances}
