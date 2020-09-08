@@ -2,7 +2,7 @@ from contextlib import ExitStack as does_not_raise
 import pytest
 from django.db.utils import IntegrityError
 
-from mars_api.models import Game, Player, PlayerScore
+from mars_api.models import PlayerScore
 
 pytestmark = pytest.mark.django_db
 

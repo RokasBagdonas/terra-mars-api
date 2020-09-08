@@ -1,8 +1,9 @@
 from contextlib import ExitStack as does_not_raise
-import pytest
 
+import pytest
 from mars_api.models import PlayerScore
-from mars_api.serializers import PlayerScoreForGameSerializer, PlayerScoreSerializer
+from mars_api.serializers import (PlayerScoreForGameSerializer,
+                                  PlayerScoreSerializer)
 
 pytestmark = pytest.mark.django_db
 

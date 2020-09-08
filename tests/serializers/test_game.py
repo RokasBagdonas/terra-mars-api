@@ -1,8 +1,4 @@
-import pytest
-
 from mars_api.serializers import GameAndPlayersScoresSerializer
-
-from ..factories.dictionaries import PlayerScoreDictFactory
 
 
 def test_game_and_players_scores_serializer(player_score_dict_factory, game_dict_factory):
