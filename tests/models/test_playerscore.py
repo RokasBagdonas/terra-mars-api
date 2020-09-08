@@ -43,5 +43,5 @@ def test_cannot_create_player_score_with_invalid_corporation(player_score_factor
 
 
 def test_to_str_num_queries(django_assert_num_queries, player_score):
-    with django_assert_num_queries(0):
-        print(str(player_score))
+    with django_assert_num_queries(1):
+        str(PlayerScore.game_player_objects.first())

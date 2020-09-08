@@ -15,7 +15,7 @@ manage:
 	docker-compose run --rm web python manage.py $(command)
 
 migrate:
-	docker-compose run --rm web python manage.py migrate;
+	docker-compose run --rm web python manage.py migrate $(flags);
 	$(ddown)
 
 migzero:

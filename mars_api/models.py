@@ -62,9 +62,14 @@ class Game(models.Model):
         constraints = [
             models.CheckConstraint(
                 check=models.Q(game_map__in=set(dict(MAPS))),
-                name=f"Only {set(dict(MAPS))} maps are allowed.",
+                name="Only defined maps are allowed.",
             )
         ]
+
+
+class GamePlayerScoreManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related("game", "player")
 
 
 class PlayerScore(models.Model):
@@ -85,6 +90,9 @@ class PlayerScore(models.Model):
     active_cards = models.SmallIntegerField(default=0)
     resources = models.SmallIntegerField(default=0)
 
+    objects = models.Manager()
+    game_player_objects = GamePlayerScoreManager()
+
     class Meta:
         default_related_name = "scores"
         constraints = [
@@ -95,9 +103,7 @@ class PlayerScore(models.Model):
                 fields=["corporation", "game"], name="only_unique_corporations_per_game"
             ),
             models.CheckConstraint(
-                check=models.Q(
-                    corporation__in=set(dict(CORPORATIONS))
-                ),
+                check=models.Q(corporation__in=set(dict(CORPORATIONS))),
                 name="Only defined corporations are allowed.",
             ),
         ]
