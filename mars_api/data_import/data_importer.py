@@ -4,7 +4,8 @@ from sys import stdout
 from dateutil import parser
 from django.db.utils import IntegrityError
 
-from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
+from mars_api.serializers import (GameSerializerForImportedData,
+                                  PlayerScoreSerializer)
 
 FIELD_REMAPPING = {
     "game": {"map": "Default"},
@@ -89,7 +90,6 @@ def save_data(games_dict, player_scores_dict):
     except IntegrityError as err:
         print_warning(err)
         del err
-
 
 
 def list_to_dict(data, mapping):

@@ -16,6 +16,7 @@ manage:
 
 import_initial_data:
 	docker-compose run --rm web python manage.py import_initial_data ./mars_api/data_import/terra-mars-initial-data.csv
+
 # DB ==========================================================================
 migrate:
 	docker-compose run --rm web python manage.py migrate $(flags);
