@@ -793,6 +793,17 @@ version = "2020.7.14"
 
 [[package]]
 category = "main"
+description = "a python refactoring library..."
+name = "rope"
+optional = false
+python-versions = "*"
+version = "0.17.0"
+
+[package.extras]
+dev = ["pytest"]
+
+[[package]]
+category = "main"
 description = "Service identity verification for pyOpenSSL & cryptography."
 name = "service-identity"
 optional = false
@@ -973,7 +984,7 @@ test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
-content-hash = "02a6602de1a6458c07cd5a398938bbe82a91f6a56994cb6f11914ceed7e3adc4"
+content-hash = "b915938d6415c2f818a79859efcc8542dfb2875f32ac74528f8ac9204050e571"
 python-versions = "^3.8"
 
 [metadata.files]

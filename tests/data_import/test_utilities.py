@@ -1,3 +1,4 @@
+"""Tests for data_importer.py file."""
 from datetime import datetime
 
 import pytest
@@ -68,28 +69,7 @@ def test_create_player_score(player_score_dict_factory, game_dict_factory):
     ps_dict = player_score_dict_factory()
     ps_dict["player"]["nickname"] = "Greta"
     ps_dict["corporation"] = "Ecoline"
-    data = [
-        "98",
-        "2019-03-16",
-        "Elysium",
-        "1",
-        "0",
-        "11",
-        "3",
-        "Greta",
-        "Ecoline",
-        "0",
-        "42",
-        "5",
-        "2",
-        "12",
-        "17",
-        "0",
-        "9",
-        "0",
-        "10",
-        "97",
-    ]
+    data = ["98", "2019-03-16", "Elysium", "1", "0", "11", "3", "Greta", "Ecoline", "0", "42", "5", "2", "12", "17", "0", "9", "0", "10", "97"]
 
     ps = create_player_score_dict(data, game_dict["id"])
     assert ps["player"]["nickname"] == ps_dict["player"]["nickname"]
@@ -112,4 +92,3 @@ def test_save_player_scores(game_factory, player_score_dict_factory):
     save_player_scores(player_scores)
 
     assert PlayerScore.objects.all().count() == 2
-

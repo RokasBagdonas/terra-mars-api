@@ -1,23 +1,31 @@
-from dateutil import parser
+from sys import stdout
 
-from mars_api.serializers import GameSerializer, PlayerScoreSerializer
+from dateutil import parser
+from psycopg2.errors import UniqueViolation
+
+from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
 
 FIELD_REMAPPING = {
     "game": {"map": "Default"},
     "player_score": {
         "corporation": {
             "Interpl. Cinematics": "Interplanetary Cinematics",
-            "UMNI": "United Nations Mars Initiative",
+            "UNMI": "United Nations Mars Initiative",
         }
     },
 }
+
+
+def str_to_bool(arg):
+    return bool(int(arg))
+
 
 GAME_FIELD_MAPPING = {
     0: {"id": int},
     1: {"date": parser.parse},  # datetime
     2: {"game_map": str},
-    3: {"prelude": bool},
-    4: {"colonies": bool},
+    3: {"prelude": str_to_bool},
+    4: {"colonies": str_to_bool},
     5: {"number_of_generations": int},
 }
 
@@ -44,6 +52,7 @@ def import_data(csv_file_path):
     current_game_id = None
     with open(csv_file_path, newline="") as csvfile:
         row_reader = csv.reader(csvfile, delimiter=",")
+        print_status("Parsing the csv file")
 
         for row in row_reader:
             if current_game_id != row[0]:
@@ -51,24 +60,23 @@ def import_data(csv_file_path):
                 games.append(create_game_dict(row))
             player_scores.append(create_player_score_dict(row, current_game_id))
 
-    # add games and player_scores
-    save_games(games)
-    save_player_scores(player_scores)
+    print_status(f"Number of games: {len(games)}; player scores: {len(player_scores)}")
+    save_data(games, player_scores)
 
 
-def save_games(games_dict):
-    games_serializer = GameSerializer(data=games_dict, many=True)
+def save_data(games_dict, player_scores_dict):
+    games_serializer = GameSerializerForImportedData(data=games_dict, many=True)
+    ps_serializer = PlayerScoreSerializer(data=player_scores_dict, many=True)
+    print_status("Validating the data")
+
     if not games_serializer.is_valid():
-        print(games_serializer.errors)
-
+        raise ValueError(format_error(games_serializer.errors))
+    print_status("Saving games")
     games_serializer.save()
 
-
-def save_player_scores(ps_dict):
-    ps_serializer = PlayerScoreSerializer(data=ps_dict, many=True)
     if not ps_serializer.is_valid():
-        print(ps_serializer.errors)
-
+        raise ValueError(format_error(ps_serializer.errors))
+    print_status("Saving scores")
     ps_serializer.save()
 
 
@@ -105,3 +113,15 @@ def create_player_score_dict(data, game_id):
         ]
 
     return ps_dict
+
+
+def print_status(string):
+    stdout.write(f"\u001b[33;1m{string}\u001b[0m\n")
+
+
+def print_error(err):
+    stdout.write(format_error(err, colour_code="30;1m"))
+
+
+def format_error(err, colour_code="48;5;168m"):
+    return f"\u001b[{colour_code}{err}\u001b[0m\n"

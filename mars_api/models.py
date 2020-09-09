@@ -25,7 +25,7 @@ CORPORATIONS = Choices(
     "Robinson Industries",
     "Saturn Systems",
     "Storm Craft Incorporated",
-    "Terractor",
+    "Teractor",
     "Tharsis Republic",
     "Thorgate",
     "United Nations Mars Initiative",
@@ -102,7 +102,9 @@ class PlayerScore(models.Model):
                 fields=["player", "game"], name="one_score_per_player_per_game"
             ),
             models.UniqueConstraint(
-                fields=["corporation", "game"], name="only_unique_corporations_per_game"
+                fields=["corporation", "game"],
+                condition=Q()
+                name="only_unique_corporations_per_game"
             ),
             models.CheckConstraint(
                 check=models.Q(corporation__in=set(dict(CORPORATIONS))),

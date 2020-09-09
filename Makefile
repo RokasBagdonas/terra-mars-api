@@ -1,5 +1,4 @@
-ddown = docker-compose down
-
+# General =====================================================================
 install: build migrate
 
 build:
@@ -8,12 +7,16 @@ build:
 up:
 	docker-compose up
 
+ddown = docker-compose down --remove-orphans
 down:
-	$(ddown) --remove-orphans
+	$(ddown)
 
 manage:
 	docker-compose run --rm web python manage.py $(command)
 
+import_initial_data:
+	docker-compose run --rm web python manage.py import_initial_data ./mars_api/data_import/terra-mars-initial-data.csv
+# DB ==========================================================================
 migrate:
 	docker-compose run --rm web python manage.py migrate $(flags);
 	$(ddown)
@@ -26,14 +29,10 @@ makemigrations:
 	docker-compose run --rm web python manage.py makemigrations;
 	$(ddown)
 
-#utility: removes all images and containers related to terra-mars-api and <none>
-clear:
-	 $(ddown) && docker images -a | egrep "<none>|terra-mars-mars-api*" | awk '{print $3}' | xargs docker rmi
+psql:
+	docker exec -it terra-mars-api_db_1 psql -h db mars martian
 
-collectstatic:
-	docker-compose run web python manage.py collectstatic;
-	$(ddown)
-
+# Testing =====================================================================
 dtest = docker-compose -f docker-compose.test.yml
 
 test:
@@ -48,5 +47,10 @@ shell:
 shell-test:
 	$(dtest) run web python manage.py shell_plus --ipython
 
-psql:
-	docker exec -it terra-mars-api_db_1 psql -h db mars martian
+# Utility =======================================================================
+clear:
+	 $(ddown) && docker images -a | egrep "<none>|terra-mars-mars-api*" | awk '{print $3}' | xargs docker rmi
+
+collectstatic:
+	docker-compose run web python manage.py collectstatic;
+	$(ddown)

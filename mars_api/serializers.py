@@ -15,6 +15,14 @@ class GameSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class GameSerializerForImportedData(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+
+    class Meta:
+        model = Game
+        fields = "__all__"
+
+
 class NotUniqConstraintPlayerSerializer(serializers.ModelSerializer):
     """Serializes the Player without checking for the unique nickname constraint.
 
