@@ -1,7 +1,8 @@
+"""Like Transporter but without Jason Statham."""
 from sys import stdout
 
 from dateutil import parser
-from psycopg2.errors import UniqueViolation
+from django.db.utils import IntegrityError
 
 from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
 
@@ -71,13 +72,24 @@ def save_data(games_dict, player_scores_dict):
 
     if not games_serializer.is_valid():
         raise ValueError(format_error(games_serializer.errors))
+
     print_status("Saving games")
-    games_serializer.save()
+    try:
+        games_serializer.save()
+    except IntegrityError as err:
+        print_warning(err)
+        del err
 
     if not ps_serializer.is_valid():
         raise ValueError(format_error(ps_serializer.errors))
+
     print_status("Saving scores")
-    ps_serializer.save()
+    try:
+        ps_serializer.save()
+    except IntegrityError as err:
+        print_warning(err)
+        del err
+
 
 
 def list_to_dict(data, mapping):
@@ -116,7 +128,11 @@ def create_player_score_dict(data, game_id):
 
 
 def print_status(string):
-    stdout.write(f"\u001b[33;1m{string}\u001b[0m\n")
+    stdout.write(f"\u001b[32;1m{string}\u001b[0m\n")
+
+
+def print_warning(warning):
+    stdout.write(f"\u001b[33mWARNING:\u001b[0m\n{warning}")
 
 
 def print_error(err):
@@ -124,4 +140,5 @@ def print_error(err):
 
 
 def format_error(err, colour_code="48;5;168m"):
+    """Primarily used in print_error but also for raising errors."""
     return f"\u001b[{colour_code}{err}\u001b[0m\n"
