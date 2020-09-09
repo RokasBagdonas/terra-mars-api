@@ -1,9 +1,14 @@
 import pytest
 from pytest_factoryboy import register
 
-from .factories import (GameDictFactory, GameFactory, PlayerDictFactory,
-                       PlayerFactory, PlayerScoreDictFactory,
-                       PlayerScoreFactory)
+from .factories import (
+    GameDictFactory,
+    GameFactory,
+    PlayerDictFactory,
+    PlayerFactory,
+    PlayerScoreDictFactory,
+    PlayerScoreFactory,
+)
 
 register(PlayerFactory)
 register(GameFactory)

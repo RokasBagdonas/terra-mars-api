@@ -8,8 +8,6 @@ from mars_api.data_import.data_importer import (
     create_game_dict,
     create_player_score_dict,
     list_to_dict,
-    save_games,
-    save_player_scores,
 )
 from mars_api.models import Game, PlayerScore
 
@@ -69,26 +67,47 @@ def test_create_player_score(player_score_dict_factory, game_dict_factory):
     ps_dict = player_score_dict_factory()
     ps_dict["player"]["nickname"] = "Greta"
     ps_dict["corporation"] = "Ecoline"
-    data = ["98", "2019-03-16", "Elysium", "1", "0", "11", "3", "Greta", "Ecoline", "0", "42", "5", "2", "12", "17", "0", "9", "0", "10", "97"]
+    data = [
+        "98",
+        "2019-03-16",
+        "Elysium",
+        "1",
+        "0",
+        "11",
+        "3",
+        "Greta",
+        "Ecoline",
+        "0",
+        "42",
+        "5",
+        "2",
+        "12",
+        "17",
+        "0",
+        "9",
+        "0",
+        "10",
+        "97",
+    ]
 
     ps = create_player_score_dict(data, game_dict["id"])
     assert ps["player"]["nickname"] == ps_dict["player"]["nickname"]
     assert ps["corporation"] == ps_dict["corporation"]
 
 
-@pytest.mark.django_db()
-def test_save_games(game_dict_factory):
-    games = game_dict_factory.create_batch(3)
-    save_games(games)
-    assert Game.objects.all().count() == 3
+# @pytest.mark.django_db()
+# def test_save_games(game_dict_factory):
+# games = game_dict_factory.create_batch(3)
+# save_games(games)
+# assert Game.objects.all().count() == 3
 
 
-@pytest.mark.django_db()
-def test_save_player_scores(game_factory, player_score_dict_factory):
-    player_scores = player_score_dict_factory.create_batch(2)
-    games = game_factory.create_batch(2)
-    player_scores[0]["game"] = games[0].id
-    player_scores[1]["game"] = games[1].id
-    save_player_scores(player_scores)
+# @pytest.mark.django_db()
+# def test_save_player_scores(game_factory, player_score_dict_factory):
+# player_scores = player_score_dict_factory.create_batch(2)
+# games = game_factory.create_batch(2)
+# player_scores[0]["game"] = games[0].id
+# player_scores[1]["game"] = games[1].id
+# save_player_scores(player_scores)
 
-    assert PlayerScore.objects.all().count() == 2
+# assert PlayerScore.objects.all().count() == 2

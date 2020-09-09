@@ -103,7 +103,6 @@ class PlayerScore(models.Model):
             ),
             models.UniqueConstraint(
                 fields=["corporation", "game"],
-                condition=Q()
                 name="only_unique_corporations_per_game"
             ),
             models.CheckConstraint(
