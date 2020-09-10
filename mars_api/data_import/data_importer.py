@@ -4,8 +4,7 @@ from sys import stdout
 from dateutil import parser
 from django.db.utils import IntegrityError
 
-from mars_api.serializers import (GameSerializerForImportedData,
-                                  PlayerScoreSerializer)
+from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
 
 FIELD_REMAPPING = {
     "game": {"map": "Default"},
@@ -64,6 +63,7 @@ def import_data(csv_file_path):
 
     print_status(f"Number of games: {len(games)}; player scores: {len(player_scores)}")
     save_data(games, player_scores)
+    stdout.write(format_message("Import Completed ✅", "\u001b[32;1m"))
 
 
 def save_data(games_dict, player_scores_dict):
@@ -72,7 +72,7 @@ def save_data(games_dict, player_scores_dict):
     print_status("Validating the data")
 
     if not games_serializer.is_valid():
-        raise ValueError(format_error(games_serializer.errors))
+        raise ValueError(format_message(games_serializer.errors))
 
     print_status("Saving games")
     try:
@@ -82,7 +82,7 @@ def save_data(games_dict, player_scores_dict):
         del err
 
     if not ps_serializer.is_valid():
-        raise ValueError(format_error(ps_serializer.errors))
+        raise ValueError(format_message(ps_serializer.errors))
 
     print_status("Saving scores")
     try:
@@ -128,7 +128,7 @@ def create_player_score_dict(data, game_id):
 
 
 def print_status(string):
-    stdout.write(f"\u001b[32;1m{string}\u001b[0m\n")
+    stdout.write(f"\u001b[32m{string}\u001b[0m\n")
 
 
 def print_warning(warning):
@@ -136,9 +136,8 @@ def print_warning(warning):
 
 
 def print_error(err):
-    stdout.write(format_error(err, colour_code="30;1m"))
+    stdout.write(format_message(err, colour_code="30;1m"))
 
 
-def format_error(err, colour_code="48;5;168m"):
-    """Primarily used in print_error but also for raising errors."""
+def format_message(err, colour_code="48;5;168m"):
     return f"\u001b[{colour_code}{err}\u001b[0m\n"
