@@ -2,6 +2,8 @@
 # code coverage report static files
 cov/
 
+mars/staticfiles/
+
 .vim/
 
 # Byte-compiled / optimized / DLL files
