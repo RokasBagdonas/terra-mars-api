@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "terra-mars-api"
-version = "0.2.0"
+version = "0.3.0"
 description = "A Web API for retrieving players' data about their games."
 license = "MIT"
 authors = ["Rokas Bagdonas <rokius.bagdonas@gmail.com>"]
@@ -17,6 +17,7 @@ daphne = "^2.5.0"
 whitenoise = "^5.1.0"
 ipython = "^7.16.1"
 django-extensions = "^3.0.3"
+django-model-utils = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.4.3"
@@ -28,6 +29,11 @@ pylint = "^2.5.3"
 flake8-comprehensions = "^3.2.3"
 pytest-randomly = "^3.4.1"
 pytest-cov = "^2.10.0"
+pytest-factoryboy = "^2.0.3"
+black = "^19.10b0"
+
+[tool.black]
+line-length=90
 
 [tool.coverage.run]
 branch = true

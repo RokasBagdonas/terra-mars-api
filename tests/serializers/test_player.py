@@ -1,6 +1,4 @@
-"""A module for testing the player serializer."""
 import pytest
-from django.contrib.auth.models import User
 
 from mars_api.models import Player
 from mars_api.serializers import PlayerSerializer
