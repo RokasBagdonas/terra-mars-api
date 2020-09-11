@@ -1,6 +1,8 @@
 # custom
-# code coverage report static files 
+# code coverage report static files
 cov/
+
+.vim/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

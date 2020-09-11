@@ -12,21 +12,21 @@ def get_url_with_id(id):
     return PLAYER_PATH + str(id) + "/"
 
 
-def test_can_get_player_data(api_client, saved_player):
+def test_can_get_player_data(api_client, player):
     """Tests if client can receive player JSON data."""
-    id = saved_player.id
+    id = player.id
 
     response = api_client.get(get_url_with_id(id))
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data
-    assert response.data["nickname"] == saved_player.nickname
-    assert response.data["motto"] == saved_player.motto
+    assert response.data["nickname"] == player.nickname
+    assert response.data["motto"] == player.motto
 
 
-def test_create_player_without_user(api_client):
+def test_create_player_without_user(api_client, player_dict_factory):
     """Tests if it's possible to create a player without user."""
-    data = {"nickname": "nicky nick"}
+    data = player_dict_factory()
 
     response = api_client.post(PLAYER_PATH, data)
     assert response.status_code == status.HTTP_201_CREATED
@@ -37,36 +37,35 @@ def test_create_player_without_user(api_client):
     assert response_data["nickname"] == data["nickname"]
 
 
-def test_delete_player(api_client, saved_player):
+def test_delete_player(api_client, player):
     """Tests if a player can be deleted provided their nickname."""
-    response = api_client.delete(get_url_with_id(saved_player.id))
+    response = api_client.delete(get_url_with_id(player.id))
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
     with pytest.raises(Player.DoesNotExist):
-        Player.objects.get(nickname=saved_player.nickname)
+        Player.objects.get(nickname=player.nickname)
 
 
-def test_fail_change_to_duplicate_nickname(api_client, unsaved_player):
+def test_fail_change_to_duplicate_nickname(api_client, player_factory):
     """Tests if only unique player nicknames are allowed."""
-    unsaved_player.nickname = "nickname1"
-    unsaved_player.save()
-    player2 = Player.objects.create(nickname="nick2", motto="")
-    data = {"nickname": unsaved_player.nickname}
+    p1 = player_factory()
+    p2 = player_factory()
+    data = {"nickname": p1.nickname}
 
-    endpoint = get_url_with_id(player2.id)
+    endpoint = get_url_with_id(p2.id)
     response = api_client.patch(endpoint, data)
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert isinstance(Player.objects.get(nickname=player2.nickname), Player)
+    assert isinstance(Player.objects.get(nickname=p2.nickname), Player)
 
 
-def test_change_player_nickname(api_client, saved_player):
+def test_change_player_nickname(api_client, player):
     """Tests if player nickname can be changed."""
     data = {"nickname": "new nickname"}
 
-    endpoint = get_url_with_id(saved_player.id)
+    endpoint = get_url_with_id(player.id)
     response = api_client.patch(endpoint, data)
     assert response.status_code == status.HTTP_200_OK
 
-    db_player = Player.objects.get(nickname="new nickname")
-    assert saved_player.id == db_player.id
+    db_player = Player.objects.get(nickname=data["nickname"])
+    assert player.id == db_player.id
