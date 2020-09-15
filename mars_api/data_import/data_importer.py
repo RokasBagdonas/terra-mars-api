@@ -4,7 +4,8 @@ from sys import stdout
 from dateutil import parser
 from django.db.utils import IntegrityError
 
-from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
+from mars_api.serializers import (GameSerializerForImportedData,
+                                  PlayerScoreSerializer)
 
 FIELD_REMAPPING = {
     "game": {"map": "Default"},
@@ -43,6 +44,22 @@ PLAYER_SCORE_FIELD_MAPPING = {
     17: {"active_cards": int},
     18: {"resources": int},
 }
+
+
+def print_status(string):
+    stdout.write(f"\u001b[32m{string}\u001b[0m\n")
+
+
+def print_warning(warning):
+    stdout.write(f"\u001b[33mWARNING:\u001b[0m\n{warning}")
+
+
+def print_error(err):
+    stdout.write(format_message(err, colour_code="30;1m"))
+
+
+def format_message(err, colour_code="48;5;168m"):
+    return f"\u001b[{colour_code}{err}\u001b[0m\n"
 
 
 def import_data(csv_file_path):
@@ -126,18 +143,3 @@ def create_player_score_dict(data, game_id):
 
     return ps_dict
 
-
-def print_status(string):
-    stdout.write(f"\u001b[32m{string}\u001b[0m\n")
-
-
-def print_warning(warning):
-    stdout.write(f"\u001b[33mWARNING:\u001b[0m\n{warning}")
-
-
-def print_error(err):
-    stdout.write(format_message(err, colour_code="30;1m"))
-
-
-def format_message(err, colour_code="48;5;168m"):
-    return f"\u001b[{colour_code}{err}\u001b[0m\n"
