@@ -1,11 +1,8 @@
-"""Like Transporter but without Jason Statham."""
-from sys import stdout
-
+import colorlog
 from dateutil import parser
 from django.db.utils import IntegrityError
 
-from mars_api.serializers import (GameSerializerForImportedData,
-                                  PlayerScoreSerializer)
+from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
 
 FIELD_REMAPPING = {
     "game": {"map": "Default"},
@@ -45,21 +42,13 @@ PLAYER_SCORE_FIELD_MAPPING = {
     18: {"resources": int},
 }
 
+# setup the logger
+handler = colorlog.StreamHandler()
+handler.setFormatter(colorlog.ColoredFormatter("%(log_color)s%(levelname)s: %(message)s"))
 
-def print_status(string):
-    stdout.write(f"\u001b[32m{string}\u001b[0m\n")
-
-
-def print_warning(warning):
-    stdout.write(f"\u001b[33mWARNING:\u001b[0m\n{warning}")
-
-
-def print_error(err):
-    stdout.write(format_message(err, colour_code="30;1m"))
-
-
-def format_message(err, colour_code="48;5;168m"):
-    return f"\u001b[{colour_code}{err}\u001b[0m\n"
+logger = colorlog.getLogger(__name__)
+logger.addHandler(handler)
+logger.setLevel("INFO")
 
 
 def import_data(csv_file_path):
@@ -70,7 +59,7 @@ def import_data(csv_file_path):
     current_game_id = None
     with open(csv_file_path, newline="") as csvfile:
         row_reader = csv.reader(csvfile, delimiter=",")
-        print_status("Parsing the csv file")
+        logger.info("Parsing csv file: '%s'" % csvfile.name)
 
         for row in row_reader:
             if current_game_id != row[0]:
@@ -78,34 +67,36 @@ def import_data(csv_file_path):
                 games.append(create_game_dict(row))
             player_scores.append(create_player_score_dict(row, current_game_id))
 
-    print_status(f"Number of games: {len(games)}; player scores: {len(player_scores)}")
+    logger.info(f"Number of games: {len(games)}; player scores: {len(player_scores)}")
     save_data(games, player_scores)
-    stdout.write(format_message("Import Completed ✅", "\u001b[32;1m"))
+    logger.info("Import Completed ✅")
 
 
 def save_data(games_dict, player_scores_dict):
     games_serializer = GameSerializerForImportedData(data=games_dict, many=True)
     ps_serializer = PlayerScoreSerializer(data=player_scores_dict, many=True)
-    print_status("Validating the data")
+    logger.info("Validating the data")
 
     if not games_serializer.is_valid():
-        raise ValueError(format_message(games_serializer.errors))
+        logger.error(games_serializer.errors)
+        raise ValueError
 
-    print_status("Saving games")
+    logger.info("Saving games")
     try:
         games_serializer.save()
     except IntegrityError as err:
-        print_warning(err)
+        logger.warning(err)
         del err
 
     if not ps_serializer.is_valid():
-        raise ValueError(format_message(ps_serializer.errors))
+        logger.error(ps_serializer.errors)
+        raise ValueError
 
-    print_status("Saving scores")
+    logger.info("Saving scores..")
     try:
         ps_serializer.save()
     except IntegrityError as err:
-        print_warning(err)
+        logger.warning(err)
         del err
 
 
@@ -142,4 +133,3 @@ def create_player_score_dict(data, game_id):
         ]
 
     return ps_dict
-
