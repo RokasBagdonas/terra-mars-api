@@ -1,6 +1,6 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Planet Mars image" src="./assets/mars-144-247374.png">
+  <HelloWorld msg="Terraforming Mars game statistics"/>
 </template>
 
 <script>
