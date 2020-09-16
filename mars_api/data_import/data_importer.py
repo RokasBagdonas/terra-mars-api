@@ -20,27 +20,28 @@ def str_to_bool(arg):
 
 
 GAME_FIELD_MAPPING = {
-    0: {"id": int},
-    1: {"date": parser.parse},  # datetime
-    2: {"game_map": str},
-    3: {"prelude": str_to_bool},
-    4: {"colonies": str_to_bool},
-    5: {"number_of_generations": int},
+    (0, "id", int),
+    (1, "date", parser.parse),  # datetime
+    (2, "game_map", str),
+    (3, "prelude", str_to_bool),
+    (4, "colonies", str_to_bool),
+    (5, "number_of_generations", int),
 }
 
 PLAYER_SCORE_FIELD_MAPPING = {
-    7: {"player_nickname": str},
-    8: {"corporation": str},
-    10: {"terraform_rating": int},
-    11: {"milestones": int},
-    12: {"awards": int},
-    13: {"greeneries": int},
-    14: {"cities": int},
-    15: {"event_cards": int},
-    16: {"automated_cards": int},
-    17: {"active_cards": int},
-    18: {"resources": int},
+    (7, "player_nickname", str),
+    (8, "corporation", str),
+    (10, "terraform_rating", int),
+    (11, "milestones", int),
+    (12, "awards", int),
+    (13, "greeneries", int),
+    (14, "cities", int),
+    (15, "event_cards", int),
+    (16, "automated_cards", int),
+    (17, "active_cards", int),
+    (18, "resources", int),
 }
+
 
 # setup the logger
 handler = colorlog.StreamHandler()
@@ -92,7 +93,7 @@ def save_data(games_dict, player_scores_dict):
         logger.error(ps_serializer.errors)
         raise ValueError
 
-    logger.info("Saving scores..")
+    logger.info("Saving scores")
     try:
         ps_serializer.save()
     except IntegrityError as err:
@@ -101,16 +102,7 @@ def save_data(games_dict, player_scores_dict):
 
 
 def list_to_dict(data, mapping):
-    """Map a list to a dictionary provided the mapping."""
-    dict_ = {}
-    for index, prop_type_map in mapping.items():
-        name_type = list(prop_type_map.items())
-        name = name_type[0][0]
-        type_ = name_type[0][1]
-        # assign the name to the cast data item
-        dict_[name] = type_(data[index])
-
-    return dict_
+    return {field: cast_func(data[idx]) for idx, field, cast_func in mapping}
 
 
 def create_game_dict(data):

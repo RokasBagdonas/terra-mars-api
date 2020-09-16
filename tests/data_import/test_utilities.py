@@ -15,7 +15,7 @@ from mars_api.models import Game, PlayerScore
 def test_list_to_dict():
     time = datetime.now()
     list_ = ["one", "2", str(time)]
-    mapping = {0: {"field1": str}, 1: {"field2": int}, 2: {"field3": parser.parse}}
+    mapping = {(0, "field1", str), (1, "field2", int), (2, "field3", parser.parse)}
 
     assert list_to_dict(list_, mapping) == {
         "field1": "one",
@@ -93,21 +93,3 @@ def test_create_player_score(player_score_dict_factory, game_dict_factory):
     ps = create_player_score_dict(data, game_dict["id"])
     assert ps["player"]["nickname"] == ps_dict["player"]["nickname"]
     assert ps["corporation"] == ps_dict["corporation"]
-
-
-# @pytest.mark.django_db()
-# def test_save_games(game_dict_factory):
-# games = game_dict_factory.create_batch(3)
-# save_games(games)
-# assert Game.objects.all().count() == 3
-
-
-# @pytest.mark.django_db()
-# def test_save_player_scores(game_factory, player_score_dict_factory):
-# player_scores = player_score_dict_factory.create_batch(2)
-# games = game_factory.create_batch(2)
-# player_scores[0]["game"] = games[0].id
-# player_scores[1]["game"] = games[1].id
-# save_player_scores(player_scores)
-
-# assert PlayerScore.objects.all().count() == 2

@@ -1,5 +1,5 @@
 # General =====================================================================
-install: build migrate
+install: build migrate import_initial_data
 
 build:
 	docker-compose build
@@ -36,8 +36,11 @@ psql:
 # Testing =====================================================================
 dtest = docker-compose -f docker-compose.test.yml
 
+test-build:
+	$(dtest) build
+
 test:
-	$(dtest) build && $(dtest) run --rm test-web pytest $(path)
+	 $(dtest) run --rm test-web pytest $(path)
 
 test-player:
 	$(dtest) build && $(dtest) run --rm test-web pytest tests/*/test_player.py

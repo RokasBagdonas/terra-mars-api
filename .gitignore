@@ -3,6 +3,7 @@
 cov/
 
 mars/staticfiles/
+staticfiles/
 
 .vim/
 
