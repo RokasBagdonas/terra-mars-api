@@ -1,18 +1,10 @@
+from typing import Dict
+
 import colorlog
 from dateutil import parser
 from django.db.utils import IntegrityError
 
 from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
-
-FIELD_REMAPPING = {
-    "game": {"map": "Default"},
-    "player_score": {
-        "corporation": {
-            "Interpl. Cinematics": "Interplanetary Cinematics",
-            "UNMI": "United Nations Mars Initiative",
-        }
-    },
-}
 
 
 def str_to_bool(arg):
@@ -28,6 +20,8 @@ GAME_FIELD_MAPPING = {
     (5, "number_of_generations", int),
 }
 
+GAME_VALUE_REMAPPING = {"Default": "Tharsis"}
+
 PLAYER_SCORE_FIELD_MAPPING = {
     (7, "player_nickname", str),
     (8, "corporation", str),
@@ -41,6 +35,24 @@ PLAYER_SCORE_FIELD_MAPPING = {
     (17, "active_cards", int),
     (18, "resources", int),
 }
+
+PLAYER_SCORE_VALUE_REMAPPING = {
+    "UNMI": "United Nations Mars Initiative",
+    "Interpl. Cinematics": "Interplanetary Cinematics",
+}
+
+
+def remap_values(data: Dict[str, any], remapping: Dict[any, any]):
+    return {
+        key: (
+            remapping[value]
+            if not isinstance(value, list)
+            and not isinstance(value, dict)
+            and value in remapping
+            else value
+        )
+        for key, value in data.items()
+    }
 
 
 # setup the logger
@@ -107,9 +119,7 @@ def list_to_dict(data, mapping):
 
 def create_game_dict(data):
     game_dict = list_to_dict(data, GAME_FIELD_MAPPING)
-
-    if game_dict["game_map"] == FIELD_REMAPPING["game"]["map"]:
-        game_dict["game_map"] = "Tharsis"
+    game_dict = remap_values(game_dict, GAME_VALUE_REMAPPING)
 
     return game_dict
 
@@ -119,9 +129,6 @@ def create_player_score_dict(data, game_id):
     ps_dict["game"] = game_id
     ps_dict["player"] = {"nickname": ps_dict["player_nickname"]}
 
-    if ps_dict["corporation"] in FIELD_REMAPPING["player_score"]["corporation"]:
-        ps_dict["corporation"] = FIELD_REMAPPING["player_score"]["corporation"][
-            ps_dict["corporation"]
-        ]
+    ps_dict = remap_values(ps_dict, PLAYER_SCORE_VALUE_REMAPPING)
 
     return ps_dict

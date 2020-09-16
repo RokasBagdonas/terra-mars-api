@@ -1,15 +1,16 @@
 """Tests for data_importer.py file."""
 from datetime import datetime
 
-import pytest
 from dateutil import parser
 
 from mars_api.data_import.data_importer import (
+    GAME_VALUE_REMAPPING,
+    PLAYER_SCORE_VALUE_REMAPPING,
     create_game_dict,
     create_player_score_dict,
     list_to_dict,
+    remap_values,
 )
-from mars_api.models import Game, PlayerScore
 
 
 def test_list_to_dict():
@@ -22,6 +23,20 @@ def test_list_to_dict():
         "field2": 2,
         "field3": time,
     }
+
+
+def test_game_value_remapping_remaps_default_to_tharsis(game_dict_factory):
+    game_dict = game_dict_factory()
+    game_dict["corporation"] = "Default"
+    game_dict = remap_values(game_dict, GAME_VALUE_REMAPPING)
+    assert game_dict["corporation"] == "Tharsis"
+
+
+def test_player_score_unmi_remapped_to_full_name(player_score_dict_factory):
+    ps_dict = player_score_dict_factory()
+    ps_dict["corporation"] = "UNMI"
+    ps_dict = remap_values(ps_dict, PLAYER_SCORE_VALUE_REMAPPING)
+    assert ps_dict["corporation"] == "United Nations Mars Initiative"
 
 
 def test_create_game(game_dict_factory):
