@@ -25,7 +25,7 @@ migrate:
 	$(ddown)
 
 migzero:
-	$(manage) migrate mars_api zero;
+	$(dmanage) migrate mars_api zero;
 	$(ddown)
 
 makemigrations:
