@@ -56,8 +56,11 @@ shell-test:
 	$(dtest) run --rm web python manage.py shell_plus --ipython
 
 # Utility =======================================================================
+web-shell:
+	docker run -it $(container_name) /bin/bash
+
 clear:
-	docker system prune --all --volumes
+	docker system prune
 
 collectstatic:
 	$(dmanage) collectstatic;
