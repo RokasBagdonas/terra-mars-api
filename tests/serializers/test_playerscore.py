@@ -1,9 +1,9 @@
 from contextlib import ExitStack as does_not_raise
 
 import pytest
+
 from mars_api.models import PlayerScore
-from mars_api.serializers import (PlayerScoreForGameSerializer,
-                                  PlayerScoreSerializer)
+from mars_api.serializers import PlayerScoreForGameSerializer, PlayerScoreSerializer
 
 pytestmark = pytest.mark.django_db
 
@@ -43,6 +43,5 @@ def test_same_player_multiple_scores(player, game_factory):
 
     assert ps_serializer.is_valid()
     ps_serializer.save()
-    with does_not_raise():
-        PlayerScore.objects.get(game=g.id)
+    assert PlayerScore.objects.get(game=g.id) is not None
     assert PlayerScore.objects.filter(player=player).count() == 2

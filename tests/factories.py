@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import factory
 
 faker = factory.Faker
@@ -25,9 +27,12 @@ class GameFactory(factory.django.DjangoModelFactory):
 
 class GameDictFactory(factory.DictFactory):
     player_scores = []  # to be added
+    number_of_generations = 10
+    date = datetime.now()
     game_map = "Tharsis"
     draft_variant = False
     prelude = False
+    colonies = False
     venus_next = False
 
 

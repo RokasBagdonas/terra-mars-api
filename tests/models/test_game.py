@@ -19,7 +19,7 @@ def test_game_returns_related_players_scores(game, player_score_factory):
     """When PlayerScores exist, check that corresponding Player nicknames are returned."""
 
     player_score_factory(game=game)
-    player_score_factory(game=game, corporation="Terractor")
+    player_score_factory(game=game, corporation="Teractor")
 
     assert game.scores.count() == 2
 

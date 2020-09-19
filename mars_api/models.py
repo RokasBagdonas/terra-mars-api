@@ -14,6 +14,7 @@ CORPORATIONS = Choices(
     "Helion",
     "Interplanetary Cinematics",
     "Inventrix",
+    "N/A",
     "Manutech",
     "Mining Guild",
     "Morning Star Inc.",
@@ -24,7 +25,7 @@ CORPORATIONS = Choices(
     "Robinson Industries",
     "Saturn Systems",
     "Storm Craft Incorporated",
-    "Terractor",
+    "Teractor",
     "Tharsis Republic",
     "Thorgate",
     "United Nations Mars Initiative",
@@ -49,6 +50,7 @@ class Player(models.Model):
 class Game(models.Model):
     date = models.DateTimeField(default=timezone.now)
     game_map = models.CharField(choices=MAPS, default=MAPS.Tharsis, max_length=16)
+    number_of_generations = models.PositiveSmallIntegerField(default=10)
 
     draft_variant = models.BooleanField(default=True)
     prelude = models.BooleanField(default=False)
@@ -100,7 +102,9 @@ class PlayerScore(models.Model):
                 fields=["player", "game"], name="one_score_per_player_per_game"
             ),
             models.UniqueConstraint(
-                fields=["corporation", "game"], name="only_unique_corporations_per_game"
+                fields=["corporation", "game"],
+                condition=~models.Q(corporation__startswith="N/A"),
+                name="only_unique_corporations_per_game"
             ),
             models.CheckConstraint(
                 check=models.Q(corporation__in=set(dict(CORPORATIONS))),
