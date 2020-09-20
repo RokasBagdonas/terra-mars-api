@@ -1,6 +1,7 @@
-const path = require('path')
-const { VueLoaderPlugin } = require('vue-loader')
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 const BundleTracker = require('webpack-bundle-tracker');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env = {}) => {
   return {
@@ -28,12 +29,21 @@ module.exports = (env = {}) => {
           }
         },
         {
-         test: /\.css$/,
-         use: [
-           'style-loader',
-           'css-loader',
-         ],
-       },
+            test: /\.scss$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                {
+                    loader: 'css-loader',
+                },
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: true,
+                    }
+                }
+            ]
+
+        },
        {
          test: /\.(png|svg|jpg|gif)$/,
          use: 'file-loader'
@@ -51,7 +61,10 @@ module.exports = (env = {}) => {
       new BundleTracker({
         filename: './webpack-stats.json',
         publicPath: 'http://0.0.0.0:8080/'
-      })
+      }),
+        new MiniCssExtractPlugin({
+            filename: "/css/main.css"
+        }),
     ],
     devServer: {
       headers: {
