@@ -3,8 +3,6 @@
 cov/
 
 staticfiles/
-#!/frontend/static/css/main.css
-#!/frontend/static/webpack-bundle.js
 
 .vim/
 
