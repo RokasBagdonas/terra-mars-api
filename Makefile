@@ -13,6 +13,10 @@ build:
 up:
 	docker-compose up
 
+dup:
+	docker-compose up & \
+	yarn --cwd "$(shell git rev-parse --show-toplevel)/frontend/games/package.json" serve
+
 down:
 	$(ddown)
 
