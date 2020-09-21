@@ -2,8 +2,9 @@
 # code coverage report static files
 cov/
 
-mars/staticfiles/
 staticfiles/
+#!/frontend/static/css/main.css
+#!/frontend/static/webpack-bundle.js
 
 .vim/
 

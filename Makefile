@@ -5,7 +5,7 @@ dmanage = docker-compose run --rm web python manage.py
 initial_data_path = ./mars_api/data_import/terra-mars-initial-data.csv
 
 # General =====================================================================
-install: build migrate import_initial_data
+install: build migrate import_initial_data collectstatic
 
 build:
 	docker-compose build
