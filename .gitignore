@@ -3,6 +3,7 @@
 cov/
 
 staticfiles/
+/frontend/static/dist/hot-update/
 
 .vim/
 
@@ -18,7 +19,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+#dist/
 downloads/
 eggs/
 .eggs/

@@ -13,7 +13,9 @@ module.exports = (env = {}) => {
       path: path.resolve(__dirname, '../static/dist'),
       publicPath: "/static/",
       filename: "webpack-bundle.js",
-      chunkFilename: "[id]-[chunkhash].js"
+      chunkFilename: "[id]-[chunkhash].js",
+      hotUpdateChunkFilename: "hot-update/hot-update.js",
+      hotUpdateMainFilename: "hot-update/hot-update.json"
     },
     module: {
       rules: [
