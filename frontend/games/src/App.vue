@@ -1,37 +1,21 @@
 <template>
 <div class="tile is-ancestor">
-  <div class="tile is-4 is-vertical is-parent">
-    <div class="tile is-child box">
-      <p class="title">One</p>
+  <div class="tile is-6 is-vertical is-parent">
+    <div class="tile is-child box has-text-centered">
+      <button class="button is-primary">Add Game</button>
     </div>
     <div class="tile is-child box">
-      <p class="title">Two</p>
+      <h3 class="title">Player stats</h3>
     </div>
   </div>
   <div class="tile is-parent">
     <div class="tile is-child box">
-      <p class="title">Three</p>
+      <h3 class="title">Recent games</h3>
     </div>
   </div>
 </div>
-<!--
-    </div>
-  <div class="container">
-    <img src="./assets/mars-144.png" />
-    <HelloWorld msg="Terraforming Mars game statistics" />
-  </div>
-  -->
-
 </template>
 
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
 </script>

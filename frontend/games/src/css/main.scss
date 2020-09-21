@@ -7,13 +7,24 @@ $pink: #FA8C91;
 $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
+//$grey-dark: $brown;
+//$grey-light: $beige-light;
+//$primary: $purple;
+//$link: $pink;
+
+//orange teal https://colorpalettes.net/color-palette-4228/
+$orange: #cb7f07;
+$yellow: #fdd03b;
+$teal: #4a9396;
+$dark-teal: #00202e;
+$black: #291907;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
-$grey-dark: $brown;
-$grey-light: $beige-light;
-$primary: $purple;
-$link: $pink;
+$grey-dark: $black;
+$grey-light: $teal;
+$primary: $orange;
+$link: $yellow;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
