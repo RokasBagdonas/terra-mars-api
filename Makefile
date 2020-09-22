@@ -5,13 +5,17 @@ dmanage = docker-compose run --rm web python manage.py
 initial_data_path = ./mars_api/data_import/terra-mars-initial-data.csv
 
 # General =====================================================================
-install: build migrate import_initial_data
+install: build migrate import_initial_data collectstatic
 
 build:
 	docker-compose build
 
 up:
 	docker-compose up
+
+dup:
+	docker-compose up & \
+	yarn --cwd "$(shell git rev-parse --show-toplevel)/frontend/games/package.json" serve
 
 down:
 	$(ddown)
@@ -56,8 +60,11 @@ shell-test:
 	$(dtest) run --rm web python manage.py shell_plus --ipython
 
 # Utility =======================================================================
+web-shell:
+	docker run -it $(container_name) /bin/bash
+
 clear:
-	docker system prune --all --volumes
+	docker system prune
 
 collectstatic:
 	$(dmanage) collectstatic;
