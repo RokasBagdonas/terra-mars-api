@@ -11,8 +11,8 @@ from psycopg2 import OperationalError
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mars.settings.development")
 
-    if not "--help" in sys.argv:
-        ensure_db_connection()
+    # if not "--help" in sys.argv:
+        # ensure_db_connection()
 
     try:
         from django.core.management import execute_from_command_line

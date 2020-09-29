@@ -1,0 +1,4916 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "paths": {
+    "/mars_api/players/": {
+      "get": {
+        "operationId": "listPlayers",
+        "description": "",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "nickname": {
+                            "type": "string",
+                            "maxLength": 32
+                          },
+                          "motto": {
+                            "type": "string",
+                            "nullable": true,
+                            "maxLength": 128
+                          },
+                          "user": {
+                            "type": "integer",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "nickname"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPlayer",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "nickname"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "nickname"
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "nickname"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "maxLength": 32
+                    },
+                    "motto": {
+                      "type": "string",
+                      "nullable": true,
+                      "maxLength": 128
+                    },
+                    "user": {
+                      "type": "integer",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "nickname"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/players/{id}/": {
+      "get": {
+        "operationId": "retrievePlayer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "maxLength": 32
+                    },
+                    "motto": {
+                      "type": "string",
+                      "nullable": true,
+                      "maxLength": 128
+                    },
+                    "user": {
+                      "type": "integer",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "nickname"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "operationId": "updatePlayer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "nickname"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "nickname"
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "nickname"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "maxLength": 32
+                    },
+                    "motto": {
+                      "type": "string",
+                      "nullable": true,
+                      "maxLength": 128
+                    },
+                    "user": {
+                      "type": "integer",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "nickname"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "partial_updatePlayer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "nickname": {
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "motto": {
+                    "type": "string",
+                    "nullable": true,
+                    "maxLength": 128
+                  },
+                  "user": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "maxLength": 32
+                    },
+                    "motto": {
+                      "type": "string",
+                      "nullable": true,
+                      "maxLength": 128
+                    },
+                    "user": {
+                      "type": "integer",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "nickname"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "destroyPlayer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/games/": {
+      "get": {
+        "operationId": "listGames",
+        "description": "",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "game_map": {
+                            "enum": [
+                              "Tharsis",
+                              "Elysium",
+                              "Hellas"
+                            ]
+                          },
+                          "number_of_generations": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "draft_variant": {
+                            "type": "boolean"
+                          },
+                          "prelude": {
+                            "type": "boolean"
+                          },
+                          "venus_next": {
+                            "type": "boolean"
+                          },
+                          "colonies": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "createGame",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/games/{id}/": {
+      "get": {
+        "operationId": "retrieveGame",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateGame",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "partial_updateGame",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "destroyGame",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/player_scores/": {
+      "get": {
+        "operationId": "listPlayerScores",
+        "description": "",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "player": {
+                            "properties": {
+                              "nickname": {
+                                "type": "string",
+                                "maxLength": 32
+                              }
+                            },
+                            "required": [
+                              "nickname"
+                            ],
+                            "type": "object"
+                          },
+                          "corporation": {
+                            "enum": [
+                              "Aphrodite",
+                              "Aridor",
+                              "Arklight",
+                              "Celestic",
+                              "Cheung Shing Mars",
+                              "Credicor",
+                              "Ecoline",
+                              "Helion",
+                              "Interplanetary Cinematics",
+                              "Inventrix",
+                              "N/A",
+                              "Manutech",
+                              "Mining Guild",
+                              "Morning Star Inc.",
+                              "Phobolog",
+                              "Point Luna",
+                              "Polyphemos",
+                              "Poseidon",
+                              "Robinson Industries",
+                              "Saturn Systems",
+                              "Storm Craft Incorporated",
+                              "Teractor",
+                              "Tharsis Republic",
+                              "Thorgate",
+                              "United Nations Mars Initiative",
+                              "Valley Trust",
+                              "Viron",
+                              "Vitor"
+                            ]
+                          },
+                          "terraform_rating": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "milestones": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "awards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "greeneries": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "cities": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "event_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "automated_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "active_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "resources": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "game": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "player",
+                          "corporation",
+                          "game"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "createPlayerScore",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "player",
+                  "corporation",
+                  "game"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "player",
+                  "corporation",
+                  "game"
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "player",
+                  "corporation",
+                  "game"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "player": {
+                      "properties": {
+                        "nickname": {
+                          "type": "string",
+                          "maxLength": 32
+                        }
+                      },
+                      "required": [
+                        "nickname"
+                      ],
+                      "type": "object"
+                    },
+                    "corporation": {
+                      "enum": [
+                        "Aphrodite",
+                        "Aridor",
+                        "Arklight",
+                        "Celestic",
+                        "Cheung Shing Mars",
+                        "Credicor",
+                        "Ecoline",
+                        "Helion",
+                        "Interplanetary Cinematics",
+                        "Inventrix",
+                        "N/A",
+                        "Manutech",
+                        "Mining Guild",
+                        "Morning Star Inc.",
+                        "Phobolog",
+                        "Point Luna",
+                        "Polyphemos",
+                        "Poseidon",
+                        "Robinson Industries",
+                        "Saturn Systems",
+                        "Storm Craft Incorporated",
+                        "Teractor",
+                        "Tharsis Republic",
+                        "Thorgate",
+                        "United Nations Mars Initiative",
+                        "Valley Trust",
+                        "Viron",
+                        "Vitor"
+                      ]
+                    },
+                    "terraform_rating": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "milestones": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "awards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "greeneries": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "cities": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "event_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "automated_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "active_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "resources": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "game": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "player",
+                    "corporation",
+                    "game"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/player_scores/{id}/": {
+      "get": {
+        "operationId": "retrievePlayerScore",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player score.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "player": {
+                      "properties": {
+                        "nickname": {
+                          "type": "string",
+                          "maxLength": 32
+                        }
+                      },
+                      "required": [
+                        "nickname"
+                      ],
+                      "type": "object"
+                    },
+                    "corporation": {
+                      "enum": [
+                        "Aphrodite",
+                        "Aridor",
+                        "Arklight",
+                        "Celestic",
+                        "Cheung Shing Mars",
+                        "Credicor",
+                        "Ecoline",
+                        "Helion",
+                        "Interplanetary Cinematics",
+                        "Inventrix",
+                        "N/A",
+                        "Manutech",
+                        "Mining Guild",
+                        "Morning Star Inc.",
+                        "Phobolog",
+                        "Point Luna",
+                        "Polyphemos",
+                        "Poseidon",
+                        "Robinson Industries",
+                        "Saturn Systems",
+                        "Storm Craft Incorporated",
+                        "Teractor",
+                        "Tharsis Republic",
+                        "Thorgate",
+                        "United Nations Mars Initiative",
+                        "Valley Trust",
+                        "Viron",
+                        "Vitor"
+                      ]
+                    },
+                    "terraform_rating": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "milestones": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "awards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "greeneries": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "cities": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "event_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "automated_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "active_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "resources": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "game": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "player",
+                    "corporation",
+                    "game"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "operationId": "updatePlayerScore",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player score.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "player",
+                  "corporation",
+                  "game"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "player",
+                  "corporation",
+                  "game"
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "player",
+                  "corporation",
+                  "game"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "player": {
+                      "properties": {
+                        "nickname": {
+                          "type": "string",
+                          "maxLength": 32
+                        }
+                      },
+                      "required": [
+                        "nickname"
+                      ],
+                      "type": "object"
+                    },
+                    "corporation": {
+                      "enum": [
+                        "Aphrodite",
+                        "Aridor",
+                        "Arklight",
+                        "Celestic",
+                        "Cheung Shing Mars",
+                        "Credicor",
+                        "Ecoline",
+                        "Helion",
+                        "Interplanetary Cinematics",
+                        "Inventrix",
+                        "N/A",
+                        "Manutech",
+                        "Mining Guild",
+                        "Morning Star Inc.",
+                        "Phobolog",
+                        "Point Luna",
+                        "Polyphemos",
+                        "Poseidon",
+                        "Robinson Industries",
+                        "Saturn Systems",
+                        "Storm Craft Incorporated",
+                        "Teractor",
+                        "Tharsis Republic",
+                        "Thorgate",
+                        "United Nations Mars Initiative",
+                        "Valley Trust",
+                        "Viron",
+                        "Vitor"
+                      ]
+                    },
+                    "terraform_rating": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "milestones": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "awards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "greeneries": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "cities": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "event_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "automated_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "active_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "resources": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "game": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "player",
+                    "corporation",
+                    "game"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "partial_updatePlayerScore",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player score.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "player": {
+                    "properties": {
+                      "nickname": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "nickname"
+                    ],
+                    "type": "object"
+                  },
+                  "corporation": {
+                    "enum": [
+                      "Aphrodite",
+                      "Aridor",
+                      "Arklight",
+                      "Celestic",
+                      "Cheung Shing Mars",
+                      "Credicor",
+                      "Ecoline",
+                      "Helion",
+                      "Interplanetary Cinematics",
+                      "Inventrix",
+                      "N/A",
+                      "Manutech",
+                      "Mining Guild",
+                      "Morning Star Inc.",
+                      "Phobolog",
+                      "Point Luna",
+                      "Polyphemos",
+                      "Poseidon",
+                      "Robinson Industries",
+                      "Saturn Systems",
+                      "Storm Craft Incorporated",
+                      "Teractor",
+                      "Tharsis Republic",
+                      "Thorgate",
+                      "United Nations Mars Initiative",
+                      "Valley Trust",
+                      "Viron",
+                      "Vitor"
+                    ]
+                  },
+                  "terraform_rating": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "milestones": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "awards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "greeneries": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "cities": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "event_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "automated_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "active_cards": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "resources": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": -32768
+                  },
+                  "game": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "player": {
+                      "properties": {
+                        "nickname": {
+                          "type": "string",
+                          "maxLength": 32
+                        }
+                      },
+                      "required": [
+                        "nickname"
+                      ],
+                      "type": "object"
+                    },
+                    "corporation": {
+                      "enum": [
+                        "Aphrodite",
+                        "Aridor",
+                        "Arklight",
+                        "Celestic",
+                        "Cheung Shing Mars",
+                        "Credicor",
+                        "Ecoline",
+                        "Helion",
+                        "Interplanetary Cinematics",
+                        "Inventrix",
+                        "N/A",
+                        "Manutech",
+                        "Mining Guild",
+                        "Morning Star Inc.",
+                        "Phobolog",
+                        "Point Luna",
+                        "Polyphemos",
+                        "Poseidon",
+                        "Robinson Industries",
+                        "Saturn Systems",
+                        "Storm Craft Incorporated",
+                        "Teractor",
+                        "Tharsis Republic",
+                        "Thorgate",
+                        "United Nations Mars Initiative",
+                        "Valley Trust",
+                        "Viron",
+                        "Vitor"
+                      ]
+                    },
+                    "terraform_rating": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "milestones": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "awards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "greeneries": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "cities": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "event_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "automated_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "active_cards": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "resources": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": -32768
+                    },
+                    "game": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "player",
+                    "corporation",
+                    "game"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "destroyPlayerScore",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this player score.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/game_scores/": {
+      "get": {
+        "operationId": "listGames",
+        "description": "A viewset for Game and related PlayerScores.",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "scores": {
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "id": {
+                                  "type": "integer",
+                                  "readOnly": true
+                                },
+                                "player": {
+                                  "properties": {
+                                    "nickname": {
+                                      "type": "string",
+                                      "maxLength": 32
+                                    }
+                                  },
+                                  "required": [
+                                    "nickname"
+                                  ],
+                                  "type": "object"
+                                },
+                                "corporation": {
+                                  "enum": [
+                                    "Aphrodite",
+                                    "Aridor",
+                                    "Arklight",
+                                    "Celestic",
+                                    "Cheung Shing Mars",
+                                    "Credicor",
+                                    "Ecoline",
+                                    "Helion",
+                                    "Interplanetary Cinematics",
+                                    "Inventrix",
+                                    "N/A",
+                                    "Manutech",
+                                    "Mining Guild",
+                                    "Morning Star Inc.",
+                                    "Phobolog",
+                                    "Point Luna",
+                                    "Polyphemos",
+                                    "Poseidon",
+                                    "Robinson Industries",
+                                    "Saturn Systems",
+                                    "Storm Craft Incorporated",
+                                    "Teractor",
+                                    "Tharsis Republic",
+                                    "Thorgate",
+                                    "United Nations Mars Initiative",
+                                    "Valley Trust",
+                                    "Viron",
+                                    "Vitor"
+                                  ]
+                                },
+                                "terraform_rating": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": 0
+                                },
+                                "milestones": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": 0
+                                },
+                                "awards": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": 0
+                                },
+                                "greeneries": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": 0
+                                },
+                                "cities": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": 0
+                                },
+                                "event_cards": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": -32768
+                                },
+                                "automated_cards": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": -32768
+                                },
+                                "active_cards": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": -32768
+                                },
+                                "resources": {
+                                  "type": "integer",
+                                  "maximum": 32767,
+                                  "minimum": -32768
+                                }
+                              },
+                              "required": [
+                                "player",
+                                "corporation"
+                              ]
+                            }
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "game_map": {
+                            "enum": [
+                              "Tharsis",
+                              "Elysium",
+                              "Hellas"
+                            ]
+                          },
+                          "number_of_generations": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "draft_variant": {
+                            "type": "boolean"
+                          },
+                          "prelude": {
+                            "type": "boolean"
+                          },
+                          "venus_next": {
+                            "type": "boolean"
+                          },
+                          "colonies": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "scores"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "createGame",
+        "description": "A viewset for Game and related PlayerScores.",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "scores"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "scores"
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "scores"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "scores": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "player": {
+                            "properties": {
+                              "nickname": {
+                                "type": "string",
+                                "maxLength": 32
+                              }
+                            },
+                            "required": [
+                              "nickname"
+                            ],
+                            "type": "object"
+                          },
+                          "corporation": {
+                            "enum": [
+                              "Aphrodite",
+                              "Aridor",
+                              "Arklight",
+                              "Celestic",
+                              "Cheung Shing Mars",
+                              "Credicor",
+                              "Ecoline",
+                              "Helion",
+                              "Interplanetary Cinematics",
+                              "Inventrix",
+                              "N/A",
+                              "Manutech",
+                              "Mining Guild",
+                              "Morning Star Inc.",
+                              "Phobolog",
+                              "Point Luna",
+                              "Polyphemos",
+                              "Poseidon",
+                              "Robinson Industries",
+                              "Saturn Systems",
+                              "Storm Craft Incorporated",
+                              "Teractor",
+                              "Tharsis Republic",
+                              "Thorgate",
+                              "United Nations Mars Initiative",
+                              "Valley Trust",
+                              "Viron",
+                              "Vitor"
+                            ]
+                          },
+                          "terraform_rating": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "milestones": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "awards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "greeneries": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "cities": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "event_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "automated_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "active_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "resources": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          }
+                        },
+                        "required": [
+                          "player",
+                          "corporation"
+                        ]
+                      }
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "scores"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/mars_api/game_scores/{id}/": {
+      "get": {
+        "operationId": "retrieveGame",
+        "description": "A viewset for Game and related PlayerScores.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "scores": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "player": {
+                            "properties": {
+                              "nickname": {
+                                "type": "string",
+                                "maxLength": 32
+                              }
+                            },
+                            "required": [
+                              "nickname"
+                            ],
+                            "type": "object"
+                          },
+                          "corporation": {
+                            "enum": [
+                              "Aphrodite",
+                              "Aridor",
+                              "Arklight",
+                              "Celestic",
+                              "Cheung Shing Mars",
+                              "Credicor",
+                              "Ecoline",
+                              "Helion",
+                              "Interplanetary Cinematics",
+                              "Inventrix",
+                              "N/A",
+                              "Manutech",
+                              "Mining Guild",
+                              "Morning Star Inc.",
+                              "Phobolog",
+                              "Point Luna",
+                              "Polyphemos",
+                              "Poseidon",
+                              "Robinson Industries",
+                              "Saturn Systems",
+                              "Storm Craft Incorporated",
+                              "Teractor",
+                              "Tharsis Republic",
+                              "Thorgate",
+                              "United Nations Mars Initiative",
+                              "Valley Trust",
+                              "Viron",
+                              "Vitor"
+                            ]
+                          },
+                          "terraform_rating": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "milestones": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "awards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "greeneries": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "cities": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "event_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "automated_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "active_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "resources": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          }
+                        },
+                        "required": [
+                          "player",
+                          "corporation"
+                        ]
+                      }
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "scores"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateGame",
+        "description": "A viewset for Game and related PlayerScores.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "scores"
+                ]
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "scores"
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "scores"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "scores": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "player": {
+                            "properties": {
+                              "nickname": {
+                                "type": "string",
+                                "maxLength": 32
+                              }
+                            },
+                            "required": [
+                              "nickname"
+                            ],
+                            "type": "object"
+                          },
+                          "corporation": {
+                            "enum": [
+                              "Aphrodite",
+                              "Aridor",
+                              "Arklight",
+                              "Celestic",
+                              "Cheung Shing Mars",
+                              "Credicor",
+                              "Ecoline",
+                              "Helion",
+                              "Interplanetary Cinematics",
+                              "Inventrix",
+                              "N/A",
+                              "Manutech",
+                              "Mining Guild",
+                              "Morning Star Inc.",
+                              "Phobolog",
+                              "Point Luna",
+                              "Polyphemos",
+                              "Poseidon",
+                              "Robinson Industries",
+                              "Saturn Systems",
+                              "Storm Craft Incorporated",
+                              "Teractor",
+                              "Tharsis Republic",
+                              "Thorgate",
+                              "United Nations Mars Initiative",
+                              "Valley Trust",
+                              "Viron",
+                              "Vitor"
+                            ]
+                          },
+                          "terraform_rating": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "milestones": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "awards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "greeneries": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "cities": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "event_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "automated_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "active_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "resources": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          }
+                        },
+                        "required": [
+                          "player",
+                          "corporation"
+                        ]
+                      }
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "scores"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "partial_updateGame",
+        "description": "A viewset for Game and related PlayerScores.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "scores": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "player": {
+                          "properties": {
+                            "nickname": {
+                              "type": "string",
+                              "maxLength": 32
+                            }
+                          },
+                          "required": [
+                            "nickname"
+                          ],
+                          "type": "object"
+                        },
+                        "corporation": {
+                          "enum": [
+                            "Aphrodite",
+                            "Aridor",
+                            "Arklight",
+                            "Celestic",
+                            "Cheung Shing Mars",
+                            "Credicor",
+                            "Ecoline",
+                            "Helion",
+                            "Interplanetary Cinematics",
+                            "Inventrix",
+                            "N/A",
+                            "Manutech",
+                            "Mining Guild",
+                            "Morning Star Inc.",
+                            "Phobolog",
+                            "Point Luna",
+                            "Polyphemos",
+                            "Poseidon",
+                            "Robinson Industries",
+                            "Saturn Systems",
+                            "Storm Craft Incorporated",
+                            "Teractor",
+                            "Tharsis Republic",
+                            "Thorgate",
+                            "United Nations Mars Initiative",
+                            "Valley Trust",
+                            "Viron",
+                            "Vitor"
+                          ]
+                        },
+                        "terraform_rating": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "milestones": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "awards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "greeneries": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "cities": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": 0
+                        },
+                        "event_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "automated_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "active_cards": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        },
+                        "resources": {
+                          "type": "integer",
+                          "maximum": 32767,
+                          "minimum": -32768
+                        }
+                      },
+                      "required": [
+                        "player",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "game_map": {
+                    "enum": [
+                      "Tharsis",
+                      "Elysium",
+                      "Hellas"
+                    ]
+                  },
+                  "number_of_generations": {
+                    "type": "integer",
+                    "maximum": 32767,
+                    "minimum": 0
+                  },
+                  "draft_variant": {
+                    "type": "boolean"
+                  },
+                  "prelude": {
+                    "type": "boolean"
+                  },
+                  "venus_next": {
+                    "type": "boolean"
+                  },
+                  "colonies": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "readOnly": true
+                    },
+                    "scores": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "readOnly": true
+                          },
+                          "player": {
+                            "properties": {
+                              "nickname": {
+                                "type": "string",
+                                "maxLength": 32
+                              }
+                            },
+                            "required": [
+                              "nickname"
+                            ],
+                            "type": "object"
+                          },
+                          "corporation": {
+                            "enum": [
+                              "Aphrodite",
+                              "Aridor",
+                              "Arklight",
+                              "Celestic",
+                              "Cheung Shing Mars",
+                              "Credicor",
+                              "Ecoline",
+                              "Helion",
+                              "Interplanetary Cinematics",
+                              "Inventrix",
+                              "N/A",
+                              "Manutech",
+                              "Mining Guild",
+                              "Morning Star Inc.",
+                              "Phobolog",
+                              "Point Luna",
+                              "Polyphemos",
+                              "Poseidon",
+                              "Robinson Industries",
+                              "Saturn Systems",
+                              "Storm Craft Incorporated",
+                              "Teractor",
+                              "Tharsis Republic",
+                              "Thorgate",
+                              "United Nations Mars Initiative",
+                              "Valley Trust",
+                              "Viron",
+                              "Vitor"
+                            ]
+                          },
+                          "terraform_rating": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "milestones": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "awards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "greeneries": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "cities": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": 0
+                          },
+                          "event_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "automated_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "active_cards": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          },
+                          "resources": {
+                            "type": "integer",
+                            "maximum": 32767,
+                            "minimum": -32768
+                          }
+                        },
+                        "required": [
+                          "player",
+                          "corporation"
+                        ]
+                      }
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "game_map": {
+                      "enum": [
+                        "Tharsis",
+                        "Elysium",
+                        "Hellas"
+                      ]
+                    },
+                    "number_of_generations": {
+                      "type": "integer",
+                      "maximum": 32767,
+                      "minimum": 0
+                    },
+                    "draft_variant": {
+                      "type": "boolean"
+                    },
+                    "prelude": {
+                      "type": "boolean"
+                    },
+                    "venus_next": {
+                      "type": "boolean"
+                    },
+                    "colonies": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "scores"
+                  ]
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "destroyGame",
+        "description": "A viewset for Game and related PlayerScores.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this game.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}
