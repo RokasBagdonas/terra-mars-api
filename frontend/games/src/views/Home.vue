@@ -35,18 +35,18 @@
       </div>
     </div>
   </div>
-  <Game></Game>
+  <router-view/>
 </template>
 
 
 
 <script lang="ts">
-import NavBar from "./components/NavBar.vue";
-import Game from "./components/Game.vue";
+import NavBar from "../components/NavBar.vue";
+import Games from "./Games.vue";
 export default {
   components: {
     NavBar,
-    Game,
+    Games,
   },
 };
 </script>

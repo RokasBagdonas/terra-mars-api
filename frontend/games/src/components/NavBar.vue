@@ -13,21 +13,19 @@
     </div>
     <div class="navbar-menu" id="navbarOptions">
         <div class="navbar-start">
-            <a class="navbar-item" href="/mars_api">Home</a>
+            <router-link class="navbar-item" to="/">Home</router-link>
             <a class="navbar-item" href="">Add Game</a>
-            <a class="navbar-item" href="">Games</a>
+            <router-link class="navbar-item" to="/Games">Games</router-link>
             <a class="navbar-item" href="">Player Stats</a>
             <a class="navbar-item" href="">About</a>
+            <a class="navbar-item" href="/mars_api">API</a>
         </div>
     </div>
   </nav>
 </template>
 
 <script lang="ts">
-/*import Vue from 'vue'*/
-/*export default Vue.extend({*/
 
-/*})*/
 export default {
 methods: {
     toggleBurger: function(event) {
