@@ -13,9 +13,9 @@
     </div>
     <div class="navbar-menu" id="navbarOptions">
         <div class="navbar-start">
-            <router-link class="navbar-item" to="/">Home</router-link>
+            <router-link :to="{name: 'Home'}" class="navbar-item">Home</router-link>
             <a class="navbar-item" href="">Add Game</a>
-            <router-link class="navbar-item" to="/Games">Games</router-link>
+            <router-link :to="{name: 'Games'}" class="navbar-item">Games</router-link>
             <a class="navbar-item" href="">Player Stats</a>
             <a class="navbar-item" href="">About</a>
             <a class="navbar-item" href="/mars_api">API</a>

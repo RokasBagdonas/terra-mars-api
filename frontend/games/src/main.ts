@@ -1,5 +1,5 @@
 import {createApp} from 'vue';
-import App from './views/Home.vue';
+import App from './App.vue';
 import "./css/main.scss";
 
 import router from './router';
@@ -7,4 +7,3 @@ import router from './router';
 const app = createApp(App);
 app.use(router);
 app.mount('#app');
-//createApp(App).mount('#app');
