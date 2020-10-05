@@ -28,3 +28,17 @@ def test_can_post_game_with_player_scores(
     assert Game.objects.first() is not None
     assert PlayerScore.objects.count() == len(request["scores"])
     assert Player.objects.count() == len(request["scores"])
+
+
+def test_game_returns_player_count(api_client, game, player_score_factory):
+    """Test if the GameViewSet queryset calculates (and in turn serializes) the
+    `player_count` aggregate field."""
+
+    id = game.id
+    player_score_factory.create(game=game)
+    player_score_factory.create(corporation="Helion", game=game)
+
+    response = api_client.get(GAME_PATH + str(id) + "/")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["player_count"] == 2

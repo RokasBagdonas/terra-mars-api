@@ -14,8 +14,6 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
 
 class GameViewSet(viewsets.ModelViewSet):
-    # queryset = Game.objects.all()
-    # serializer_class = GameSerializer
     queryset = Game.objects.annotate(player_count=Count("scores"))
     serializer_class = GamePlayerCountSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
