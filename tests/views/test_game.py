@@ -67,6 +67,6 @@ def test_games_returned_by_number_of_players_desc(api_client, game_factory,
 
     assert response.status_code == status.HTTP_200_OK
 
-    assert len(response.data) == len(number_of_players)
+    assert len(response.data["results"]) == len(number_of_players)
     assert response.data["results"][0]["player_count"] == number_of_players[1]
     assert response.data["results"][len(number_of_players)-1]["player_count"] == number_of_players[2]
