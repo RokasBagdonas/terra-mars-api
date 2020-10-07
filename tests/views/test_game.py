@@ -42,3 +42,31 @@ def test_game_returns_player_count(api_client, game, player_score_factory):
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data["player_count"] == 2
+
+
+# TODO: where to put this
+def generate_player_scores(number_of_scores_per_game, game_factory, player_score_factory):
+    """Helper function creating multiple player_scores.
+
+        number_of_scores_per_game: List[int] how many scores per each game.
+    """
+    corporations = ["Tharsis Republic", "Thorgate", "Helion", "Teractor", "Mining Guild"]
+    for i in number_of_scores_per_game:
+        g = game_factory()
+        for c in corporations[0:i]:
+            player_score_factory.create(corporation=c, game=g)
+
+
+def test_games_returned_by_number_of_players_desc(api_client, game_factory,
+        player_score_factory):
+    number_of_players = [3, 4, 2, 3]
+    generate_player_scores(number_of_players, game_factory, player_score_factory)
+
+    params = {"ordering": "-player_count"}
+    response = api_client.get(GAME_PATH, params)
+
+    assert response.status_code == status.HTTP_200_OK
+
+    assert len(response.data) == len(number_of_players)
+    assert response.data["results"][0]["player_count"] == number_of_players[1]
+    assert response.data["results"][len(number_of_players)-1]["player_count"] == number_of_players[2]
