@@ -95,6 +95,8 @@ class PlayerScore(models.Model):
     objects = models.Manager()
     game_player_objects = GamePlayerScoreManager()
 
+    # TODO: add is_winner method
+
     class Meta:
         default_related_name = "scores"
         constraints = [

@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 
-from mars_api.models import Game
+from mars_api.models import Game, PlayerScore
 
 
 class GameFilter(filters.FilterSet):
@@ -17,4 +17,26 @@ class GameFilter(filters.FilterSet):
             "venus_next",
             "colonies",
             "player_count",
+        ]
+
+
+class PlayerScoreFilter(filters.FilterSet):
+
+    player__nickname = filters.CharFilter(lookup_expr="icontains")
+
+    class Meta:
+        model = PlayerScore
+        fields = [
+            "game",
+            "player",
+            "corporation",
+            "terraform_rating",
+            "milestones",
+            "awards",
+            "greeneries",
+            "cities",
+            "event_cards",
+            "automated_cards",
+            "active_cards",
+            "resources",
         ]
