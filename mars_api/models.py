@@ -91,6 +91,7 @@ class PlayerScore(models.Model):
     automated_cards = models.SmallIntegerField(default=0)
     active_cards = models.SmallIntegerField(default=0)
     resources = models.SmallIntegerField(default=0)
+    is_winner = models.BooleanField(default=False)
 
     objects = models.Manager()
     game_player_objects = GamePlayerScoreManager()
@@ -108,9 +109,6 @@ class PlayerScore(models.Model):
             + self.resources
         )
 
-    # TODO: add is_winner method
-    def is_winner(self):
-        pass
 
     class Meta:
         default_related_name = "scores"

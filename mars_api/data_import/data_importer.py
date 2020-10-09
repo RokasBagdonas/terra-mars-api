@@ -44,6 +44,7 @@ GAME_FIELD_MAPPING = {
 PLAYER_SCORE_FIELD_MAPPING = {
     (7, "player_nickname", str),
     (8, "corporation", corporation_map),
+    (9, "is_winner", str_to_bool),
     (10, "terraform_rating", int),
     (11, "milestones", int),
     (12, "awards", int),
