@@ -109,7 +109,6 @@ class PlayerScore(models.Model):
             + self.resources
         )
 
-
     class Meta:
         default_related_name = "scores"
         constraints = [
@@ -123,7 +122,12 @@ class PlayerScore(models.Model):
             ),
             models.CheckConstraint(
                 check=models.Q(corporation__in=set(dict(CORPORATIONS))),
-                name="Only defined corporations are allowed.",
+                name="only_defined_corporations_are_allowed",
+            ),
+            models.UniqueConstraint(
+                fields=["is_winner", "game"],
+                condition=models.Q(is_winner=True),
+                name="One_winner_per_game",
             ),
         ]
 

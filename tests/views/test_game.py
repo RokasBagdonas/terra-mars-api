@@ -1,5 +1,6 @@
 import pytest
 from rest_framework import status
+from django.db.utils import IntegrityError
 
 from mars_api.models import Game, Player, PlayerScore
 
@@ -70,3 +71,15 @@ def test_games_returned_by_number_of_players_desc(api_client, game_factory,
     assert len(response.data["results"]) == len(number_of_players)
     assert response.data["results"][0]["player_count"] == number_of_players[1]
     assert response.data["results"][len(number_of_players)-1]["player_count"] == number_of_players[2]
+
+
+def test_cannot_post_two_winner_scores(api_client, game_dict_factory,
+        player_score_dict_factory):
+    g = game_dict_factory()
+    ps1 = player_score_dict_factory(is_winner=True)
+    ps2 = player_score_dict_factory(corporation="Teractor", is_winner=True)
+    request = {"scores": [ps1, ps2], "game": g}
+
+    pytest.fail("TODO: handle constraint errors to return 4** Response")
+    response = api_client.post(GAME_SCORES_PATH, data=request, format="json")
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY

@@ -63,3 +63,18 @@ def test_can_filter_by_player_nickname(api_client, player_factory, player_score_
 
     assert len(response.data["results"]) == num_of_scores
     assert response.data["results"][0]["player"]["nickname"] == p1.nickname
+
+
+def test_cannot_post_two_scores_same_player_same_game(
+    api_client, game, player_dict_factory, player_score_dict_factory
+):
+    player = player_dict_factory()
+    ps1 = player_score_dict_factory(game=game.id, player=player)
+    ps2 = player_score_dict_factory(game=game.id, player=player)
+
+    api_client.post(PLAYERSCORE_PATH, data=ps1, format="json")
+
+    pytest.fail("TODO: handle constraint errors to return 4** response")
+    response = api_client.post(PLAYERSCORE_PATH, data=ps2, format="json")
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST

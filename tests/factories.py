@@ -48,7 +48,7 @@ class PlayerScoreFactory(factory.django.DjangoModelFactory):
 class PlayerScoreDictFactory(factory.DictFactory):
     corporation = "Thorgate"
     player = factory.SubFactory(PlayerDictFactory)
-    game = ""  # to be set
+    game = 0  # to be set
     terraform_rating = 0
     milestones = 0
     awards = 0
@@ -58,3 +58,4 @@ class PlayerScoreDictFactory(factory.DictFactory):
     automated_cards = 0
     active_cards = 0
     resources = 0
+    is_winner = False
