@@ -10,11 +10,12 @@ const ENDPOINTS = {
 }
 
 
-export function getGames(limit = 50, offset = 0) {
+export function getGames(limit = 50, offset = 0, order_by="-date") {
     return axios.get(ROOT_URL + ENDPOINTS["games"], {
         params: {
             limit: limit,
-            offset: offset
+            offset: offset,
+            ordering: order_by,
         }
     });
 }
@@ -22,7 +23,3 @@ export function getGames(limit = 50, offset = 0) {
 export function getGameScores(id) {
     return axios.get(ROOT_URL + ENDPOINTS["game_scores"] + id)
 }
-
-
-
-
