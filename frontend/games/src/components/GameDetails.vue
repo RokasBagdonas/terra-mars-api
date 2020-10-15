@@ -4,13 +4,13 @@
 <table class="table">
     <thead>
     <tr>
-        <th v-for="(item, name) in this.gameScores.scores[0]">{{name}}</th>
+        /*<th v-for="(item, name) in this.gameScores.scores[0]">{{name}}</th>*/
     </tr>
     </thead>
     <tbody>
-        <tr v-for="playerScore in this.gameScores.scores" v-bind:key="playerScore">
-            <td>{{playerScore}}</td>
-        </tr>
+        /*<tr v-for="playerScore in this.gameScores.scores" v-bind:key="playerScore">*/
+            /*<td>{{playerScore}}</td>*/
+        /*</tr>*/
     </tbody>
 </table>
 

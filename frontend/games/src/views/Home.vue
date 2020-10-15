@@ -1,4 +1,5 @@
 <template>
+<h1>Sample</h1>
 <HomeDashboard> </HomeDashboard>
 </template>
 
@@ -10,3 +11,8 @@ components: {
  }
 }
 </script>
+<style scoped>
+h1 {
+  background-color: darkcyan;
+}
+</style>

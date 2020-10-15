@@ -22,7 +22,7 @@
                 v-for="(prop_name, display_name) in GAME_SCHEMA"
                 v-on:click="sortTable(prop_name)"
                 v-bind:key="prop_name"
-              >{{display_name}}</th>
+              > {{display_name}} </th>
             </tr>
           </thead>
           <tbody>
@@ -36,7 +36,7 @@
 
     <div class="tile is-vertical is-parent">
       <div class="tile box is-child">
-        <GameDetails gameScores="this.pickedGame"></GameDetails>
+        <!-- <GameDetails gameScores="this.pickedGame"></GameDetails> -->
       </div>
     </div>
   </div>
@@ -62,13 +62,13 @@ export default {
       GAME_SCHEMA: {
         Id: "id",
         "Player #": "player_count",
-        Date: "date",
-        Map: "game_map",
+        "Date": "date",
+        "Map": "game_map",
         "Gen #": "number_of_generations",
-        Draft: "draft",
-        Prelude: "prelude",
+        "Draft": "draft",
+        "Prelude": "prelude",
         "Venus Next": "venus_next",
-        Colonies: "colonies",
+        "Colonies": "colonies",
       },
       tableSortParams: {
         ascending: false,
@@ -80,7 +80,7 @@ export default {
     getOrderByName() {
       return this.orderByDirection + this.orderByName;
     },
-    fetchGames(order_by) {
+    fetchGames(order_by = this.getOrderByName()) {
         order_by = this.getOrderByName()
       getGames(this.limit, this.currentOffset, order_by)
         .then((response) => {
@@ -149,3 +149,12 @@ export default {
 };
 </script>
 
+
+<style lang="scss" module scoped>
+th {
+cursor: pointer;
+}
+th:hover {
+background-color: lavender;
+}
+</style>
