@@ -1,7 +1,8 @@
 <template>
-  <div class="tile is-ancestor">
-    <div class="tile is-6 is-vertical is-parent">
-      <div class="tile is-child pagination is-centered">
+<div class="columns">
+
+<div class="column">
+    <div class="container">
         <a
           class="pagination-previous"
           v-on:click="this.navigateGames(false)"
@@ -12,33 +13,32 @@
           v-on:click="this.navigateGames(true)"
           v-bind:disabled="isNextDisabled"
         >Next</a>
-      </div>
-
-      <div class="table-container is-child box">
-        <table class="table is-striped is-hoverable is-narrow">
-          <thead>
-            <tr>
-              <th
-                v-for="(prop_name, display_name) in this.GAME_SCHEMA"
-                v-on:click="sortTable(prop_name)"
-                v-bind:key="prop_name"
-              >{{display_name}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="game in games" v-bind:key="game"
-            v-on:click="fetchGameScores(game.id)">
-              <td v-for="(value, key) in game" v-bind:key="key">{{ value }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
-
-    <div class="tile is-vertical is-parent">
-        <GameDetails :gameScores="pickedGame" :limit="limit"> </GameDetails>
+    <div class="table-container">
+    <table class="table is-striped is-hoverable is-narrow">
+      <thead>
+        <tr>
+          <th
+            v-for="(prop_name, display_name) in this.GAME_SCHEMA"
+            v-on:click="sortTable(prop_name)"
+            v-bind:key="prop_name"
+          >{{display_name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="game in games" v-bind:key="game"
+        v-on:click="setPickedGameId(game.id)">
+          <td v-for="(value, key) in game" v-bind:key="key">{{ value }}</td>
+        </tr>
+      </tbody>
+    </table>
     </div>
-  </div>
+</div>
+
+<div class="column">
+    <GameDetails :gameId="pickedGameId"> </GameDetails>
+</div>
+</div>
 </template>
 
 <script>
@@ -57,7 +57,7 @@ export default {
       orderByName: "date",
       orderByDirection: "-",
       totalNumberOfGames: 0,
-      pickedGame: undefined,
+      pickedGameId: undefined,
       GAME_SCHEMA: GAME_SCHEMA, //from mars-api.ts
       tableSortParams: {
         ascending: false,
@@ -77,14 +77,8 @@ export default {
         .then(() => console.log(this.games))
         .catch((error) => console.log(error));
     },
-    fetchGameScores(id) {
-      console.log("fetchGameScores");
-      getGameScores(id)
-        .then((response) => {
-          this.pickedGame = response.data;
-          console.log(response.data);
-        })
-        .catch((error) => console.log(error));
+    setPickedGameId(gameId){
+        this.pickedGameId = gameId;
     },
     // Pagination -------------------------------------------------------------
     navigateGames(forward) {
