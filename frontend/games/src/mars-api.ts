@@ -9,6 +9,37 @@ const ENDPOINTS = {
     "game_scores": "game_scores/",
 }
 
+export const GAME_SCHEMA = {
+    Id: "id",
+    "Player #": "player_count",
+    Date: "date",
+    Map: "game_map",
+    "Gen #": "number_of_generations",
+    Draft: "draft",
+    Prelude: "prelude",
+    "Venus Next": "venus_next",
+    Colonies: "colonies",
+
+}
+
+export const PLAYER_SCORE_SCHEMA = {
+   player: "Player", //player object
+   corporation: "Corporation",
+   total_score: "Final Score",
+   terraform_rating: "TR",
+   milestones: "Milestones",
+   awards: "Awards",
+   greeneries: "Greeneries",
+   cities: "Cities",
+   event_cards: "Events",
+   automated_cards: "Automoated cards",
+   active_cards: "Active cards",
+   resources: "Resources",
+   is_winner: "Won?",
+   id: "score_id",
+   game_id: "game_id"
+}
+
 
 export function getGames(limit = 50, offset = 0, order_by="-date") {
     return axios.get(ROOT_URL + ENDPOINTS["games"], {

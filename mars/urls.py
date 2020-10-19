@@ -19,5 +19,5 @@ from django.urls import include, path, re_path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("mars_api/", include("mars_api.urls")),
-    re_path(r"^.*$", include("frontend.urls")),
+    path("", include("frontend.urls")),
 ]

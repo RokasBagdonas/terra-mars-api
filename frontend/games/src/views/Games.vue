@@ -15,18 +15,19 @@
       </div>
 
       <div class="table-container is-child box">
-        <table class="table is-striped is-hoverable">
+        <table class="table is-striped is-hoverable is-narrow">
           <thead>
             <tr>
               <th
-                v-for="(prop_name, display_name) in GAME_SCHEMA"
+                v-for="(prop_name, display_name) in this.GAME_SCHEMA"
                 v-on:click="sortTable(prop_name)"
                 v-bind:key="prop_name"
-              > {{display_name}} </th>
+              >{{display_name}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="game in games" v-bind:key="game" v-on:click="fetchGameScores(game.id)">
+            <tr v-for="game in games" v-bind:key="game"
+            v-on:click="fetchGameScores(game.id)">
               <td v-for="(value, key) in game" v-bind:key="key">{{ value }}</td>
             </tr>
           </tbody>
@@ -35,15 +36,13 @@
     </div>
 
     <div class="tile is-vertical is-parent">
-      <div class="tile box is-child">
-        <!-- <GameDetails gameScores="this.pickedGame"></GameDetails> -->
-      </div>
+        <GameDetails :gameScores="pickedGame" :limit="limit"> </GameDetails>
     </div>
   </div>
 </template>
 
 <script>
-import { getGames, getGameScores } from "../mars-api";
+import { getGames, getGameScores, GAME_SCHEMA } from "../mars-api";
 import GameDetails from "../components/GameDetails.vue";
 let limit = 50;
 let currentoffset = 0;
@@ -58,18 +57,8 @@ export default {
       orderByName: "date",
       orderByDirection: "-",
       totalNumberOfGames: 0,
-      pickedGame: {},
-      GAME_SCHEMA: {
-        Id: "id",
-        "Player #": "player_count",
-        "Date": "date",
-        "Map": "game_map",
-        "Gen #": "number_of_generations",
-        "Draft": "draft",
-        "Prelude": "prelude",
-        "Venus Next": "venus_next",
-        "Colonies": "colonies",
-      },
+      pickedGame: undefined,
+      GAME_SCHEMA: GAME_SCHEMA, //from mars-api.ts
       tableSortParams: {
         ascending: false,
         sortColumn: "",
@@ -77,11 +66,9 @@ export default {
     };
   },
   methods: {
-    getOrderByName() {
-      return this.orderByDirection + this.orderByName;
-    },
+    // API calls --------------------------------------------------------------
     fetchGames(order_by = this.getOrderByName()) {
-        order_by = this.getOrderByName()
+      order_by = this.getOrderByName();
       getGames(this.limit, this.currentOffset, order_by)
         .then((response) => {
           this.totalNumberOfGames = response.data.count;
@@ -90,6 +77,16 @@ export default {
         .then(() => console.log(this.games))
         .catch((error) => console.log(error));
     },
+    fetchGameScores(id) {
+      console.log("fetchGameScores");
+      getGameScores(id)
+        .then((response) => {
+          this.pickedGame = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    },
+    // Pagination -------------------------------------------------------------
     navigateGames(forward) {
       if (forward) {
         if (this.currentOffset + this.limit < this.totalNumberOfGames)
@@ -99,6 +96,15 @@ export default {
         else this.currentOffset -= this.limit;
       }
       this.fetchGames();
+    },
+    isNextDisabled() {
+      if (this.currentOffset + this.limit < this.totalNumberOfGames)
+        return null;
+      else return true;
+    },
+    // Filtering --------------------------------------------------------------
+    getOrderByName() {
+      return this.orderByDirection + this.orderByName;
     },
     toggleOrderByDirection() {
       if (this.orderByDirection === "-") {
@@ -118,16 +124,8 @@ export default {
       this.setOrderByName(name);
       this.fetchGames(name);
     },
-    fetchGameScores(id) {
-      console.log("fetchGameScores");
-      getGameScores(id)
-        .then((response) => {
-          this.pickedGame = response.data;
-          console.log(response.data);
-        })
-        .catch((error) => console.log("error"));
-    },
   },
+  // Vue lifecycle ------------------------------------------------------------
   created: function () {
     console.log("created hook");
   },
@@ -137,12 +135,6 @@ export default {
   computed: {
     isPreviousDisabled() {
       if (this.currentOffset >= this.limit) return null;
-      // Vue 3 ..
-      else return true;
-    },
-    isNextDisabled() {
-      if (this.currentOffset + this.limit < this.totalNumberOfGames)
-        return null;
       else return true;
     },
   },
@@ -152,9 +144,15 @@ export default {
 
 <style lang="scss" module scoped>
 th {
-cursor: pointer;
+  cursor: pointer;
 }
 th:hover {
-background-color: lavender;
+  background-color: lavender;
+}
+tr {
+  cursor: pointer;
+}
+.clicked {
+    background-color: lavender;
 }
 </style>
