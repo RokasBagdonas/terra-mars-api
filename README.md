@@ -29,11 +29,9 @@ Frontend: `localhost:8000`
     - [X] Rest Framework
     - [X] Postgres
     - [X] Docker
-- [X] Initial Models, Views and Serializers:
+- [X] Initial Models, Views and Serializers + Tests:
     - [X] Player
-        - [X] Tests
     - [X] Game
-        - [X] Tests
     - [X] PlayerScore
 - [X] Frontend setup:
     - [X] Webpack
