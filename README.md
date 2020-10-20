@@ -41,6 +41,9 @@ Frontend: `localhost:8000`
 - [ ] Post Games
 - [ ] Login
 - [ ] Hosting + CI
+  - [ ] Static file serving
+  - [ ] Heroku(?)
+  - [ ] Github Actions(?)
 - [ ] Player Summary
 - [ ] Games' summary stats
 - [ ] Latest trends dashboard
