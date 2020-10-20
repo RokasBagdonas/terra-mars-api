@@ -23,6 +23,24 @@ Frontend: `localhost:8000`
 * Frontend: _Vuejs_, Currently Django Rest Framework - api frontend.
 
 ---
+## Roadmap
+- [O] Backend API Setup:
+    - [X] Rest Framework
+    - [X] Postgres
+    - [X] Docker
+- [X] Player, Game and PlayerScore views, models, serializers + TDD
+- [X] Frontend setup:
+    - [X] Webpack
+    - [X] Vue3
+    - [X] Bulma
+- [X] View Games
+- [ ] Post Games
+- [ ] Login
+- [ ] Hosting + CI
+- [ ] Player Summary
+- [ ] Games' summary stats
+- [ ] Latest trends dashboard
+
 
 ## Development
 The project is split into to apps: the web api named *mars_api* and the frontend in the `frontend/games`. The `frontend` root dir is a django app that is responsible for initial routing and serving the template. Everything else is done by the generated `webpack-bundle.js`, which is a *Vue* app.
@@ -30,8 +48,9 @@ The project is split into to apps: the web api named *mars_api* and the frontend
 The _mars_\__api_ is app is the backend api for acting on data. Most of the _Makefile_ commands are used to ease the development process.
 
 ### Backend
-TODO..
-
+* `make up` - run the API
+* `make test` - tests
+* `make import_initial_data` - seed the database with initial .csv data
 
 ### Frontend
 Run from `/frontend/games` dir:

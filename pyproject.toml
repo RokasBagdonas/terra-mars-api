@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "terra-mars-api"
-version = "0.3.0"
+version = "0.4.0"
 description = "A Web API for retrieving players' data about their games."
 license = "MIT"
 authors = ["Rokas Bagdonas <rokius.bagdonas@gmail.com>"]
