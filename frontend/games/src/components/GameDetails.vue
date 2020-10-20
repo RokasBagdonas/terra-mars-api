@@ -1,11 +1,8 @@
 <template>
-  <div class="table-container">
-
-    <table class="table is-hoverable" v-if="gameId">
-      <thead>
-        <th>-/-</th>
-        <th v-for="player in this.pivotedGameScores.player">{{player.nickname}}</th>
-      </thead>
+<div class="columns is-gapless">
+    <div class="column">
+  <div class="table-container" v-if="gameId">
+    <table class="table is-hoverable" >
       <tbody>
         <tr v-for="(displayName, modelName) in this.PLAYER_SCORE_FIELDS_TO_DISPLAY">
           <td>{{displayName}}</td>
@@ -17,6 +14,20 @@
       </tbody>
     </table>
   </div>
+    </div>
+
+    <div class="column">
+
+<div class="table-container" v-if="gameId">
+    <table class="table is-hoverable">
+         <tr v-for="(value, propName) in game">
+            <td>{{propName}}</td>
+            <td>{{value}}</td>
+         </tr>
+    </table>
+</div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -30,6 +41,17 @@ export default {
     const { gameId } = toRefs(props);
     const gameScores = ref({});
     const pivotedGameScores = ref({});
+    const game = ref({});
+
+    const getGameData = () => {
+        //Deep copy without scores.
+        for(let prop in gameScores.value){
+            if(prop !== "scores"){
+                game.value[prop] = gameScores.value[prop];
+            }
+        }
+        console.log(game.value);
+    };
 
     const fetchGameScores = async (gameId) => {
       await getGameScores(gameId).then(
@@ -54,8 +76,11 @@ export default {
       if (gameId) {
         await fetchGameScores(gameId);
         pivotGameScores();
+        getGameData();
       }
     };
+
+
     watch(gameId, updateGameScores);
 
     let PLAYER_SCORE_FIELDS_TO_DISPLAY = lodash.cloneDeep(PLAYER_SCORE_SCHEMA);
@@ -63,6 +88,7 @@ export default {
     delete PLAYER_SCORE_FIELDS_TO_DISPLAY.id;
 
     return {
+      game,
       gameScores,
       pivotedGameScores,
       fetchGameScores,
