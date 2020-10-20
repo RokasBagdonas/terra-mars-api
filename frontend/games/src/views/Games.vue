@@ -74,7 +74,6 @@ export default {
           this.totalNumberOfGames = response.data.count;
           this.games = response.data.results;
         })
-        .then(() => console.log(this.games))
         .catch((error) => console.log(error));
     },
     setPickedGameId(gameId){

@@ -25,7 +25,6 @@ export const GAME_SCHEMA = {
 export const PLAYER_SCORE_SCHEMA = {
    player: "Player", //player object
    corporation: "Corporation",
-   total_score: "Final Score",
    terraform_rating: "TR",
    milestones: "Milestones",
    awards: "Awards",
@@ -35,6 +34,7 @@ export const PLAYER_SCORE_SCHEMA = {
    automated_cards: "Automoated cards",
    active_cards: "Active cards",
    resources: "Resources",
+   total_score: "Final Score",
    is_winner: "Won?",
    id: "score_id",
    game_id: "game_id"

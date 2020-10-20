@@ -1,51 +1,91 @@
 <template>
-    <div class="is-child box" id="table-cont">
   <div class="table-container">
-  <table class="table is-hoverable">
-    <thead>
-      <tr>
-        <th
-          v-for="(display_name, model_name) in PLAYER_SCORE_SCHEMA"
-          v-bind:key="model_name"
-        >{{display_name}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="playerScore in gameScores.scores" v-bind:key="playerScore">
-        <td
-          v-for="(display_name, model_name) in PLAYER_SCORE_SCHEMA"
-          v-bind:key="playerScore"
-        >{{getDisplayName(playerScore, model_name)}}</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+
+    <table class="table is-hoverable" v-if="gameId">
+      <thead>
+        <th>-/-</th>
+        <th v-for="player in this.pivotedGameScores.player">{{player.nickname}}</th>
+      </thead>
+      <tbody>
+        <tr v-for="(displayName, modelName) in this.PLAYER_SCORE_FIELDS_TO_DISPLAY">
+          <td>{{displayName}}</td>
+          <td
+            v-for="value in
+          this.pivotedGameScores[modelName]"
+          >{{displayPlayerScoreProperty(value, modelName)}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
-
 <script>
-import Vue from "vue";
-import { PLAYER_SCORE_SCHEMA } from "../mars-api";
+import { Vue, ref, toRefs, watch } from "vue";
+import { PLAYER_SCORE_SCHEMA, getGameScores } from "../mars-api";
+import lodash from "lodash";
+
 export default {
-  props: ["gameScores"],
+  props: { gameId: Number },
+  setup(props) {
+    const { gameId } = toRefs(props);
+    const gameScores = ref({});
+    const pivotedGameScores = ref({});
+
+    const fetchGameScores = async (gameId) => {
+      await getGameScores(gameId).then(
+        (response) => (gameScores.value = response.data)
+      );
+    };
+
+    const pivotGameScores = () => {
+      pivotedGameScores.value = {};
+      for (let property in PLAYER_SCORE_SCHEMA) {
+        pivotedGameScores.value[property] = [];
+      }
+
+      for (let score of gameScores.value.scores) {
+        for (let prop in score) {
+          pivotedGameScores.value[prop].push(score[prop]);
+        }
+      }
+    };
+
+    const updateGameScores = async (gameId) => {
+      if (gameId) {
+        await fetchGameScores(gameId);
+        pivotGameScores();
+      }
+    };
+    watch(gameId, updateGameScores);
+
+    let PLAYER_SCORE_FIELDS_TO_DISPLAY = lodash.cloneDeep(PLAYER_SCORE_SCHEMA);
+    delete PLAYER_SCORE_FIELDS_TO_DISPLAY.game_id;
+    delete PLAYER_SCORE_FIELDS_TO_DISPLAY.id;
+
+    return {
+      gameScores,
+      pivotedGameScores,
+      fetchGameScores,
+      PLAYER_SCORE_FIELDS_TO_DISPLAY,
+    };
+  },
   data() {
     return {
       PLAYER_SCORE_SCHEMA: PLAYER_SCORE_SCHEMA,
     };
   },
   methods: {
-    getDisplayName(playerScore, prop_name) {
-        console.log(prop_name);
-      if (prop_name !== "player") return playerScore[prop_name];
-      else return playerScore[prop_name].nickname;
+    displayPlayerScoreProperty(prop, modelName) {
+      if (modelName === "player") {
+        return prop.nickname;
+      }
+      if (modelName === "is_winner") {
+        return prop ? "Yes" : "No";
+      } else return prop;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#table-cont {
-overflow-x: auto;
-}
 </style>
