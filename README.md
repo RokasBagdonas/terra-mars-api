@@ -25,17 +25,17 @@ Frontend: `localhost:8000`
 ---
 ## Roadmap
 
-- [O] Backend API Setup:
+- [X] Backend API Setup:
     - [X] Rest Framework
     - [X] Postgres
     - [X] Docker
-- [O] Initial Models, Views and Serializers:
+- [X] Initial Models, Views and Serializers:
     - [X] Player
         - [X] Tests
     - [X] Game
         - [X] Tests
     - [X] PlayerScore
-- [O] Frontend setup:
+- [X] Frontend setup:
     - [X] Webpack
     - [X] Vue3
     - [X] Bulma
