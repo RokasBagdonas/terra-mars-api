@@ -91,11 +91,6 @@ export default {
       }
       this.fetchGames();
     },
-    isNextDisabled() {
-      if (this.currentOffset + this.limit < this.totalNumberOfGames)
-        return null;
-      else return true;
-    },
     // Filtering --------------------------------------------------------------
     getOrderByName() {
       return this.orderByDirection + this.orderByName;
@@ -129,6 +124,11 @@ export default {
   computed: {
     isPreviousDisabled() {
       if (this.currentOffset >= this.limit) return null;
+      else return true;
+    },
+    isNextDisabled() {
+      if (this.currentOffset + this.limit < this.totalNumberOfGames)
+        return null;
       else return true;
     },
   },
