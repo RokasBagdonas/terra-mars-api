@@ -24,11 +24,15 @@ Frontend: `localhost:8000`
 
 ---
 ## Roadmap
-- [O] Backend API Setup:
+
+- [X] Backend API Setup:
     - [X] Rest Framework
     - [X] Postgres
     - [X] Docker
-- [X] Player, Game and PlayerScore views, models, serializers + TDD
+- [X] Initial Models, Views and Serializers + Tests:
+    - [X] Player
+    - [X] Game
+    - [X] PlayerScore
 - [X] Frontend setup:
     - [X] Webpack
     - [X] Vue3
@@ -37,6 +41,9 @@ Frontend: `localhost:8000`
 - [ ] Post Games
 - [ ] Login
 - [ ] Hosting + CI
+  - [ ] Static file serving
+  - [ ] Heroku(?)
+  - [ ] Github Actions(?)
 - [ ] Player Summary
 - [ ] Games' summary stats
 - [ ] Latest trends dashboard

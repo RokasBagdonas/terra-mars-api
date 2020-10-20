@@ -3,7 +3,7 @@
 cov/
 
 staticfiles/
-/frontend/static/dist/hot-update/
+/frontend/static/dist/*
 
 .vim/
 
