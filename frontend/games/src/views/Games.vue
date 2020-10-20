@@ -1,6 +1,7 @@
 <template>
 <div class="columns">
 
+<div class="box">
 <div class="column">
     <div class="container">
         <a
@@ -34,7 +35,7 @@
     </table>
     </div>
 </div>
-
+</div>
 <div class="column">
     <GameDetails :gameId="pickedGameId"> </GameDetails>
 </div>

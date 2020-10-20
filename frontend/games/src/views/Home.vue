@@ -1,5 +1,4 @@
 <template>
-<h1>Sample</h1>
 <HomeDashboard> </HomeDashboard>
 </template>
 

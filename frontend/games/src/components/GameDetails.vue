@@ -1,33 +1,35 @@
 <template>
-<div class="columns is-gapless">
-    <div class="column">
-  <div class="table-container" v-if="gameId">
-    <table class="table is-hoverable" >
-      <tbody>
-        <tr v-for="(displayName, modelName) in this.PLAYER_SCORE_FIELDS_TO_DISPLAY">
-          <td>{{displayName}}</td>
-          <td
-            v-for="value in
+  <div class="box">
+    <div class="columns is-0" v-if="gameId">
+      <div class="column">
+        <div class="table-container">
+          <table class="table is-hoverable">
+            <tbody>
+              <tr v-for="(displayName, modelName) in this.PLAYER_SCORE_FIELDS_TO_DISPLAY">
+                <td>{{displayName}}</td>
+                <td
+                  v-for="value in
           this.pivotedGameScores[modelName]"
-          >{{displayPlayerScoreProperty(value, modelName)}}</td>
-        </tr>
-      </tbody>
-    </table>
+                >{{displayPlayerScoreProperty(value, modelName)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="table-container">
+          <table class="table is-hoverable">
+            <tr v-for="(value, propName) in game">
+              <td>{{propName}}</td>
+              <td>{{value}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p v-else>👈 Click on one of the games to see more info</p>
   </div>
-    </div>
-
-    <div class="column">
-
-<div class="table-container" v-if="gameId">
-    <table class="table is-hoverable">
-         <tr v-for="(value, propName) in game">
-            <td>{{propName}}</td>
-            <td>{{value}}</td>
-         </tr>
-    </table>
-</div>
-    </div>
-</div>
 </template>
 
 <script>
@@ -44,13 +46,13 @@ export default {
     const game = ref({});
 
     const getGameData = () => {
-        //Deep copy without scores.
-        for(let prop in gameScores.value){
-            if(prop !== "scores"){
-                game.value[prop] = gameScores.value[prop];
-            }
+      //Deep copy without scores.
+      for (let prop in gameScores.value) {
+        if (prop !== "scores") {
+          game.value[prop] = gameScores.value[prop];
         }
-        console.log(game.value);
+      }
+      console.log(game.value);
     };
 
     const fetchGameScores = async (gameId) => {
@@ -79,7 +81,6 @@ export default {
         getGameData();
       }
     };
-
 
     watch(gameId, updateGameScores);
 
