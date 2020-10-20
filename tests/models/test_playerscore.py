@@ -62,3 +62,19 @@ def test_allow_multiple_not_defined_corporations_same_game(player_score_factory,
     player_score_factory(corporation=corporation, game=game)
     with does_not_raise():
         player_score_factory(corporation=corporation, game=game)
+
+
+def test_total_score_sum_with_negative_values(player_score_factory):
+    ps = player_score_factory(
+        terraform_rating=20,
+        milestones=0,
+        awards=0,
+        greeneries=0,
+        cities=0,
+        event_cards=-1,
+        automated_cards=0,
+        active_cards=0,
+        resources=0,
+    )
+
+    assert ps.get_total_score() == 19

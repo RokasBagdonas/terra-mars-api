@@ -91,9 +91,23 @@ class PlayerScore(models.Model):
     automated_cards = models.SmallIntegerField(default=0)
     active_cards = models.SmallIntegerField(default=0)
     resources = models.SmallIntegerField(default=0)
+    is_winner = models.BooleanField(default=False)
 
     objects = models.Manager()
     game_player_objects = GamePlayerScoreManager()
+
+    def get_total_score(self):
+        return (
+            self.terraform_rating
+            + self.milestones
+            + self.awards
+            + self.greeneries
+            + self.cities
+            + self.event_cards
+            + self.automated_cards
+            + self.active_cards
+            + self.resources
+        )
 
     class Meta:
         default_related_name = "scores"
@@ -104,11 +118,16 @@ class PlayerScore(models.Model):
             models.UniqueConstraint(
                 fields=["corporation", "game"],
                 condition=~models.Q(corporation__startswith="N/A"),
-                name="only_unique_corporations_per_game"
+                name="only_unique_corporations_per_game",
             ),
             models.CheckConstraint(
                 check=models.Q(corporation__in=set(dict(CORPORATIONS))),
-                name="Only defined corporations are allowed.",
+                name="only_defined_corporations_are_allowed",
+            ),
+            models.UniqueConstraint(
+                fields=["is_winner", "game"],
+                condition=models.Q(is_winner=True),
+                name="One_winner_per_game",
             ),
         ]
 

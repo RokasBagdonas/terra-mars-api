@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "mars_api",
     "rest_framework",
+    "django_filters",
     "django_extensions",
     "django.contrib.admin",
     "django.contrib.auth",

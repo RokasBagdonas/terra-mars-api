@@ -1,9 +1,12 @@
-from rest_framework import viewsets
+from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, viewsets
 
+from mars_api.filters import GameFilter, PlayerScoreFilter
 from mars_api.models import Game, Player, PlayerScore
 from mars_api.serializers import (
     GameAndPlayersScoresSerializer,
-    GameSerializer,
+    GamePlayerCountSerializer,
     PlayerScoreSerializer,
     PlayerSerializer,
 )
@@ -15,13 +18,18 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
 
 class GameViewSet(viewsets.ModelViewSet):
-    queryset = Game.objects.all()
-    serializer_class = GameSerializer
+    queryset = Game.objects.annotate(player_count=Count("scores"))
+    serializer_class = GamePlayerCountSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_class = GameFilter
 
 
 class PlayerScoreViewSet(viewsets.ModelViewSet):
     queryset = PlayerScore.objects.prefetch_related("player", "game")
     serializer_class = PlayerScoreSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PlayerScoreFilter
 
 
 class GameScoresViewSet(viewsets.ModelViewSet):
