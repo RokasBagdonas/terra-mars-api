@@ -15,7 +15,7 @@ up:
 
 dup:
 	docker-compose up & \
-	yarn --cwd "$(shell git rev-parse --show-toplevel)/frontend/games/package.json" serve
+	yarn --cwd "$(shell git rev-parse --show-toplevel)/frontend/games/" serve
 
 down:
 	$(ddown)
