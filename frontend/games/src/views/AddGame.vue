@@ -1,12 +1,24 @@
 <template>
   <h1>Add Game</h1>
-  <BaseInput label="number of players" v-model="numberOfPlayers" type="number"/>
+  <BaseInput
+    label="number of players"
+    v-model="numberOfPlayers"
+    type="number"
+  />
+  <button type="button" @click="submitNumberOfPlayers">submit number of players</button>
+  <p>{{ scores }}</p>
 
-  <PlayerScoreForm :playerScore="score"/>
+  <div v-if="scores.length > 0">
+    <PlayerScoreForm v-for="(score, index) in scores" :key="index"
+    :playerScore="score.value"/>
+  </div>
+
 </template>
 
 
 <script>
+import { ref } from "vue";
+
 import BaseInput from "../components/form-components/BaseInput";
 import PlayerScoreForm from "../components/PlayerScoreForm";
 import { PlayerScore } from "../classes";
@@ -18,10 +30,18 @@ export default {
   },
   data() {
     return {
-      scores: [new PlayerScore()],
+      scores: [],
       score: new PlayerScore(),
       numberOfPlayers: 0,
     };
+  },
+  methods: {
+    submitNumberOfPlayers() {
+      this.scores.length = 0;
+      for(let i = 0; i < this.numberOfPlayers; i++) {
+        this.scores.push(ref(new PlayerScore()));
+      }
+    },
   },
 };
 </script>
