@@ -6,7 +6,6 @@
     type="number"
   />
   <button type="button" @click="submitNumberOfPlayers">submit number of players</button>
-  <p>a: {{ a }}</p>
   <p>{{ scores }}</p>
 
   <div v-if="scores.length > 0">
@@ -19,15 +18,11 @@
 
 <script>
 import { ref } from "vue";
-
-import BaseInput from "../components/form-components/BaseInput";
-import PlayerScoreForm from "../components/PlayerScoreForm";
 import { PlayerScore } from "../classes";
 
 export default {
   components: {
     PlayerScoreForm,
-    BaseInput,
   },
   data() {
     return {

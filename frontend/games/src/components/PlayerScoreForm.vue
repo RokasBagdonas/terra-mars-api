@@ -8,21 +8,14 @@
     type="string"
     :options="corporations"
   />
-  <p>corporations: {{ corporations }}</p>
 </template>
 
 
 <script lang="ts">
-import BaseInput from "./form-components/BaseInput.vue";
-import BaseSelect from "./form-components/BaseSelect.vue";
 import { PlayerScore } from "../classes";
 import { ref } from "vue";
 
 export default {
-  components: {
-    BaseInput,
-    BaseSelect,
-  },
   props: {
     playerScore: {
       type: Object,
