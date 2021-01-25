@@ -6,6 +6,7 @@
     type="number"
   />
   <button type="button" @click="submitNumberOfPlayers">submit number of players</button>
+  <p>a: {{ a }}</p>
   <p>{{ scores }}</p>
 
   <div v-if="scores.length > 0">
@@ -33,6 +34,7 @@ export default {
       scores: [],
       score: new PlayerScore(),
       numberOfPlayers: 0,
+      a: 111,
     };
   },
   methods: {
