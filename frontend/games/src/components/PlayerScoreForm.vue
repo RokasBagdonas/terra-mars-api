@@ -5,7 +5,6 @@
   <BaseSelect
     v-model="playerScore.corporation"
     label="corporation"
-    type="string"
     :options="corporations"
   />
 </template>

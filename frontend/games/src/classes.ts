@@ -1,25 +1,26 @@
-export class PlayerScore{
-  terraform_rating: number;
-  corporation: string;
-  //player: Player,
-  //terraform_rating: "TR",
-  //milestones: "Milestones",
-  //awards: "Awards",
-  //greeneries: "Greeneries",
-  //cities: "Cities",
-  //event_cards: "Events",
-  //automated_cards: "Automoated cards",
-  //active_cards: "Active cards",
-  //resources: "Resources",
-  //total_score: "Final Score",
-  //is_winner: "Won?",
-  //id: "score_id",
-  //game_id: "game_id"
+export class PlayerScore {
+  terraform_rating: number = 20;
+  corporation: string = "";
+  player: Player = new Player();
+  milestones: number = 0;
+  awards: number = 0;
+  greeneries: number = 0;
+  cities: number = 0;
+  event_cards: number = 0;
+  automated_cards: number = 0;
+  active_cards: number = 0;
+  resources: number = 0;
+  total_score: number = 0;
+  is_winner: boolean = false;
 
-  constructor(){
-    this.terraform_rating = 20;
-    this.corporation = "";
+  constructor() {
   }
+}
 
+class Player {
+  name: string = "";
+  constructor() {
+
+  }
 }
 
