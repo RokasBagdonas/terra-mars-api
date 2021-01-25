@@ -19,6 +19,7 @@
 <script>
 import { ref } from "vue";
 import { PlayerScore } from "../classes";
+import PlayerScoreForm from "../components/PlayerScoreForm";
 
 export default {
   components: {
