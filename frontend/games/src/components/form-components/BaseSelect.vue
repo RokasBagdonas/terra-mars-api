@@ -1,18 +1,25 @@
 <template>
-  <label v-if="label"> {{ label }}</label>
-  <select
-    :value="modelValue"
-    class="select"
-    v-bind="$attrs"
-    @change="$emit('update:modelValue', $event.target.value)"
-  >
-    <option
-      v-for="option in options"
-      :value="option"
-      :key="option"
-      :selected="option === modelValue"
-    >{{ option }}</option>
-  </select>
+  <div class="field">
+    <label class="label" v-if="label"> {{ label }}</label>
+
+    <div class="control">
+      <select
+        :value="modelValue"
+        class="select is-rounded"
+        v-bind="$attrs"
+        @change="$emit('update:modelValue', $event.target.value)"
+      >
+        <option
+          v-for="option in options"
+          :value="option"
+          :key="option"
+          :selected="option === modelValue"
+        >
+          {{ option }}
+        </option>
+      </select>
+    </div>
+  </div>
 </template>
 
 

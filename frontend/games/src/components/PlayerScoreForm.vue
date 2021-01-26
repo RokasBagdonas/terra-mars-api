@@ -1,12 +1,17 @@
 <template>
-  <h5>player score form</h5>
-  <p>{{ playerScore }}</p>
-  <BaseInput v-model="playerScore.terraform_rating" label="TR" type="number" />
-  <BaseSelect
-    v-model="playerScore.corporation"
-    label="corporation"
-    :options="corporations"
-  />
+  <div class="container">
+    <p>{{ playerScore }}</p>
+    <BaseInput
+      v-model="playerScore.terraform_rating"
+      label="TR"
+      type="number"
+    />
+    <BaseSelect
+      v-model="playerScore.corporation"
+      label="corporation"
+      :options="corporations"
+    />
+  </div>
 </template>
 
 
