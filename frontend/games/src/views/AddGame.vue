@@ -29,7 +29,6 @@ export default {
       scores: [],
       score: new PlayerScore(),
       numberOfPlayers: 0,
-      a: 111,
     };
   },
   methods: {
