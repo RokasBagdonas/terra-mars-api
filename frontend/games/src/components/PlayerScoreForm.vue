@@ -8,64 +8,40 @@
       :options="corporations"
     />
     <BaseInput
-      v-model="playerScore['terraform_rating']"
+      v-model.number="playerScore['terraform_rating']"
       label="TR"
       type="number"
     />
     <BaseInput
-      v-model="playerScore.milestones"
+      v-model.number="playerScore.milestones"
       label="Milestones"
       type="number"
     />
+    <BaseInput v-model.number="playerScore.awards" label="Awards" type="number" />
     <BaseInput
-      v-model="playerScore.awards"
-      label="Awards"
-      type="number"
-    />
-    <BaseInput
-      v-model="playerScore.greeneries"
+      v-model.number="playerScore.greeneries"
       label="Greeneries"
       type="number"
     />
+    <BaseInput v-model.number="playerScore.cities" label="Cities" type="number" />
+    <BaseInput v-model.number="playerScore.event_cards" label="Events" type="number" />
     <BaseInput
-      v-model="playerScore.cities"
-      label="Cities"
-      type="number"
-    />
-    <BaseInput
-      v-model="playerScore.event_cards"
-      label="Events"
-      type="number"
-    />
-    <BaseInput
-      v-model="playerScore.automated_cards"
+      v-model.number="playerScore.automated_cards"
       label="Automated Cards"
       type="number"
     />
     <BaseInput
-      v-model="playerScore.active_cards"
+      v-model.number="playerScore.active_cards"
       label="Active cards"
       type="number"
     />
     <BaseInput
-      v-model="playerScore.resources"
+      v-model.number="playerScore.resources"
       label="Resources"
       type="number"
     />
-    <BaseInput
-      v-model="playerScore.total_score"
-      label="total"
-      type="number"
-    />
-    <BaseInput
-      v-model="playerScore.is_winner"
-      label="Won?"
-      type="string"
-    />
-
-
-
-
+    <BaseInput v-model.number="playerScore.total_score" label="total" type="number" />
+    <BaseInput v-model="playerScore.is_winner" label="Won?" type="string" />
   </div>
 </template>
 
