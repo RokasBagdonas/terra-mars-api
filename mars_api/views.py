@@ -44,17 +44,9 @@ class GameScoresViewSet(viewsets.ModelViewSet):
 class ListCorporations(APIView):
 
     def get(self, request):
-        """Return all valid corporations."""
-        corps = []
-        for tulip in CORPORATIONS:
-            corps.append(tulip[0])
-        return Response(corps)
+        return Response([name for (name, *_) in CORPORATIONS])
 
 
 class ListMaps(APIView):
     def get(self, request):
-        """Return all valid maps."""
-        maps = []
-        for tulip in MAPS:
-            maps.append(tulip[0])
-        return Response(maps)
+        return Response([name for (name, *_) in MAPS])
