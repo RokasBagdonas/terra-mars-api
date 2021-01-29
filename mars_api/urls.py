@@ -10,5 +10,6 @@ router.register(r"player_scores", views.PlayerScoreViewSet)
 router.register(r"game_scores", views.GameScoresViewSet)
 
 urlpatterns = [
+    path("corporations", views.ListCorporations.as_view()),
     path("", include(router.urls)),
 ]

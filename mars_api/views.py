@@ -1,9 +1,11 @@
 from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import filters, viewsets
 
 from mars_api.filters import GameFilter, PlayerScoreFilter
-from mars_api.models import Game, Player, PlayerScore
+from mars_api.models import Game, Player, PlayerScore, CORPORATIONS
 from mars_api.serializers import (
     GameAndPlayersScoresSerializer,
     GamePlayerCountSerializer,
@@ -37,3 +39,15 @@ class GameScoresViewSet(viewsets.ModelViewSet):
 
     queryset = Game.objects.prefetch_related("scores", "scores__player")
     serializer_class = GameAndPlayersScoresSerializer
+
+
+class ListCorporations(APIView):
+
+    def get(self, request):
+        """
+        Return all valid corporations
+        """
+        corps = []
+        for tulip in CORPORATIONS:
+            corps.append(tulip[0])
+        return Response(corps)
