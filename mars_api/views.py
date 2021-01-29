@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import filters, viewsets
 
 from mars_api.filters import GameFilter, PlayerScoreFilter
-from mars_api.models import Game, Player, PlayerScore, CORPORATIONS
+from mars_api.models import Game, Player, PlayerScore, CORPORATIONS, MAPS
 from mars_api.serializers import (
     GameAndPlayersScoresSerializer,
     GamePlayerCountSerializer,
@@ -44,10 +44,17 @@ class GameScoresViewSet(viewsets.ModelViewSet):
 class ListCorporations(APIView):
 
     def get(self, request):
-        """
-        Return all valid corporations
-        """
+        """Return all valid corporations."""
         corps = []
         for tulip in CORPORATIONS:
             corps.append(tulip[0])
         return Response(corps)
+
+
+class ListMaps(APIView):
+    def get(self, request):
+        """Return all valid maps."""
+        maps = []
+        for tulip in MAPS:
+            maps.append(tulip[0])
+        return Response(maps)
