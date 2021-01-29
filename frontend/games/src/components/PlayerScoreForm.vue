@@ -53,12 +53,7 @@
       label="Resources"
       type="number"
     />
-    <BaseInput
-      v-model.number="playerScore.total_score"
-      label="total"
-      type="number"
-    />
-    <BaseInput v-model="playerScore.is_winner" label="Won?" type="string" />
+    <BaseCheckbox v-model="playerScore.is_winner" label="Won?"/>
   </div>
 </template>
 
