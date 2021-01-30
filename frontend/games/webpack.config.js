@@ -1,5 +1,5 @@
 const path = require('path');
-const {VueLoaderPlugin} = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader-v16');
 const BundleTracker = require('webpack-bundle-tracker');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
@@ -8,7 +8,7 @@ module.exports = (env = {}) => {
   return {
 
     mode: env.prod ? 'production' : 'development',
-    devtool: env.prod ? 'source-map' : 'cheap-module-eval-source-map',
+    devtool: env.prod ? false : "eval",
     entry: path.resolve(__dirname, './src/main.ts'),
     output: {
       path: path.resolve(__dirname, '../static/dist'),
@@ -62,7 +62,7 @@ module.exports = (env = {}) => {
         },
         {
           test: /\.(png|svg|jpg|gif)$/,
-          use: 'file-loader'
+          use: 'asset/resource'
         },
       ]
     },
@@ -79,7 +79,7 @@ module.exports = (env = {}) => {
         publicPath: 'http://0.0.0.0:8080/'
       }),
       new MiniCssExtractPlugin({
-        filename: "/css/main.css"
+        filename: "css/main.css"
       }),
       new webpack.DefinePlugin({
         __VUE_OPTIONS_API__: JSON.stringify(true),
