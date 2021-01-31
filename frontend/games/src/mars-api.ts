@@ -7,6 +7,8 @@ const ENDPOINTS = {
     "players": "players/",
     "player_scores": "player_scores/",
     "game_scores": "game_scores/",
+    "corporations": "corporations",
+    "maps": "maps"
 }
 
 export const GAME_SCHEMA = {
@@ -53,4 +55,13 @@ export function getGames(limit = 50, offset = 0, order_by="-date") {
 
 export function getGameScores(id) {
     return axios.get(ROOT_URL + ENDPOINTS["game_scores"] + id)
+}
+
+
+export async function getMaps() {
+  return await axios.get(ROOT_URL + ENDPOINTS["maps"]);
+}
+
+export async function getCorporations() {
+  return await axios.get(ROOT_URL + ENDPOINTS["corporations"]);
 }
