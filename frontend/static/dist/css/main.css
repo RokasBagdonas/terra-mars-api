@@ -7197,16 +7197,3 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
-th[data-v-dfa49f12] {
-  cursor: pointer;
-}
-th[data-v-dfa49f12]:hover {
-  background-color: lavender;
-}
-tr[data-v-dfa49f12] {
-  cursor: pointer;
-}
-.clicked[data-v-dfa49f12] {
-  background-color: lavender;
-}
-

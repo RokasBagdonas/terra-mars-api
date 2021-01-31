@@ -135,7 +135,9 @@ export default {
 };
 </script>
 
-
+<!--
+WARNING in ./src/views/Games.vue?vue&type=style&index=0&id=dfa49f12&lang=scss&module=true&scoped=true 1:0-402
+export 'default' (reexported as 'default') was not found in '-!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-3.use[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./Games.vue?vue&type=style&index=0&id=dfa49f12&lang=scss&module=true&scoped=true' (possible exports: )
 <style lang="scss" module scoped>
 th {
   cursor: pointer;
@@ -150,3 +152,4 @@ tr {
     background-color: lavender;
 }
 </style>
+-->

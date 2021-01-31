@@ -1,5 +1,5 @@
 const path = require('path');
-const {VueLoaderPlugin} = require('vue-loader-v16');
+const {VueLoaderPlugin} = require('vue-loader');
 const BundleTracker = require('webpack-bundle-tracker');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
