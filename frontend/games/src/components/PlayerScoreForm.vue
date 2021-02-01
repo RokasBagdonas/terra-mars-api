@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <p>{{ playerScore }}</p>
     <h3>Total score: {{ totalScore }}</h3>
 
     <BaseSelect
