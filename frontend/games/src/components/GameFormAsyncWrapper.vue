@@ -1,5 +1,6 @@
 <template>
   <h1 class="title">GameForm Wrapper</h1>
+  <GameForm :game="game" :MAPS="MAPS"/>
 </template>
 
 

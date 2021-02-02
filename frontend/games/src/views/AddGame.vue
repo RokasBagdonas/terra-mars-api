@@ -1,5 +1,6 @@
 <template>
   <h1>Add Game</h1>
+  <p> {{ game }}</p>
   <p>{{ playerScores }}</p>
   <Suspense>
     <template #default>
