@@ -5,7 +5,7 @@
     <BaseSelect
       v-model="playerScore.corporation"
       label="corporation"
-      :options="corporations"
+      :options="CORPORATIONS"
     />
     <BaseInput
       v-model.number="playerScore['terraform_rating']"
@@ -52,28 +52,22 @@
       label="Resources"
       type="number"
     />
-    <BaseCheckbox v-model="playerScore.is_winner" label="Won?"/>
+    <BaseCheckbox v-model="playerScore.is_winner" label="Won?" />
   </div>
 </template>
 
 
 <script>
-import { PlayerScore } from "../classes";
-import { ref } from "vue";
-
 export default {
   props: {
     playerScore: {
       type: Object,
       required: true,
     },
-  },
-  setup() {
-    let corporations = ["Tharsis Republic", "Teractor", "Saturn Systems"];
-    return {
-      corporations,
-      PlayerScore,
-    };
+    CORPORATIONS: {
+      type: Array,
+      required: true,
+    },
   },
   computed: {
     totalScore() {

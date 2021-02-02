@@ -20,7 +20,7 @@
 <script>
 import { ref } from "vue";
 
-import { PlayerScore } from "../classes";
+import { Game } from "../classes";
 import GameFormAsyncWrapper from "../components/GameFormAsyncWrapper";
 import PlayerScoresFormAsyncWrapper from "../components/PlayerScoresFormAsyncWrapper";
 
@@ -31,7 +31,7 @@ export default {
   },
   setup() {
     let playerScores = ref([]);
-    let game = ref({});
+    let game = ref(new Game());
     return {
       playerScores,
       game

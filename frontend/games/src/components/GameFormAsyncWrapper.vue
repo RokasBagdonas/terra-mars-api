@@ -1,5 +1,5 @@
 <template>
-  <h1>GameForm Wrapper</h1>
+  <h1 class="title">GameForm Wrapper</h1>
 </template>
 
 

@@ -19,72 +19,15 @@ export class PlayerScore {
 
 }
 
-//export const PLAYER_SCORE_SCHEMA = {
-  //player: {
-    //label: "player",
-    //component: "BaseSelect"
-  //},
-  //corporation: {
-    //label: "corporation",
-    //component: "BaseSelect",
-  //},
-  //terraform_rating: {
-    //label: "TR",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //milestones: {
-    //label: "milestones",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //awards: {
-    //label: "awards",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //greeneries: {
-    //label: "greeneries",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //cities: {
-    //label: "cities",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //event_cards: {
-    //label: "events",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //automated_cards: {
-    //label: "automated cards",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //active_cards: {
-    //label: "active cards",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //resources: {
-    //label: "resources",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //total_score: {
-    //label: "total score",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-  //is_winner: {
-    //label: "is winner",
-    //component: "BaseInput",
-    //type: "number",
-  //},
-
-//}
+export class Game {
+  date: Date = new Date();
+  game_map: string = "Tharsis";
+  number_of_generations: number;
+  draft_variant: boolean = false;
+  prelude: boolean = false;
+  venus_next: boolean = false;
+  colonies: boolean = false;
+}
 
 class Player {
   name: string = "";
@@ -92,4 +35,3 @@ class Player {
 
   }
 }
-

@@ -5,7 +5,7 @@
 
   <div class="columns" v-if="playerScores.length > 0">
     <div class="column" v-for="(score, index) in playerScores" :key="index">
-      <PlayerScoreForm :playerScore="score.value" />
+      <PlayerScoreForm :playerScore="score.value" :CORPORATIONS="CORPORATIONS"/>
     </div>
   </div>
 </template>
