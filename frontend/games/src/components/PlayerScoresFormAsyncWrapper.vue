@@ -1,5 +1,5 @@
 <template>
-  <h3>PlayerScoreFormAsyncWrapper</h3>
+  <h5 class="title is-5">Player Scores</h5>
   <BaseInput label="number of players" v-model="numberOfPlayers" type="number"/>
   <button type="button" @click="submitNumberOfPlayers">submit</button>
 

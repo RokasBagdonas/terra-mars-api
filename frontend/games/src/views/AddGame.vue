@@ -1,7 +1,9 @@
 <template>
-  <h1>Add Game</h1>
+  <h1 class="title is-3">Add Game</h1>
+  <!--
   <p> {{ game }}</p>
   <p>{{ playerScores }}</p>
+  -->
   <Suspense>
     <template #default>
       <GameFormAsyncWrapper :game="game"/>

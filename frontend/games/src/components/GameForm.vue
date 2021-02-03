@@ -1,13 +1,30 @@
 <template>
-  <h3 class="title is-3">GameForm</h3>
-  <BaseSelect v-model="game.game_map" label="map" :options="MAPS"/>
- <BaseInput v-model.number="game.number_of_generations" label="number of generations"
- type="number"/>
- <BaseCheckbox v-model="game.draft_variant" label="Draft?"/>
- <BaseCheckbox v-model="game.prelude" label="Prelude?"/>
- <BaseCheckbox v-model="game.colonies" label="Colonies?"/>
- <BaseCheckbox v-model="game.venus_next" label="Venus Next?"/>
+  <h5 class="title is-5">GameForm</h5>
+  <div class="level">
+  <div class="level-item">
+ <BaseInput v-model.number="game.number_of_generations" label="number of generations" type="number"/>
+  </div>
+  <div class="level-item">
  <BaseDate v-model="game.date" label="date"/>
+  </div>
+
+  <div class="level-item">
+    <BaseCheckbox v-model="game.draft_variant" label="Draft?"/>
+  </div>
+
+  <div class="level-item">
+ <BaseCheckbox v-model="game.prelude" label="Prelude?"/>
+  </div>
+  <div class="level-item">
+ <BaseCheckbox v-model="game.colonies" label="Colonies?"/>
+  </div>
+  <div class="level-item">
+ <BaseCheckbox v-model="game.venus_next" label="Venus Next?"/>
+  </div>
+  <div class="level-item">
+  <BaseSelect v-model="game.game_map" label="Map" :options="MAPS"/>
+  </div>
+ </div>
 </template>
 
 <script>
