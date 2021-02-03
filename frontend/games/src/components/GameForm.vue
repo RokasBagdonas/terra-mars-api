@@ -7,6 +7,7 @@
  <BaseCheckbox v-model="game.prelude" label="Prelude?"/>
  <BaseCheckbox v-model="game.colonies" label="Colonies?"/>
  <BaseCheckbox v-model="game.venus_next" label="Venus Next?"/>
+ <BaseDate v-model="game.date" label="date"/>
 </template>
 
 <script>
