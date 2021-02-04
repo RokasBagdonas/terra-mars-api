@@ -65,3 +65,10 @@ export async function getMaps() {
 export async function getCorporations() {
   return await axios.get(ROOT_URL + ENDPOINTS["corporations"]);
 }
+
+export function postGameScores(payload: String){
+  console.log("postGameScores");
+  axios.post(ROOT_URL + ENDPOINTS["game_scores"], payload)
+  .then(function (response){console.log("Response", response)})
+  .catch(function (error) { console.error("Error", error)});
+}
