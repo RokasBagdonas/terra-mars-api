@@ -57,6 +57,10 @@ export function getGameScores(id) {
   return axios.get(ROOT_URL + ENDPOINTS["game_scores"] + id)
 }
 
+export async function getPlayers(){
+  return axios.get(ROOT_URL + ENDPOINTS["players"]);
+}
+
 
 export async function getMaps() {
   return await axios.get(ROOT_URL + ENDPOINTS["maps"]);

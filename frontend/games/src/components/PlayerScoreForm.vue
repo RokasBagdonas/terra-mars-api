@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <h3>Total score: {{ totalScore }}</h3>
-
+    <BaseSelect
+      v-model="playerScore.player"
+      label="Player"
+      :options="PLAYERS"
+    />
     <BaseSelect
       v-model="playerScore.corporation"
       label="corporation"
@@ -65,6 +69,10 @@ export default {
       required: true,
     },
     CORPORATIONS: {
+      type: Array,
+      required: true,
+    },
+    PLAYERS: {
       type: Array,
       required: true,
     },
