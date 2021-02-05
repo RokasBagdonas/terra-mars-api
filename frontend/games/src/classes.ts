@@ -29,9 +29,14 @@ export class Game {
   colonies: boolean = false;
 }
 
-class Player {
-  name: string = "";
-  constructor() {
+export class Player {
+  nickname: string = "";
 
+  static playersToNicknameList(players: Array<Player>){
+    let result = new Array<String>();
+    for(let p of players){
+      result.push(p.nickname);
+    }
+    return result;
   }
 }

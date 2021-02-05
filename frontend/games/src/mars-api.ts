@@ -54,7 +54,7 @@ export function getGames(limit = 50, offset = 0, order_by = "-date") {
 }
 
 export function getGameScores(id) {
-  return axios.get(ROOT_URL + ENDPOINTS["game_scores"] + id)
+  return axios.get(ROOT_URL + ENDPOINTS["game_scores"] + id);
 }
 
 export async function getPlayers(){

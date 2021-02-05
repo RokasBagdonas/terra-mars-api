@@ -15,7 +15,7 @@
 import { ref } from "vue";
 import PlayerScoreForm from "./PlayerScoreForm";
 import { getPlayers, getCorporations } from "../mars-api";
-import { PlayerScore  } from "../classes";
+import { PlayerScore } from "../classes";
 
 export default {
   props: {
@@ -29,7 +29,8 @@ export default {
   },
   async setup() {
     const {data: CORPORATIONS} = await getCorporations();
-    const {data: PLAYERS} = await getPlayers();
+    const data = await getPlayers();
+    const PLAYERS = data.data.results;
     let numberOfPlayers = 3;
     return {
       CORPORATIONS,

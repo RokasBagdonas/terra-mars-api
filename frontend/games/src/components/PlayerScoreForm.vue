@@ -1,10 +1,11 @@
 <template>
   <div class="container">
     <h3>Total score: {{ totalScore }}</h3>
-    <BaseSelect
+    <BaseObjectSelect
       v-model="playerScore.player"
       label="Player"
       :options="PLAYERS"
+      displayProp="nickname"
     />
     <BaseSelect
       v-model="playerScore.corporation"
