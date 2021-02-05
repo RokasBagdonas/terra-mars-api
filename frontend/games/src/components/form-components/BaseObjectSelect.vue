@@ -1,23 +1,20 @@
 <template>
   <div class="field">
-    <label class="label" v-if="label"> {{ label }}</label>
+    <label class="label" v-if="label">{{ label }}</label>
 
     <div class="control">
-      <select
-        :value="modelValue"
-        class="select is-rounded"
-        v-bind="$attrs"
-        @change="$emit('update:modelValue', $event.target.value)"
-      >
-        <option
-          v-for="option in options"
-          :value="option"
-          :key="option"
-          :selected="option === modelValue"
-        >
-          {{ option[displayProp] }}
-        </option>
-      </select>
+      <div class="select is-primary is-rounded">
+        <select :value="modelValue" v-bind="$attrs" @change="setObject">
+          <option
+            v-for="(option, index) in options"
+            :value="index"
+            :key="option"
+            :selected="option === modelValue"
+          >
+            {{ option[displayProp] }}
+          </option>
+        </select>
+      </div>
     </div>
   </div>
 </template>
@@ -30,10 +27,10 @@ export default {
       type: String,
       default: "",
     },
-displayProp: {
-  type: String,
-  default: "",
-             },
+    displayProp: {
+      type: String,
+      default: "",
+    },
     modelValue: {
       type: Object,
       default: null,
@@ -41,6 +38,12 @@ displayProp: {
     options: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    setObject(e) {
+      console.log(e.target.value);
+      this.$emit("update:modelValue", this.options[e.target.value]);
     },
   },
 };
