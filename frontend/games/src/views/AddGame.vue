@@ -48,7 +48,6 @@ export default {
       //TODO: validation
       let payload = this.objectToDictionary(this.game);
       payload["scores"] = this.unrefArray(this.playerScores);
-      console.log(JSON.stringify(payload));
       postGameScores(JSON.stringify(payload));
 
     },

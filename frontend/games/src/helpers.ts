@@ -1,4 +1,4 @@
-export function unrefArray(arr: Array<Object>) {
+export function unrefArray(arr: Array<object>) {
   if (arr.length === 0) {
     return arr;
   }
