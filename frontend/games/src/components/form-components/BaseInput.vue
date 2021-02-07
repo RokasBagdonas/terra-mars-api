@@ -2,13 +2,16 @@
   <div class="field">
     <label class="label" v-if="label"> {{ label }}</label>
     <div class="control">
-    <input
-      :placeholder="label"
-      class="input"
-      :value="modelValue"
-      v-bind="$attrs"
-      @input="$emit('update:modelValue', $event.target.value)"
-    /></div>
+      <div class="input is-primary">
+        <input
+          :placeholder="label"
+          class="input"
+          :value="modelValue"
+          v-bind="$attrs"
+          @input="$emit('update:modelValue', $event.target.value)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 

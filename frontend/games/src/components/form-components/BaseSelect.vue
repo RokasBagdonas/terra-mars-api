@@ -3,21 +3,23 @@
     <label class="label" v-if="label"> {{ label }}</label>
 
     <div class="control">
-      <select
-        :value="modelValue"
-        class="select is-rounded"
-        v-bind="$attrs"
-        @change="$emit('update:modelValue', $event.target.value)"
-      >
-        <option
-          v-for="option in options"
-          :value="option"
-          :key="option"
-          :selected="option === modelValue"
+      <div class="select is-primary is-rounded">
+        <select
+          :value="modelValue"
+          class="select is-rounded"
+          v-bind="$attrs"
+          @change="$emit('update:modelValue', $event.target.value)"
         >
-          {{ option }}
-        </option>
-      </select>
+          <option
+            v-for="option in options"
+            :value="option"
+            :key="option"
+            :selected="option === modelValue"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
     </div>
   </div>
 </template>

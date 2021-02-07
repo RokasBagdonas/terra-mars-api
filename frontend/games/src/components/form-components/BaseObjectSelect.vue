@@ -3,7 +3,7 @@
     <label class="label" v-if="label">{{ label }}</label>
 
     <div class="control">
-      <div class="select is-primary is-rounded">
+      <div class="select is-primary">
         <select v-model="selected" v-bind="$attrs" @change="setObject">
           <option
             v-for="(option, index) in options"
@@ -17,7 +17,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 
@@ -41,10 +40,10 @@ export default {
       required: true,
     },
   },
-  setup(){
+  setup() {
     return {
       selected: {},
-    }
+    };
   },
   methods: {
     setObject(e) {

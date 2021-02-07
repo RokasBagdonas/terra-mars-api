@@ -3,8 +3,8 @@
   <button class="button" type="button" @click="submitGame">Submit</button>
   <!--
   <p> {{ game }}</p>
-  -->
   <p>{{ playerScores }}</p>
+  -->
 
   <Suspense>
     <template #default>
