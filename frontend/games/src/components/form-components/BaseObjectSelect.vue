@@ -4,12 +4,12 @@
 
     <div class="control">
       <div class="select is-primary is-rounded">
-        <select :value="modelValue" v-bind="$attrs" @change="setObject">
+        <select v-model="selected" v-bind="$attrs" @change="setObject">
           <option
             v-for="(option, index) in options"
             :value="index"
             :key="option"
-            :selected="option === modelValue"
+            :selected="options[0][displayProp]"
           >
             {{ option[displayProp] }}
           </option>
@@ -17,6 +17,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 
@@ -40,10 +41,16 @@ export default {
       required: true,
     },
   },
+  setup(){
+    return {
+      selected: {},
+    }
+  },
   methods: {
     setObject(e) {
       console.log(e.target.value);
-      this.$emit("update:modelValue", this.options[e.target.value]);
+      let newValue = this.options[e.target.value];
+      this.$emit("update:modelValue", newValue);
     },
   },
 };
