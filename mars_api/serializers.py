@@ -24,8 +24,6 @@ class GamePlayerCountSerializer(serializers.ModelSerializer):
 
 
 class GameSerializerForImportedData(serializers.ModelSerializer):
-    id = serializers.IntegerField()
-
     class Meta:
         model = Game
         fields = "__all__"

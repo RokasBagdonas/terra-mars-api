@@ -23,6 +23,10 @@ down:
 import_initial_data:
 	$(dmanage) import_initial_data $(initial_data_path)
 
+dmanage:
+	$(dmanage) $(cmd) $(flag);
+	$(ddown)
+
 # DB ==========================================================================
 migrate:
 	$(dmanage) migrate $(flags);
