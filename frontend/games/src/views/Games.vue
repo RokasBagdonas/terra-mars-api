@@ -28,8 +28,8 @@
       </thead>
       <tbody>
         <tr v-for="game in games" v-bind:key="game"
-        v-on:click="setPickedGameId(game.id)">
-          <td v-for="(value, key) in game" v-bind:key="key">{{ value }}</td>
+        @click="setPickedGameId(game.id)">
+          <td v-for="(value, key) in game">{{ value }}</td>
         </tr>
       </tbody>
     </table>
@@ -37,7 +37,7 @@
 </div>
 </div>
 <div class="column">
-    <GameDetails :gameId="pickedGameId"> </GameDetails>
+    <GameDetails v-if="pickedGameId" :gameId="pickedGameId"> </GameDetails>
 </div>
 </div>
 </template>
