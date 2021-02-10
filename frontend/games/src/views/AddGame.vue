@@ -6,11 +6,18 @@
           <h1 class="title is-3">Add Game</h1>
         </div>
         <div class="level-item">
-          <button class="button is-primary" type="button" @click="submitGame">
-            Submit
-          </button>
+          <button class="button is-primary" type="button" @click="submitGame">Submit</button>
         </div>
+
+        <div class="level-item">
+          <BaseInput label="number of players?" v-model="numberOfPlayers" type="number" />
+        </div>
+        <div class="level-item">
+          <button type="button" class="button" @click="submitNumberOfPlayers">confirm</button>
+        </div>
+
       </div>
+
     </div>
   </div>
   <!--
@@ -24,8 +31,7 @@
     </template>
     <template #fallback>Preparing game form...</template>
   </Suspense>
-
-  <Suspense>
+  <Suspense v-if="submittedNumberOfPlayers">
     <template #default>
       <PlayerScoresFormAsyncWrapper :playerScores="playerScores" />
     </template>
@@ -37,7 +43,7 @@
 <script>
 import { ref, unref, toRaw, isRef } from "vue";
 
-import { Game } from "../classes";
+import { Game, PlayerScore } from "../classes";
 import { postGameScores } from "../mars-api";
 import GameFormAsyncWrapper from "../components/GameFormAsyncWrapper";
 import PlayerScoresFormAsyncWrapper from "../components/PlayerScoresFormAsyncWrapper";
@@ -50,9 +56,13 @@ export default {
   setup() {
     let playerScores = ref([]);
     let game = ref(new Game());
+    let numberOfPlayers = 2;
+    let submittedNumberOfPlayers = new ref(null);
     return {
       playerScores,
       game,
+      numberOfPlayers,
+      submittedNumberOfPlayers,
     };
   },
   methods: {
@@ -62,6 +72,23 @@ export default {
       payload["scores"] = this.unrefArray(this.playerScores);
       postGameScores(JSON.stringify(payload));
     },
+
+    submitNumberOfPlayers() {
+      if (this.numberOfPlayers >= 1 && this.numberOfPlayers <= 5) {
+        this.submittedNumberOfPlayers = this.numberOfPlayers;
+        console.log(this.submittedNumberOfPlayers);
+
+        this.playerScores.length = 0;
+        for (let i = 0; i < this.numberOfPlayers; i++) {
+          this.playerScores.push(ref(new PlayerScore()));
+        }
+      } else {
+        // TODO: display warning
+        console.error("Invalid number of players: " + this.numberOfPlayers);
+      }
+    },
+
+    // --- Utilities ---
     unrefArray(arr) {
       if (arr.length === 0) {
         return arr;
