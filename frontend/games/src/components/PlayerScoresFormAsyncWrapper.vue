@@ -1,11 +1,24 @@
 <template>
-  <BaseInput label="number of players" v-model="numberOfPlayers" type="number"/>
-  <button type="button" @click="submitNumberOfPlayers">submit</button>
+  <div class="level">
+    <div class="level-item">
+      <BaseInput
+        label="number of players"
+        v-model="numberOfPlayers"
+        type="number"
+      />
+    </div>
+    <div class="level-item">
+      <button type="button" @click="submitNumberOfPlayers">submit</button>
+    </div>
+  </div>
 
   <div class="columns" v-if="playerScores.length > 0">
     <div class="column" v-for="(score, index) in playerScores" :key="index">
-      <PlayerScoreForm :playerScore="score.value" :CORPORATIONS="CORPORATIONS"
-      :PLAYERS="PLAYERS"/>
+      <PlayerScoreForm
+        :playerScore="score.value"
+        :CORPORATIONS="CORPORATIONS"
+        :PLAYERS="PLAYERS"
+      />
     </div>
   </div>
 </template>
@@ -27,14 +40,14 @@ export default {
     PlayerScoreForm,
   },
   async setup() {
-    const {data: CORPORATIONS} = await getCorporations();
+    const { data: CORPORATIONS } = await getCorporations();
     const data = await getPlayers();
     const PLAYERS = data.data.results;
     let numberOfPlayers = 3;
     return {
       CORPORATIONS,
       PLAYERS,
-      numberOfPlayers
+      numberOfPlayers,
     };
   },
   methods: {
