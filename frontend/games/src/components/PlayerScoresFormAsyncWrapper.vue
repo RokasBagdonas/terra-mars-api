@@ -1,14 +1,14 @@
 <template>
-  <div class="level">
+  <div v-if="!submittedNumberOfPlayers" class="level">
     <div class="level-item">
       <BaseInput
-        label="number of players"
+        label="number of players?"
         v-model="numberOfPlayers"
         type="number"
       />
     </div>
     <div class="level-item">
-      <button type="button" @click="submitNumberOfPlayers">submit</button>
+      <button type="button" @click="submitNumberOfPlayers">confirm</button>
     </div>
   </div>
 
@@ -52,9 +52,14 @@ export default {
   },
   methods: {
     submitNumberOfPlayers() {
-      this.playerScores.length = 0;
-      for (let i = 0; i < this.numberOfPlayers; i++) {
-        this.playerScores.push(ref(new PlayerScore()));
+      if (this.numberOfPlayers >= 1 && this.numberOfPlayers <= 5) {
+
+        this.playerScores.length = 0;
+        for (let i = 0; i < this.numberOfPlayers; i++) {
+          this.playerScores.push(ref(new PlayerScore()));
+        }
+      } else {
+        // display warning
       }
     },
   },

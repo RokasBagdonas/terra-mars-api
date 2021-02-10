@@ -2,7 +2,7 @@
   <div class="field">
     <div class="level">
       <div class="level-item">
-        <label class="label" v-if="label"> {{ label }}</label>
+        <label class="label" v-if="label">{{ label }}</label>
       </div>
       <div class="level-item">
         <div class="control">

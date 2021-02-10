@@ -1,6 +1,18 @@
 <template>
-  <h1 class="title is-3">Add Game</h1>
-  <button class="button" type="button" @click="submitGame">Submit</button>
+  <div class="section">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h1 class="title is-3">Add Game</h1>
+        </div>
+        <div class="level-item">
+          <button class="button is-primary" type="button" @click="submitGame">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--
   <p> {{ game }}</p>
   <p>{{ playerScores }}</p>
@@ -44,12 +56,11 @@ export default {
     };
   },
   methods: {
-     submitGame() {
+    submitGame() {
       //TODO: validation
       let payload = this.objectToDictionary(this.game);
       payload["scores"] = this.unrefArray(this.playerScores);
       postGameScores(JSON.stringify(payload));
-
     },
     unrefArray(arr) {
       if (arr.length === 0) {
@@ -61,14 +72,14 @@ export default {
       }
       return result;
     },
-    objectToDictionary(obj){
+    objectToDictionary(obj) {
       let dict = {};
-      for(let prop in obj){
+      for (let prop in obj) {
         dict[prop] = obj[prop];
         console.log(prop);
       }
       return dict;
-    }
+    },
   },
 };
 </script>
