@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h3>Total score: {{ totalScore }}</h3>
     <BaseObjectSelect
       v-model="playerScore.player"
       label="Player"
@@ -12,6 +11,11 @@
       label="corporation"
       :options="CORPORATIONS"
     />
+    <div class="hero is-small is-primary">
+      <div class="hero-body">
+        <p>Total Score: {{ totalScore }}</p>
+      </div>
+    </div>
     <BaseInput
       v-model.number="playerScore['terraform_rating']"
       label="TR"
