@@ -10,7 +10,7 @@
         </div>
 
         <div class="level-item">
-          <BaseInput label="number of players?" v-model="numberOfPlayers" type="number" />
+          <BaseNumberInput label="number of players?" v-model="numberOfPlayers" type="number" />
         </div>
         <div class="level-item">
           <button type="button" class="button" @click="submitNumberOfPlayers">confirm</button>
@@ -41,6 +41,7 @@
 
 
 <script>
+'use-strict';
 import { ref, unref, toRaw, isRef } from "vue";
 
 import { Game, PlayerScore } from "../classes";
@@ -56,6 +57,7 @@ export default {
   setup() {
     let playerScores = ref([]);
     let game = ref(new Game());
+    game.value.number_of_generations = 10;
     let numberOfPlayers = 2;
     let submittedNumberOfPlayers = new ref(null);
     return {
@@ -74,17 +76,24 @@ export default {
     },
 
     submitNumberOfPlayers() {
-      if (this.numberOfPlayers >= 1 && this.numberOfPlayers <= 5) {
-        this.submittedNumberOfPlayers = this.numberOfPlayers;
-        console.log(this.submittedNumberOfPlayers);
-
-        this.playerScores.length = 0;
-        for (let i = 0; i < this.numberOfPlayers; i++) {
-          this.playerScores.push(ref(new PlayerScore()));
-        }
-      } else {
+      if (this.numberOfPlayers < 1 || this.numberOfPlayers > 5) {
         // TODO: display warning
         console.error("Invalid number of players: " + this.numberOfPlayers);
+      }
+      this.submittedNumberOfPlayers = this.numberOfPlayers;
+
+      // diff
+      let diffnp = this.numberOfPlayers - this.playerScores.length;
+      // 5 - 0 = 5
+      if (diffnp > 0) {
+        for (let i = 0; i < diffnp; i++) {
+          this.playerScores.push(ref(new PlayerScore()));
+        }
+      }
+      if (diffnp < 0) {
+        for (let i = 0; i > diffnp; i--) {
+          this.playerScores.pop();
+        }
       }
     },
 
