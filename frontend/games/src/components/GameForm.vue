@@ -6,7 +6,7 @@
           <BaseDate v-model="game.date" label="date" />
         </div>
         <div class="level-item">
-          <BaseInput
+          <BaseNumberInput
             v-model.number="game.number_of_generations"
             label="number of generations"
             type="number"

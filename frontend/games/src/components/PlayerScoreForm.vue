@@ -26,47 +26,47 @@
         <p>Total Score: {{ totalScore }}</p>
       </div>
     </div>
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore['terraform_rating']"
       label="TR"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.milestones"
       label="Milestones"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.awards"
       label="Awards"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.greeneries"
       label="Greeneries"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.cities"
       label="Cities"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.event_cards"
       label="Events"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.automated_cards"
       label="Automated Cards"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.active_cards"
       label="Active cards"
       type="number"
     />
-    <BaseInput
+    <BaseNumberInput
       v-model.number="playerScore.resources"
       label="Resources"
       type="number"
