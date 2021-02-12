@@ -1,11 +1,9 @@
 // Base
-import {createApp} from 'vue';
-import App from './App.vue';
-
+import camelCase from "lodash/camelCase";
 // Utilities
 import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-
+import {createApp} from 'vue';
+import App from './App.vue';
 // Created
 import "./css/main.scss";
 import router from './router';

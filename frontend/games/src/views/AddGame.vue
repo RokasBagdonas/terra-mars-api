@@ -18,7 +18,7 @@
                 Successfully submitted :)
               </p>
               <p v-else>
-              {{ submitStatus }}
+              <vue-json-pretty :data="submitStatus"/>
               </p>
             </div>
           </div>
@@ -67,6 +67,8 @@
 <script>
 /*'use-strict';*/
 import { ref, unref, toRaw, isRef } from "vue";
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
 
 import { Game, PlayerScore } from "../classes";
 import { postGameScores } from "../mars-api";
@@ -77,6 +79,7 @@ export default {
   components: {
     GameFormAsyncWrapper,
     PlayerScoresFormAsyncWrapper,
+    VueJsonPretty,
   },
   setup() {
     let playerScores = ref([]);
@@ -84,7 +87,7 @@ export default {
     game.value.number_of_generations = 10;
     let numberOfPlayers = 2;
     let submittedNumberOfPlayers = new ref(null);
-    let submitStatus = "initial submit status";
+    let submitStatus = null;
     let submitted = ref(false);
     return {
       playerScores,
@@ -109,6 +112,7 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+          console.log(error.response);
           this.submitStatus = error.response;
           this.submitted = true;
         });

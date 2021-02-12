@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "lodash": "^4.17.20",
     "vue": "^3.0.5",
+    "vue-json-pretty": "^2.0.2",
     "vue-router": "^4.0.3",
     "webpack-bundle-tracker": "^1.0.0-alpha.1"
   },
