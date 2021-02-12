@@ -72,12 +72,10 @@ export async function getCorporations() {
 
 export function postGameScores(payload: String) {
   console.log("postGameScores");
-  axios({
+  return axios({
     url: ROOT_URL + ENDPOINTS["game_scores"], data: payload, method: "post", headers:
     {
       "Content-Type": "application/json"
     }
   })
-    .then(function (response) {console.log("Response", response)})
-    .catch(function (error) {console.error("Error", error)});
 }

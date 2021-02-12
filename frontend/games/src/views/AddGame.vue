@@ -6,18 +6,42 @@
           <h1 class="title is-3">Add Game</h1>
         </div>
         <div class="level-item">
-          <button class="button is-primary" type="button" @click="submitGame">Submit</button>
+          <button class="button is-primary" type="button" @click="submitGame">
+            Submit
+          </button>
+        </div>
+        <div class="modal" :class="{ 'is-active': submitted }">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="box">
+              <p v-if="submitStatus == '201'">
+                Successfully submitted :)
+              </p>
+              <p v-else>
+              {{ submitStatus }}
+              </p>
+            </div>
+          </div>
+          <button
+            class="modal-close is-large"
+            aria-label="close"
+            @click="submitted = false"
+          ></button>
         </div>
 
         <div class="level-item">
-          <BaseNumberInput label="number of players?" v-model="numberOfPlayers" type="number" />
+          <BaseNumberInput
+            label="number of players?"
+            v-model="numberOfPlayers"
+            type="number"
+          />
         </div>
         <div class="level-item">
-          <button type="button" class="button" @click="submitNumberOfPlayers">confirm</button>
+          <button type="button" class="button" @click="submitNumberOfPlayers">
+            confirm
+          </button>
         </div>
-
       </div>
-
     </div>
   </div>
   <!--
@@ -41,7 +65,7 @@
 
 
 <script>
-'use-strict';
+/*'use-strict';*/
 import { ref, unref, toRaw, isRef } from "vue";
 
 import { Game, PlayerScore } from "../classes";
@@ -60,19 +84,37 @@ export default {
     game.value.number_of_generations = 10;
     let numberOfPlayers = 2;
     let submittedNumberOfPlayers = new ref(null);
+    let submitStatus = "initial submit status";
+    let submitted = ref(false);
     return {
       playerScores,
       game,
       numberOfPlayers,
       submittedNumberOfPlayers,
+      submitStatus,
+      submitted,
     };
   },
   methods: {
-    submitGame() {
+    async submitGame() {
       //TODO: validation
       let payload = this.objectToDictionary(this.game);
       payload["scores"] = this.unrefArray(this.playerScores);
-      postGameScores(JSON.stringify(payload));
+
+      await postGameScores(JSON.stringify(payload))
+        .then((response) => {
+          console.log("response", response);
+          this.submitStatus = response.status;
+          this.submitted = true;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.submitStatus = error.response;
+          this.submitted = true;
+        });
+    },
+    changeSubmit(message) {
+      console.log(message);
     },
 
     submitNumberOfPlayers() {
