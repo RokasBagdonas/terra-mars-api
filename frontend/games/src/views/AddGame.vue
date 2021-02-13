@@ -2,7 +2,7 @@
   <div class="section">
     <div class="level">
       <div class="level-left">
-        <div class="level-item">
+        <div class="level-item" @click="submitGame">
           <h1 class="title is-3">Add Game</h1>
         </div>
         <div class="level-item">
@@ -100,10 +100,14 @@ export default {
   },
   methods: {
     async submitGame() {
-      //TODO: validation
+      console.log(this.canSubmitGame());
+      if(!this.canSubmitGame()){
+        this.submitStatus = JSON.parse( "{ \"error\": \"number of players is invalid\" }");
+        this.submitted = true;
+        return;
+      }
       let payload = this.objectToDictionary(this.game);
       payload["scores"] = this.unrefArray(this.playerScores);
-
       await postGameScores(JSON.stringify(payload))
         .then((response) => {
           console.log("response", response);
@@ -117,10 +121,15 @@ export default {
           this.submitted = true;
         });
     },
-    changeSubmit(message) {
-      console.log(message);
+    canSubmitGame(){
+      let allowSubmit = false;
+      const ps = this.unrefArray(this.playerScores);
+      if(ps.length >=  1 && ps.length <= 5){
+        allowSubmit = true;
+      }
+      console.log("allowSubmit", allowSubmit);
+      return allowSubmit;
     },
-
     submitNumberOfPlayers() {
       if (this.numberOfPlayers < 1 || this.numberOfPlayers > 5) {
         // TODO: display warning
@@ -130,7 +139,6 @@ export default {
 
       // diff
       let diffnp = this.numberOfPlayers - this.playerScores.length;
-      // 5 - 0 = 5
       if (diffnp > 0) {
         for (let i = 0; i < diffnp; i++) {
           this.playerScores.push(ref(new PlayerScore()));
