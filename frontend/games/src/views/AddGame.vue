@@ -1,46 +1,26 @@
 <template>
   <div class="section">
     <div class="level">
-      <div class="level-left">
-        <div class="level-item" @click="submitGame">
-          <h1 class="title is-3">Add Game</h1>
-        </div>
-        <div class="level-item">
-          <button class="button is-primary" type="button" @click="submitGame">
-            Submit
-          </button>
-        </div>
-        <div class="modal" :class="{ 'is-active': submitted }">
-          <div class="modal-background"></div>
-          <div class="modal-content">
-            <div class="box">
-              <p v-if="submitStatus == '201'">
-                Successfully submitted :)
-              </p>
-              <p v-else>
-              <vue-json-pretty :data="submitStatus"/>
-              </p>
-            </div>
+      <div class="level-item">
+        <button class="button is-primary" type="button" @click="submitGame">
+          Add Game
+        </button>
+      </div>
+      <div class="modal" :class="{ 'is-active': submitted }">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="box">
+            <p v-if="submitStatus == '201'">Successfully submitted :)</p>
+            <p v-else>
+              <vue-json-pretty :data="submitStatus" />
+            </p>
           </div>
-          <button
-            class="modal-close is-large"
-            aria-label="close"
-            @click="submitted = false"
-          ></button>
         </div>
-
-        <div class="level-item">
-          <BaseNumberInput
-            label="number of players?"
-            v-model="numberOfPlayers"
-            type="number"
-          />
-        </div>
-        <div class="level-item">
-          <button type="button" class="button" @click="submitNumberOfPlayers">
-            confirm
-          </button>
-        </div>
+        <button
+          class="modal-close is-large"
+          aria-label="close"
+          @click="submitted = false"
+        ></button>
       </div>
     </div>
   </div>
@@ -55,6 +35,22 @@
     </template>
     <template #fallback>Preparing game form...</template>
   </Suspense>
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <BaseNumberInput
+          label="number of players?"
+          v-model="numberOfPlayers"
+          type="number"
+        />
+      </div>
+      <div class="level-item">
+        <button type="button" class="button" @click="submitNumberOfPlayers">
+          confirm
+        </button>
+      </div>
+    </div>
+  </div>
   <Suspense v-if="submittedNumberOfPlayers">
     <template #default>
       <PlayerScoresFormAsyncWrapper :playerScores="playerScores" />
@@ -67,8 +63,8 @@
 <script>
 /*'use-strict';*/
 import { ref, unref, toRaw, isRef } from "vue";
-import VueJsonPretty from 'vue-json-pretty';
-import 'vue-json-pretty/lib/styles.css';
+import VueJsonPretty from "vue-json-pretty";
+import "vue-json-pretty/lib/styles.css";
 
 import { Game, PlayerScore } from "../classes";
 import { postGameScores } from "../mars-api";
@@ -101,8 +97,10 @@ export default {
   methods: {
     async submitGame() {
       console.log(this.canSubmitGame());
-      if(!this.canSubmitGame()){
-        this.submitStatus = JSON.parse( "{ \"error\": \"number of players is invalid\" }");
+      if (!this.canSubmitGame()) {
+        this.submitStatus = JSON.parse(
+          '{ "error": "number of players is invalid" }'
+        );
         this.submitted = true;
         return;
       }
@@ -121,10 +119,10 @@ export default {
           this.submitted = true;
         });
     },
-    canSubmitGame(){
+    canSubmitGame() {
       let allowSubmit = false;
       const ps = this.unrefArray(this.playerScores);
-      if(ps.length >=  1 && ps.length <= 5){
+      if (ps.length >= 1 && ps.length <= 5) {
         allowSubmit = true;
       }
       console.log("allowSubmit", allowSubmit);
