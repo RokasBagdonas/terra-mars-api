@@ -2,7 +2,7 @@ import colorlog
 from dateutil import parser
 from django.db.utils import IntegrityError
 
-from mars_api.serializers import GameSerializerForImportedData, PlayerScoreSerializer
+from mars_api.serializers import GameSerializer, PlayerScoreSerializer
 
 # setup the logger
 handler = colorlog.StreamHandler()
@@ -76,7 +76,7 @@ def create_player_score_dict(data, game_id):
 
 
 def save_data(games_dict, player_scores_dict):
-    games_serializer = GameSerializerForImportedData(data=games_dict, many=True)
+    games_serializer = GameSerializer(data=games_dict, many=True)
     ps_serializer = PlayerScoreSerializer(data=player_scores_dict, many=True)
     logger.info("Validating the data")
 

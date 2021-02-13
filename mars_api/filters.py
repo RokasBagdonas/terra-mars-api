@@ -16,7 +16,7 @@ class GameFilter(filters.FilterSet):
             "prelude",
             "venus_next",
             "colonies",
-            "player_count",
+            # "player_count",
         ]
 
 

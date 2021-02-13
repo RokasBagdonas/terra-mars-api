@@ -5,11 +5,12 @@
         <div class="table-container">
           <table class="table is-hoverable">
             <tbody>
-              <tr v-for="(displayName, modelName) in this.PLAYER_SCORE_FIELDS_TO_DISPLAY">
+              <tr v-for="(displayName, modelName) in this.PLAYER_SCORE_FIELDS_TO_DISPLAY"
+              :key="displayName">
                 <td>{{displayName}}</td>
                 <td
-                  v-for="value in
-          this.pivotedGameScores[modelName]"
+                  v-for="(value, index) in
+          this.pivotedGameScores[modelName]" :key="index"
                 >{{displayPlayerScoreProperty(value, modelName)}}</td>
               </tr>
             </tbody>
@@ -20,8 +21,8 @@
       <div class="column">
         <div class="table-container">
           <table class="table is-hoverable">
-            <tr v-for="(value, propName) in game">
-              <td>{{propName}}</td>
+            <tr v-for="(value, name, index) in game" :key="index">
+              <td>{{name}}</td>
               <td>{{value}}</td>
             </tr>
           </table>
@@ -52,7 +53,6 @@ export default {
           game.value[prop] = gameScores.value[prop];
         }
       }
-      console.log(game.value);
     };
 
     const fetchGameScores = async (gameId) => {
@@ -113,6 +113,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>
