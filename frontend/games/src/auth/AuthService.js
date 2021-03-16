@@ -3,16 +3,18 @@ import EventEmitter from 'eventemitter3'
 import router from './../router'
 
 export default class AuthService {
-  authenticated = this.isAuthenticated()
-  authNotifier = new EventEmitter()
 
-  constructor () {
+  authenticated = this.isAuthenticated();
+  authNotifier = new EventEmitter();
+
+  constructor() {
     this.login = this.login.bind(this)
     this.setSession = this.setSession.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
     this.handleAuthentication = this.handleAuthentication.bind(this)
   }
+
 
   // create an instance of auth0.WebAuth with your
   // API and Client credentials
@@ -27,13 +29,13 @@ export default class AuthService {
 
   // this method calls the authorize() method
   // which triggers the Auth0 login page
-  login () {
+  login() {
     this.auth0.authorize()
   }
 
   // this method calls the parseHash() method of Auth0
   // to get authentication information from the callback URL
-  handleAuthentication () {
+  handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
@@ -47,7 +49,7 @@ export default class AuthService {
 
   // stores the user's access_token, id_token, and a time at
   // which the access_token will expire in the local storage
-  setSession (authResult) {
+  setSession(authResult) {
     this.accessToken = authResult.accessToken
     this.idToken = authResult.idToken
     this.profile = authResult.idTokenPayload
@@ -57,7 +59,7 @@ export default class AuthService {
 
   // remove the access and ID tokens from the
   // local storage and emits the authChange event
-  logout () {
+  logout() {
     delete this.accessToken
     delete this.idToken
     delete this.expiresAt
@@ -67,19 +69,19 @@ export default class AuthService {
   }
 
   // checks if the user is authenticated
-  isAuthenticated () {
+  isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
     return new Date().getTime() < this.expiresAt
   }
 
   // a static method to get the access token
-  getAuthToken () {
+  getAuthToken() {
     return this.accessToken
   }
 
   // a method to get the User profile
-  getUserProfile (cb) {
+  getUserProfile(cb) {
     return this.profile
   }
 }

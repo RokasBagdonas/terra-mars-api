@@ -64,6 +64,17 @@ module.exports = (env = {}) => {
           test: /\.(png|svg|jpg|gif)$/,
           use: 'asset/resource'
         },
+        {
+          test: /\.m?js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ["@babel/plugin-proposal-class-properties"],
+            }
+          }
+        }
       ]
     },
     resolve: {
