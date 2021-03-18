@@ -13,4 +13,5 @@ urlpatterns = [
     path("corporations", views.ListCorporations.as_view()),
     path("maps", views.ListMaps.as_view()),
     path("", include(router.urls)),
+    path("private", views.private),
 ]

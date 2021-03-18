@@ -50,3 +50,10 @@ class ListCorporations(APIView):
 class ListMaps(APIView):
     def get(self, request):
         return Response([name for (name, *_) in MAPS])
+
+
+from rest_framework.decorators import api_view
+from django.http import HttpResponse
+@api_view(['GET'])
+def private(request):
+    return HttpResponse("Private Auth0 message!")

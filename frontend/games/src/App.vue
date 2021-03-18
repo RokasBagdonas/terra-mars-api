@@ -2,7 +2,7 @@
   <div>
     <button
       class="btn btn-primary btn-margin"
-      v-if="!authenticated"
+      v-if="!auth.authenticated"
       @click="login()"
     >
       Log In
@@ -10,14 +10,14 @@
 
     <button
       class="btn btn-primary btn-margin"
-      v-if="authenticated"
+      v-if="auth.authenticated"
       @click="privateMessage()"
     >
       Call Private
     </button>
     <button
       class="btn btn-primary btn-margin"
-      v-if="authenticated"
+      v-if="auth.authenticated"
       @click="logout()"
     >
       Log Out
@@ -59,7 +59,25 @@ export default {
       auth,
       message: "",
     };
-
   },
+methods: {
+    // this method calls the AuthService login() method
+    login () {
+      auth.login()
+    },
+    handleAuthentication () {
+      auth.handleAuthentication()
+    },
+    logout () {
+      auth.logout()
+    },
+    privateMessage () {
+      const url = `${API_URL}/api/private/`
+      return axios.get(url, {headers: {Authorization: `Bearer ${auth.getAuthToken()}`}}).then((response) => {
+        console.log(response.data)
+        this.message = response.data || ''
+      })
+    }
+  }
 };
 </script>
