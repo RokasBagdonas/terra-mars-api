@@ -134,15 +134,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-
 STATIC_ROOT = os.path.join(BASE_DIR, "../staticfiles")
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "../frontend/static"),
-    os.path.join(BASE_DIR, "../frontend/static/templates"),
-    os.path.join(BASE_DIR, "../frontend/static/dist"),
-    os.path.join(BASE_DIR, "../frontend/static/assets"),
-]
+# STATICFILES_DIRS = []
 
 AUTH0_DOMAIN = "dev-42pbtp73.eu.auth0.com"
 API_IDENTIFIER = "terra-mars"

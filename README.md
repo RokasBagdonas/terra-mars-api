@@ -38,7 +38,7 @@ Frontend: `localhost:8000`
     - [X] Vue3
     - [X] Bulma
 - [X] View Games
-- [ ] Post Games
+- [X] Post Games
 - [ ] Login
 - [ ] Hosting + CI
   - [ ] Static file serving
