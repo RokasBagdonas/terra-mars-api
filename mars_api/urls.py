@@ -13,5 +13,6 @@ urlpatterns = [
     path("corporations", views.ListCorporations.as_view()),
     path("maps", views.ListMaps.as_view()),
     path("", include(router.urls)),
+    path("public", views.public),
     path("private", views.private),
 ]
