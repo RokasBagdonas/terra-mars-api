@@ -143,16 +143,19 @@ class PlayerScore(models.Model):
 class PlayerStats(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     games_played = models.PositiveIntegerField(default=0)
-    win_percentage = models.DecimalField(max_digits=5, decimal_places=2)
+    win_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     most_popular_corporation = models.CharField(
-        choices=CORPORATIONS, max_length=64, blank=False, null=False
+        choices=CORPORATIONS, max_length=64, blank=False, null=False, default=""
     )
-    average_player_number_in_games = models.PositiveSmallIntegerField()
+    average_player_number = models.DecimalField(
+        max_digits=3, decimal_places=2, default=0.0
+    )
 
     def __str__(self):
-        return f"""player: {self.player.nickname},
+        p = self.player.nickname if self.player else "<no player>"
+        return f"""player: {p},
                    games played: {self.games_played},
                    most popular corporation: {self.most_popular_corporation},
                    win percentage: {self.win_percentage},
-                   average number of players in games: {self.average_player_number_in_games}
+                   average number of players in games: {self.average_player_number}
                    """
