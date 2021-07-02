@@ -138,6 +138,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, "../staticfiles")
 STATIC_URL = "/static/"
 # STATICFILES_DIRS = []
 
+
+# CELERY ======================================================================
+CELERY_BROKER_URL = 'amqp://admin:admin@rabbitmq:5672//'
+# CELERY_RESULT_BACKEND = 'rpc://localhost:5672'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'
+
+# AUTH0 =======================================================================
 AUTH0_DOMAIN = "dev-42pbtp73.eu.auth0.com"
 API_IDENTIFIER = "terra-mars"
 PUBLIC_KEY = None
