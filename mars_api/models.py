@@ -142,7 +142,7 @@ class PlayerScore(models.Model):
 
 class PlayerStats(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    games_played = models.PositiveIntegerField(default=0)
+    games_played = models.PositiveIntegerField(default=None, null=True)
     win_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
     most_popular_corporation = models.CharField(
         choices=CORPORATIONS, max_length=64, blank=False, null=False, default=""
