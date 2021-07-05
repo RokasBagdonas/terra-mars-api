@@ -15,4 +15,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("public", views.public),
     path("private", views.private),
+    path("count_players", views.count_players),
 ]

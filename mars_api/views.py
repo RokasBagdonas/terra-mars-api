@@ -61,3 +61,13 @@ def public(request):
 @api_view(['GET'])
 def private(request):
     return HttpResponse("Private Auth0 message!")
+
+
+from mars_api import tasks
+from mars import celery
+
+
+def count_players(request):
+    celery.debug_task()
+    tasks.count_players.delay()
+    return HttpResponse("Counting players... ")
