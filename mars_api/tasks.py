@@ -1,33 +1,34 @@
-# Create your tasks here
-
 from celery import shared_task
-from mars_api.models import Player
+from mars_api.models import Player, PlayerStats
+from mars_api.stats import playerstats_calculations as psc
 
 
+# TODO: make async
 @shared_task
-def add(x, y):
-    return x + y
+def update_player_stats(player_id):
+    try:
+        ps = PlayerStats.objects.get_or_create(id=player_id)
+
+        # 1. games played
+        ps.games_played = psc.get_games_played(player_id)
+
+        # 2. win percentage
+        ps.win_percentage = psc.get_player_win_percentage(player_id, ps.games_played)
+
+        # 3. most popular corporation
+        ps.most_popular_corporation = psc.get_most_popular_corporation(player_id)
+
+        # 4. (average) number of opponents played against
+
+        ps.save()
+
+    except Exception as e:
+        print(e)
 
 
-@shared_task
-def mul(x, y):
-    return x * y
-
-
-@shared_task
-def xsum(numbers):
-    return sum(numbers)
-
-
+# test
 @shared_task
 def count_players():
     count = Player.objects.count()
-    print("=== counted players: " + count)
+    print("=== counted players: " + str(count))
     return Player.objects.count()
-
-
-@shared_task
-def rename_player_nickname(player_id, name):
-    p = Player.objects.get(id=player_id)
-    p.nickname = name
-    p.save()
