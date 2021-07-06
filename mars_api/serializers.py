@@ -1,6 +1,5 @@
+from mars_api.models import Game, Player, PlayerScore, PlayerStats
 from rest_framework import serializers
-
-from mars_api.models import Game, Player, PlayerScore
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -96,3 +95,9 @@ class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
             )
 
         return {"game": game, "scores": players_scores_instances}
+
+
+class PlayerStatsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerStats
+        fields = "__all__"

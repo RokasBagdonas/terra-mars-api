@@ -1,17 +1,21 @@
 from django.db.models import Count
+from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import filters, viewsets
-
+from mars import celery
+from mars_api import tasks
 from mars_api.filters import GameFilter, PlayerScoreFilter
-from mars_api.models import Game, Player, PlayerScore, CORPORATIONS, MAPS
+from mars_api.models import CORPORATIONS, MAPS, Game, Player, PlayerScore, PlayerStats
 from mars_api.serializers import (
     GameAndPlayersScoresSerializer,
     GamePlayerCountSerializer,
     PlayerScoreSerializer,
     PlayerSerializer,
+    PlayerStatsSerializer,
 )
+from rest_framework import filters, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 class PlayerViewSet(viewsets.ModelViewSet):
@@ -34,6 +38,11 @@ class PlayerScoreViewSet(viewsets.ModelViewSet):
     filterset_class = PlayerScoreFilter
 
 
+class PlayerStatsViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = PlayerStats.objects.all()
+    serializer_class = PlayerStatsSerializer
+
+
 class GameScoresViewSet(viewsets.ModelViewSet):
     """A viewset for Game and related PlayerScores."""
 
@@ -42,7 +51,6 @@ class GameScoresViewSet(viewsets.ModelViewSet):
 
 
 class ListCorporations(APIView):
-
     def get(self, request):
         return Response([name for (name, *_) in CORPORATIONS])
 
@@ -52,19 +60,13 @@ class ListMaps(APIView):
         return Response([name for (name, *_) in MAPS])
 
 
-from rest_framework.decorators import api_view
-from django.http import HttpResponse
-
 def public(request):
     return HttpResponse("You don't need to be authenticated to see this")
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 def private(request):
     return HttpResponse("Private Auth0 message!")
-
-
-from mars_api import tasks
-from mars import celery
 
 
 def count_players(request):
