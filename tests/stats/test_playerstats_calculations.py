@@ -45,21 +45,24 @@ def test_get_average_number_of_players_in_games_none(player):
     assert None == psc.get_average_number_of_players_in_games(player.id)
 
 
-def test_get_average_number_of_players_in_games_approx_3(player, player_score_factory,
-        game_factory):
+def test_get_average_number_of_players_in_games_approx_3(
+    player, player_score_factory, game_factory
+):
     # 3 total
-    # g1 = game_factory()
-    # player_score_factory.create_batch(game=g1, size=2)
-    # player_score_factory.create(game=g1, player=player)
+    g1 = game_factory()
+    player_score_factory.create_batch(game=g1, size=2)
+    player_score_factory.create(game=g1, player=player)
 
     # # 2 total
-    # g2 = game_factory()
-    # player_score_factory.create_batch(game=g2, size=1)
-    # player_score_factory.create(game=g2, player=player)
+    g2 = game_factory()
+    player_score_factory.create_batch(game=g2, size=1)
+    player_score_factory.create(game=g2, player=player)
 
     # # 3 total
-    # g3 = game_factory()
-    # player_score_factory.create_batch(game=g3, size=2)
-    # player_score_factory.create(game=g3, player=player)
+    g3 = game_factory()
+    player_score_factory.create_batch(game=g3, size=2)
+    player_score_factory.create(game=g3, player=player)
 
-    assert 3.0 == pytest.approx(psc.get_average_number_of_players_in_games(player.id))
+    assert round(Decimal(2.67), 2) == round(
+        (psc.get_average_number_of_players_in_games(player.id)), 2
+    )

@@ -57,7 +57,7 @@ shell:
 	$(dmanage) shell_plus --ipython --print-sql
 
 shell-test:
-	$(dtest) run --rm web python manage.py shell_plus --ipython
+	$(dtest) run --rm test-web python manage.py shell_plus --ipython
 
 # Utility =======================================================================
 web-shell:

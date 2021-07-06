@@ -1,9 +1,19 @@
 from datetime import datetime
+import random
 
 import factory
+from mars_api.models import CORPORATIONS
+from faker.providers import BaseProvider
 
 faker = factory.Faker
 
+
+class CorporationProvider(BaseProvider):
+    def corporation(self):
+        return random.choice(list(CORPORATIONS))[0]
+
+
+faker.add_provider(CorporationProvider)
 
 class PlayerFactory(factory.django.DjangoModelFactory):
     nickname = factory.Faker("name")
@@ -39,7 +49,7 @@ class GameDictFactory(factory.DictFactory):
 class PlayerScoreFactory(factory.django.DjangoModelFactory):
     player = factory.SubFactory(PlayerFactory)
     game = factory.SubFactory(GameFactory)
-    corporation = "Thorgate"
+    corporation = faker("corporation")
 
     class Meta:
         model = "mars_api.PlayerScore"
