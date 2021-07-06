@@ -29,3 +29,6 @@ select count(corporation), corporation from mars_api_playerscore where player_id
                order by count(corporation) desc limit 1;
             """
     return fetchone(query, player_id)
+
+def get_average_number_of_players_in_games(player_id):
+    pass

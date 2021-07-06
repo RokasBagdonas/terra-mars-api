@@ -147,7 +147,8 @@ class PlayerStats(models.Model):
     most_popular_corporation = models.CharField(
         choices=CORPORATIONS, max_length=64, blank=False, null=False, default=""
     )
-    average_player_number = models.DecimalField(
+
+    average_number_of_players_in_games = models.DecimalField(
         max_digits=3, decimal_places=2, default=0.0
     )
 
