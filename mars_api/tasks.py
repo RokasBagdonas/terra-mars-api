@@ -18,7 +18,8 @@ def update_player_stats(player_id):
         # 3. most popular corporation
         ps.most_popular_corporation = psc.get_most_popular_corporation(player_id)
 
-        # 4. (average) number of opponents played against
+        # 4. (average) number of players in games
+        ps.average_number_of_players_in_games = psc.get_average_number_of_players_in_games(player_id)
 
         ps.save()
 
