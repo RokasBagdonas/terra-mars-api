@@ -7,7 +7,7 @@ from mars_api.stats import playerstats_calculations as psc
 @shared_task
 def update_player_stats(player_id):
     try:
-        ps = PlayerStats.objects.get_or_create(id=player_id)
+        ps, _ = PlayerStats.objects.get_or_create(player_id=player_id)
 
         # 1. games played
         ps.games_played = psc.get_games_played(player_id)
@@ -25,6 +25,13 @@ def update_player_stats(player_id):
 
     except Exception as e:
         print(e)
+
+
+@shared_task
+def calc_all_player_stats():
+    player_ids = list(map(lambda p: p.id, Player.objects.all()))
+    for id in player_ids:
+        update_player_stats(id)
 
 
 # test

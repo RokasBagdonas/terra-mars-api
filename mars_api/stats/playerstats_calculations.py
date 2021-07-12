@@ -25,7 +25,7 @@ def get_most_popular_corporation(player_id):
                where player_id = %s group by corporation
                order by count(corporation) desc limit 1;
             """
-    return fetchone(query, player_id)
+    return fetchone(query, player_id)[0]
 
 
 def get_average_number_of_players_in_games(player_id):
