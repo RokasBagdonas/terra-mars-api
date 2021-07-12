@@ -6,6 +6,7 @@ from mars_api.stats import playerstats_calculations as psc
 # TODO: make async
 @shared_task
 def update_player_stats(player_id):
+    print("update_player_stats with player_id: " + str(player_id))
     try:
         ps, _ = PlayerStats.objects.get_or_create(player_id=player_id)
 
@@ -22,6 +23,7 @@ def update_player_stats(player_id):
         ps.average_number_of_players_in_games = psc.get_average_number_of_players_in_games(player_id)
 
         ps.save()
+        print("player with id: " + str(ps.player_id) + " saved.")
 
     except Exception as e:
         print(e)
@@ -30,6 +32,7 @@ def update_player_stats(player_id):
 @shared_task
 def calc_all_player_stats():
     player_ids = list(map(lambda p: p.id, Player.objects.all()))
+    print("calc_all_player_stats with ids: " + str(player_ids))
     for id in player_ids:
         update_player_stats(id)
 
