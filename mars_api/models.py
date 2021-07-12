@@ -151,6 +151,7 @@ class PlayerStats(models.Model):
     average_number_of_players_in_games = models.DecimalField(
         max_digits=3, decimal_places=2, default=0.0
     )
+    last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         p = self.player.nickname if self.player else "<no player>"
