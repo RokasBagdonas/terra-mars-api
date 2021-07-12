@@ -12,7 +12,7 @@ from mars_api.serializers import (
     PlayerSerializer,
     PlayerStatsSerializer,
 )
-from rest_framework import filters, viewsets
+from rest_framework import filters, viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -60,6 +60,21 @@ class ListMaps(APIView):
         return Response([name for (name, *_) in MAPS])
 
 
+@api_view(["PUT"])
+def calc_player_stats(request):
+    if "player_id" not in request.query_params:
+        return HttpResponse("Missing player id", status=status.HTPP_400_BAD_REQUEST)
+
+    player_id = int(request.query_params["player_id"])
+    if player_id < 0 or player_id is None:
+        return HttpResponse("Invalid player id", status=status.HTPP_400_BAD_REQUEST)
+
+    print(request.query_params["player_id"])
+    tasks.update_player_stats(request.query_params["player_id"])
+    return HttpResponse(status=status.HTTP_200_OK)
+
+
+# Dummy methods ===============================================================
 def public(request):
     return HttpResponse("You don't need to be authenticated to see this")
 
@@ -67,6 +82,7 @@ def public(request):
 @api_view(["GET"])
 def private(request):
     return HttpResponse("Private Auth0 message!")
+
 
 
 def count_players(request):

@@ -98,6 +98,8 @@ class GameAndPlayersScoresSerializer(serializers.ModelSerializer):
 
 
 class PlayerStatsSerializer(serializers.ModelSerializer):
+    player = PlayerSerializer()
+
     class Meta:
         model = PlayerStats
         fields = "__all__"
