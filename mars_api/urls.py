@@ -17,6 +17,5 @@ urlpatterns = [
     path("public", views.public),
     path("private", views.private),
     path("count_players", views.count_players),
-    # path("player_stats/calc", views.calc_player_stats),
-    path("calc_player_stats", views.calc_player_stats),
+    path("player_stats/calc", views.calc_player_stats),
 ]

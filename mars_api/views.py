@@ -12,7 +12,7 @@ from mars_api.serializers import (
     PlayerSerializer,
     PlayerStatsSerializer,
 )
-from rest_framework import filters, viewsets, status
+from rest_framework import filters, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -48,6 +48,8 @@ class GameScoresViewSet(viewsets.ModelViewSet):
 
     queryset = Game.objects.prefetch_related("scores", "scores__player")
     serializer_class = GameAndPlayersScoresSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_class = GameFilter
 
 
 class ListCorporations(APIView):
@@ -60,7 +62,7 @@ class ListMaps(APIView):
         return Response([name for (name, *_) in MAPS])
 
 
-@api_view(["PUT"])
+@api_view(["GET"])
 def calc_player_stats(request):
     if "player_id" not in request.query_params:
         return HttpResponse("Missing player id", status=status.HTPP_400_BAD_REQUEST)
@@ -70,8 +72,9 @@ def calc_player_stats(request):
         return HttpResponse("Invalid player id", status=status.HTPP_400_BAD_REQUEST)
 
     print(request.query_params["player_id"])
-    tasks.update_player_stats(request.query_params["player_id"])
-    return HttpResponse(status=status.HTTP_200_OK)
+    player_stats = tasks.update_player_stats(player_id)
+    serializer = PlayerStatsSerializer(player_stats)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # Dummy methods ===============================================================
@@ -82,7 +85,6 @@ def public(request):
 @api_view(["GET"])
 def private(request):
     return HttpResponse("Private Auth0 message!")
-
 
 
 def count_players(request):

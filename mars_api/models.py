@@ -159,5 +159,6 @@ class PlayerStats(models.Model):
                    games played: {self.games_played},
                    most popular corporation: {self.most_popular_corporation},
                    win percentage: {self.win_percentage},
-                   average number of players in games: {self.average_player_number}
+                   average number of players in games:
+                   {self.average_number_of_players_in_games}
                    """

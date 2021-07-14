@@ -23,7 +23,8 @@ def update_player_stats(player_id):
         ps.average_number_of_players_in_games = psc.get_average_number_of_players_in_games(player_id)
 
         ps.save()
-        print("player with id: " + str(ps.player_id) + " saved.")
+        print(ps)
+        return ps
 
     except Exception as e:
         print(e)
