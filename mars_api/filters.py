@@ -43,6 +43,7 @@ class PlayerScoreFilter(filters.FilterSet):
 
 
 class PlayerStatsFilter(filters.FilterSet):
+    min_games_played = filters.NumberFilter(field_name="games_played", lookup_expr='gte')
 
     class Meta:
         model = PlayerStats
@@ -52,5 +53,6 @@ class PlayerStatsFilter(filters.FilterSet):
             "most_popular_corporation",
             "average_number_of_players_in_games",
             "last_updated",
+            "min_games_played",
         ]
 

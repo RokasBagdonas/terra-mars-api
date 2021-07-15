@@ -42,7 +42,7 @@ class PlayerStatsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = PlayerStats.objects.all()
     serializer_class = PlayerStatsSerializer
 
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = PlayerStatsFilter
 
 
