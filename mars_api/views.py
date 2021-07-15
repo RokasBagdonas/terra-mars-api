@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from mars import celery
 from mars_api import tasks
-from mars_api.filters import GameFilter, PlayerScoreFilter
+from mars_api.filters import GameFilter, PlayerScoreFilter, PlayerStatsFilter
 from mars_api.models import CORPORATIONS, MAPS, Game, Player, PlayerScore, PlayerStats
 from mars_api.serializers import (
     GameAndPlayersScoresSerializer,
@@ -41,6 +41,9 @@ class PlayerScoreViewSet(viewsets.ModelViewSet):
 class PlayerStatsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = PlayerStats.objects.all()
     serializer_class = PlayerStatsSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PlayerStatsFilter
 
 
 class GameScoresViewSet(viewsets.ModelViewSet):

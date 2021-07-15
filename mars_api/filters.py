@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 
-from mars_api.models import Game, PlayerScore
+from mars_api.models import Game, PlayerScore, PlayerStats
 
 
 class GameFilter(filters.FilterSet):
@@ -40,3 +40,17 @@ class PlayerScoreFilter(filters.FilterSet):
             "active_cards",
             "resources",
         ]
+
+
+class PlayerStatsFilter(filters.FilterSet):
+
+    class Meta:
+        model = PlayerStats
+        fields = [
+            "games_played",
+            "win_percentage",
+            "most_popular_corporation",
+            "average_number_of_players_in_games",
+            "last_updated",
+        ]
+
